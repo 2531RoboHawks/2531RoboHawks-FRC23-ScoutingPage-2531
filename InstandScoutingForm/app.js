@@ -46,8 +46,8 @@ const saveButton_Auto = document.getElementById("saveButton_Auto");
 const saveButton_Teleop = document.getElementById("saveButton_Teleop");
 const saveButton_MatchResult = document.getElementById("saveButton_MatchResult");
 
-//TODO: local storage when save button clicked.
 //TODO: hide submit button and next boxes until saveButton clicked.
+
 
 //Show localStorage initially; -inputs saved locally in case user accidently exit page before submitting.
 initialize(); 
@@ -60,7 +60,7 @@ submitButton.addEventListener("click", function() {
     saveTeleopInputs();
     saveMatchResult();
 
-    //Do this last
+    //Clear localStorage once submitted (last in order)
     clearLocalStorage();
 });
 

@@ -16,7 +16,7 @@ localStorage.setItem('userStatus', 'guest');
 //TODO: logout
 //TODO: transfer page after login as member/guest
 //TODO: gets 5 tries for wrong password
-//TODO: show/hide wrong pass msg
+//TODO: show/hide error message
 
 loginButton.addEventListener('click', function(){
     userLogin();
