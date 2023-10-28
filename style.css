@@ -1,0 +1,52 @@
+.homeContainer {
+    display: flex;
+}
+
+h1 {
+    font-size: 300%;
+    text-align: center;
+    font-family: monospace;
+}
+
+#practiceMatchSchedule {
+    display: flex;
+    justify-content: space-evenly;
+    font-size: 160%;
+    color: rgb(97, 94, 94);
+}
+
+#qualMatchSchedule {
+    display: flex;
+    justify-content: space-evenly;
+    font-size: 160%;
+    color: blue;
+}
+
+#instandScoutingForm {
+    display: flex;
+    justify-content: space-evenly;
+    font-size: 130%;
+    color: rgb(228, 150, 35);
+}
+
+#instandScoutingData {
+    display: flex;
+    justify-content: space-evenly;
+    font-size: 130%;
+    color: rgb(120, 56, 180);
+}
+
+#scoutingForm {
+    display: flex;
+    justify-content: space-evenly;
+    font-size: 130%;
+    color: rgb(228, 150, 35);
+}
+
+#scoutingData {
+    display: flex;
+    justify-content: space-evenly;
+    font-size: 130%;
+    color: rgb(120, 56, 180);
+}
+

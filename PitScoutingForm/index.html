@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Pit Scouting Form</title>
+    <link rel="icon" href="../Images/robohawksLogo.png">
+</head>
+<body>
+    <h1 style="text-align: center;">Pit Scouting Form</h1>
+    <div class="container">
+        <table class="info">
+            <th class="capabilities">
+            <label for="">Team: </label>
+                <input type="number">
+            <form action="">
+                <label>Game Pieces</label>
+                    <select id="gamePieces">
+                        <option value="null"></option>
+                        <option value="cones">cones</option>
+                        <option value="cubes">cubes</option>
+                        <option value="both">both</option>
+                    </select><br><br>
+                <label>Grid</label><br>
+                    <input id="low" type="checkbox">low<br>
+                    <input id="mid" type="checkbox">mid<br>
+                    <input id="high" type="checkbox">high<br>
+            </form>
+            </th>
+        </table>
+    </div>
+    <div class="buttonContainer">
+        <button id="submitButton">Submit</button>
+    </div>
+    
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
