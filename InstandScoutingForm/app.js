@@ -46,6 +46,10 @@ const saveButton_Auto = document.getElementById("saveButton_Auto");
 const saveButton_Teleop = document.getElementById("saveButton_Teleop");
 const saveButton_MatchResult = document.getElementById("saveButton_MatchResult");
 
+
+let contributedPoints = 0; //Points contributed in match
+
+
 //TODO: hide submit button and next boxes until saveButton clicked.
 
 
@@ -88,9 +92,6 @@ saveButton_MatchResult.addEventListener("click", function() {
     // saveTeleopInputs_localStorage();
     saveMatchResult_localStorage();
 });
-
-//Points contributed in match
-let contributedPoints = 0;
 
 
 
@@ -384,7 +385,14 @@ function clearLocalStorage() {
 }
 
 function saveTeamInfo() {
+    const alliance_Local = localStorage.getItem("intandData/teamInfo/alliance");
+    const matchNum_Local = localStorage.getItem("intandData/teamInfo/matchNum");
+    const teamNum_Local = localStorage.getItem("intandData/teamInfo/teamNum");
 
+    //Save data to Firebase
+    push(teamDatabase.matchNum_instand, `${matchNum_Local}`);
+    push(teamDatabase.teamNum_instand, `${teamNum_Local}`);
+    push(teamDatabase.alliance_instand, `${alliance_Local}`);
 }
 
 function saveAutoInputs() {
