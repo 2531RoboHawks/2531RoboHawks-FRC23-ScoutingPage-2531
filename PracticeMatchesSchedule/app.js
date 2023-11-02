@@ -23,7 +23,7 @@ const blue1Input = document.getElementById("blue1");
 const blue2Input = document.getElementById("blue2");
 const blue3Input = document.getElementById("blue3");
 
-
+//*TODO*: redirect all firebase path into a different folder.
 //TODO: user validation
 //TODO: add delete function designated to each row
 //TODO: add edit function designated to each row
@@ -32,7 +32,7 @@ const blue3Input = document.getElementById("blue3");
 //TODO: (optional) add hover effects --see firebase mobile app tutorial
 
 
-initialize(); //Get saved data as soon as page open
+updateTable(); //Get saved data as soon as page open
 
 //Push input to database and add row
 saveButton.addEventListener("click", function() {
@@ -59,7 +59,7 @@ resetButton.addEventListener("dblclick", function() {
 /*** Below are only for functions ***/
 
 //Get saved data from database
-function initialize() {
+function updateTable() {
     onValue(teamDatabase.qualRow, function(snapshot) {
     let rowArray = Object.values(snapshot.val());
     tbody.innerHTML = rowArray.join(""); //join("") replaces "," to "" between values in rowArray

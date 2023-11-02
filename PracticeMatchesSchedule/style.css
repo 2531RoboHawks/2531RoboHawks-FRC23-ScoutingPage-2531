@@ -29,9 +29,9 @@ nav {
     flex-wrap: wrap;
 }
 
-#pracSchedLink {
+#qualSchedLink {
     margin-top: 5px;
-    float: left;
+    float: right;
     background-color: gold;
     border: purple;
     font-size: 120%;
