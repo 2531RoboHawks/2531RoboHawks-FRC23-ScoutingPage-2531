@@ -6,3 +6,8 @@ import * as teamDatabase from "../firebase.js";
 
 import * as points from "/InstandScoutingForm/app.js";
 console.log(points.contributedPoints);
+
+//**By wrapping the code inside the DOMContentLoaded event listener, you ensure that the code will only run when the DOM is ready.
+document.addEventListener("DOMContentLoaded", function() {
+
+});

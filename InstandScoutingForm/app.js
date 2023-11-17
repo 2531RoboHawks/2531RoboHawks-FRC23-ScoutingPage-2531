@@ -4,6 +4,9 @@ import { ref, push, onValue, update, remove } from "https://www.gstatic.com/fire
 //(import *) lets you import everything from that file
 import * as teamDatabase from "../firebase.js";
 
+//**By wrapping the code inside the DOMContentLoaded event listener, you ensure that the code will only run when the DOM is ready.
+document.addEventListener("DOMContentLoaded", function() {
+
 //TeamInfo inputs
 const matchNum = document.getElementById("matchNum");
 const teamNum = document.getElementById("teamNum");
@@ -46,11 +49,16 @@ const saveButton_Auto = document.getElementById("saveButton_Auto");
 const saveButton_Teleop = document.getElementById("saveButton_Teleop");
 const saveButton_MatchResult = document.getElementById("saveButton_MatchResult");
 
+
+let contributedPoints = 0; //Points contributed in match
+
+
 //TODO: hide submit button and next boxes until saveButton clicked.
 
 
 //Show localStorage initially; -inputs saved locally in case user accidently exit page before submitting.
-initialize(); 
+initialize();
+
 
 //Codes for sumbitButton: saving values from localStorage to Firebase
 submitButton.addEventListener("click", function() {
@@ -89,80 +97,145 @@ saveButton_MatchResult.addEventListener("click", function() {
     saveMatchResult_localStorage();
 });
 
-//Points contributed in match
-let contributedPoints = 0;
-
 
 
 /******** Only functions below ************/
 
 //Show localStorage Data; -this is called as soon as page is opened
 function initialize() {
-    //Show TeamInfo localStorage
-localStorage.getItem("intandData/teamInfo/alliance");
-matchNum.value = localStorage.getItem("intandData/teamInfo/matchNum");
-teamNum.value = localStorage.getItem("intandData/teamInfo/teamNum");
-if(localStorage.getItem("intandData/teamInfo/alliance") == "blue") {
-    allianceBlue.checked = true;
-}else if(localStorage.getItem("intandData/teamInfo/alliance") == "red") {
-    allianceRed.checked = true;
-}else {
-    allianceBlue.checked = false;
-    allianceRed.checked = false;
+/*
+    localStorage doesn't like to get items when there's nothing in it
+    so it's best to put it in if-statments so that it will only get items
+    when it's not empty.
+*/
+
+//Show TeamInfo localStorage
+if (localStorage.getItem("intandData/teamInfo/matchNum") != null) {
+    matchNum.value = localStorage.getItem("intandData/teamInfo/matchNum");
 }
+if (localStorage.getItem("intandData/teamInfo/teamNum") != null) {
+    teamNum.value = localStorage.getItem("intandData/teamInfo/teamNum");
+}
+if (localStorage.getItem("intandData/teamInfo/alliance") != null) {
+    if(localStorage.getItem("intandData/teamInfo/alliance") == "blue") {
+        allianceBlue.checked = true;
+    }else if(localStorage.getItem("intandData/teamInfo/alliance") == "red") {
+        allianceRed.checked = true;
+    }else {
+        allianceBlue.checked = false;
+        allianceRed.checked = false;
+    }
+}
+
+
 
 //Show AutoData localStorage
-highCones_Auto.value = localStorage.getItem("instandData/auto/highCones");
-highCubes_Auto.value = localStorage.getItem("instandData/auto/highCubes");
-midCones_Auto.value = localStorage.getItem("instandData/auto/midCones");
-midCubes_Auto.value = localStorage.getItem("instandData/auto/midCubes");
-lowCones_Auto.value = localStorage.getItem("instandData/auto/lowCones");
-lowCubes_Auto.value = localStorage.getItem("instandData/auto/lowCubes");
-if(localStorage.getItem("instandData/auto/balance") == "docked") {
-    balanceDocked_Auto.checked = true;
-}else if(localStorage.getItem("instandData/auto/balance") == "engaged") {
-    balanceEngaged_Auto.checked = true;
-}else if(localStorage.getItem("instandData/auto/balance") == "none") {
-    balanceNone_Auto.checked = true;
-}else {
-    balanceDocked_Auto.checked = false;
-    balanceEngaged_Auto.checked = false;
-    balanceNone_Auto.checked = false;
+if (localStorage.getItem("instandData/auto/highCones") != null) {
+    highCones_Auto.value = localStorage.getItem("instandData/auto/highCones");
+}else{
+    highCones_Auto.value = 0;
+}
+if (localStorage.getItem("instandData/auto/highCubes") != null) {
+    highCubes_Auto.value = localStorage.getItem("instandData/auto/highCubes");
+}else{
+    highCubes_Auto.value = 0;
+}
+if (localStorage.getItem("instandData/auto/midCones") != null) {
+    midCones_Auto.value = localStorage.getItem("instandData/auto/midCones");
+}else{
+    midCones_Auto.value = 0;
+}
+if (localStorage.getItem("instandData/auto/midCubes") != null) {
+    midCubes_Auto.value = localStorage.getItem("instandData/auto/midCubes");
+}else{
+    midCubes_Auto.value = 0;
+}
+if (localStorage.getItem("instandData/auto/lowCones") != null) {
+    lowCones_Auto.value = localStorage.getItem("instandData/auto/lowCones");
+}else{
+    lowCones_Auto.value = 0;
+}
+if (localStorage.getItem("instandData/auto/lowCubes") != null) {
+    lowCubes_Auto.value = localStorage.getItem("instandData/auto/lowCubes");
+}else{
+    lowCubes_Auto.value = 0;
+}
+if (localStorage.getItem("intandData/teamInfo/balance") != null) {
+    if(localStorage.getItem("instandData/auto/balance") == "docked") {
+        balanceDocked_Auto.checked = true;
+    }else if(localStorage.getItem("instandData/auto/balance") == "engaged") {
+        balanceEngaged_Auto.checked = true;
+    }else if(localStorage.getItem("instandData/auto/balance") == "none") {
+        balanceNone_Auto.checked = true;
+    }else {
+        balanceDocked_Auto.checked = false;
+        balanceEngaged_Auto.checked = false;
+        balanceNone_Auto.checked = false;
+    }
 }
 
+
 //Show TeleopData localStorage
-highCones_Teleop.value = localStorage.getItem("instandData/teleop/highCones");
-highCubes_Teleop.value = localStorage.getItem("instandData/teleop/highCubes");
-midCones_Teleop.value = localStorage.getItem("instandData/teleop/midCones");
-midCubes_Teleop.value = localStorage.getItem("instandData/teleop/midCubes");
-lowCones_Teleop.value = localStorage.getItem("instandData/teleop/lowCones");
-lowCubes_Teleop.value = localStorage.getItem("instandData/teleop/lowCubes");
-if(localStorage.getItem("instandData/teleop/balance") == "docked") {
-    balanceDocked_Teleop.checked = true;
-}else if(localStorage.getItem("instandData/teleop/balance") == "engaged") {
-    balanceEngaged_Teleop.checked = true;
-}else if(localStorage.getItem("instandData/teleop/balance") == "none") {
-    balanceNone_Teleop.checked = true;
-}else {
-    balanceDocked_Teleop.checked = false;
-    balanceEngaged_Teleop.checked = false;
-    balanceNone_Teleop.checked = false;
+if (localStorage.getItem("instandData/teleop/highCones") != null) {
+    highCones_Teleop.value = localStorage.getItem("instandData/teleop/highCones");
+}else{
+    highCones_Teleop.value = 0;
+}
+if (localStorage.getItem("instandData/teleop/highCubes") != null) {
+    highCubes_Teleop.value = localStorage.getItem("instandData/teleop/highCubes");
+}else{
+    highCubes_Teleop.value = 0;
+}
+if (localStorage.getItem("instandData/teleop/midCones") != null) {
+    midCones_Teleop.value = localStorage.getItem("instandData/teleop/midCones");
+}else{
+    midCones_Teleop.value = 0;
+}
+if (localStorage.getItem("instandData/teleop/midCubes") != null) {
+    midCubes_Teleop.value = localStorage.getItem("instandData/teleop/midCubes");
+}else{
+    midCubes_Teleop.value = 0;
+}
+if (localStorage.getItem("instandData/teleop/lowCones") != null) {
+    lowCones_Teleop.value = localStorage.getItem("instandData/teleop/lowCones");
+}else{
+    lowCones_Teleop.value = 0;
+}
+if (localStorage.getItem("instandData/teleop/lowCubes") != null) {
+    lowCubes_Teleop.value = localStorage.getItem("instandData/teleop/lowCubes");
+}else{
+    lowCubes_Teleop.value = 0;
+}
+if (localStorage.getItem("intandData/teamInfo/balance") != null) {
+    if(localStorage.getItem("instandData/teleop/balance") == "docked") {
+        balanceDocked_Teleop.checked = true;
+    }else if(localStorage.getItem("instandData/teleop/balance") == "engaged") {
+        balanceEngaged_Teleop.checked = true;
+    }else if(localStorage.getItem("instandData/teleop/balance") == "none") {
+        balanceNone_Teleop.checked = true;
+    }else {
+        balanceDocked_Teleop.checked = false;
+        balanceEngaged_Teleop.checked = false;
+        balanceNone_Teleop.checked = false;
+    }
 }
 
 //Show MatchResult localStorage
-comments.value = localStorage.getItem("instandData/matchResult/comments");
-localStorage.getItem("instandData/matchResult");
-
-if(localStorage.getItem("instandData/matchResult") == "Win"){
-    matchWin.checked = true;
-}else if(localStorage.getItem("instandData/matchResult") == "Lose"){
-    matchLose.checked = true;
-}else if(localStorage.getItem("instandData/matchResult") == "Tie"){
-    matchTie.checked = true;
-}else{
-    matchWin.checked = false;
-    matchLose.checked = false;
-    matchTie.checked = false;
+if (localStorage.getItem("instandData/matchResult/comments") != null) {
+    lowCubes_Teleop.value = localStorage.getItem("instandData/matchResult/comments");
+}
+if (localStorage.getItem("instandData/matchResult") != null) {
+    if(localStorage.getItem("instandData/matchResult") == "Win"){
+        matchWin.checked = true;
+    }else if(localStorage.getItem("instandData/matchResult") == "Lose"){
+        matchLose.checked = true;
+    }else if(localStorage.getItem("instandData/matchResult") == "Tie"){
+        matchTie.checked = true;
+    }else{
+        matchWin.checked = false;
+        matchLose.checked = false;
+        matchTie.checked = false;
+    }
 }
 }
 
@@ -384,7 +457,14 @@ function clearLocalStorage() {
 }
 
 function saveTeamInfo() {
+    const alliance_Local = localStorage.getItem("intandData/teamInfo/alliance");
+    const matchNum_Local = localStorage.getItem("intandData/teamInfo/matchNum");
+    const teamNum_Local = localStorage.getItem("intandData/teamInfo/teamNum");
 
+    //Save data to Firebase
+    push(teamDatabase.matchNum_instand, `${matchNum_Local}`);
+    push(teamDatabase.teamNum_instand, `${teamNum_Local}`);
+    push(teamDatabase.alliance_instand, `${alliance_Local}`);
 }
 
 function saveAutoInputs() {
@@ -404,3 +484,4 @@ function calculateContributedPoints() {
     //Teleop 1x points
     //Do a return function
 }
+});
