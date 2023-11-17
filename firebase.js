@@ -62,7 +62,7 @@ export const pracBlue1 = ref(database, "pracSchedule/Blue1");
 export const pracBlue2 = ref(database, "pracSchedule/Blue2");
 export const pracBlue3 = ref(database, "pracSchedule/Blue3");
 
-// Database for InstandScoutingData
+// Database for Instand Scouting Data
 export const team_instand = ref(database, `instandScouting/${null}`);
 export const matchNum_instand = ref(database, `instandScouting/${null}/teamInfo/matchNum`);
 export const teamNum_instand = ref(database, `instandScouting/${null}/teamInfo/teamNum`);
