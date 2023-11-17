@@ -63,30 +63,23 @@ export const pracBlue2 = ref(database, "pracSchedule/Blue2");
 export const pracBlue3 = ref(database, "pracSchedule/Blue3");
 
 // Database for InstandScoutingData
-let team;
-export function getTeamNum(team) {
-    team = localStorage.getItem("intandData/teamInfo/teamNum");
-    console.log(team);
-    return team;
-}
-
-export const team_instand = ref(database, `instandScouting/${team}`);
-export const matchNum_instand = ref(database, `instandScouting/${team}/teamInfo/matchNum`);
-export const teamNum_instand = ref(database, `instandScouting/${team}/teamInfo/teamNum`);
-export const alliance_instand = ref(database, `instandScouting/${team}/teamInfo/alliance`);
-export const highCones_Auto_instand = ref(database, `instandScouting/${team}/autoData/high/Cones`);
-export const highCubes_Auto_instand = ref(database, `instandScouting/${team}/autoData/high/Cubes`);
-export const midCones_Auto_instand = ref(database, `instandScouting/${team}/autoData/mid/Cones`);
-export const midCubes_Auto_instand = ref(database, `instandScouting/${team}/autoData/mid/Cubes`);
-export const lowCones_Auto_instand = ref(database, `instandScouting/${team}/autoData/low/Cones`);
-export const lowCubes_Auto_instand = ref(database, `instandScouting/${team}/autoData/low/Cubes`);
-export const chargingStation_Auto_instand = ref(database, `instandScouting/${team}/autoData/chargingStation`);
-export const highCones_Teleop_instand = ref(database, `instandScouting/${team}/teleopData/high/Cones`);
-export const highCubes_Teleop_instand = ref(database, `instandScouting/${team}/teleopData/high/Cubes`);
-export const midCones_Teleop_instand = ref(database, `instandScouting/${team}/teleopData/mid/Cones`);
-export const midCubes_Teleop_instand = ref(database, `instandScouting/${team}/teleopData/mid/Cubes`);
-export const lowCones_Teleop_instand = ref(database, `instandScouting/${team}/teleopData/low/Cones`);
-export const lowCubes_Teleop_instand = ref(database, `instandScouting/${team}/teleopData/low/Cubes`);
-export const chargingStation_Teleop_instand = ref(database, `instandScouting/${team}/teleopData/chargingStation`);
-export const matchResult_instand = ref(database, `instandScouting/${team}/matchResult`);
-export const comments_instand = ref(database, `instandScouting/${team}/comments`);
+export const team_instand = ref(database, `instandScouting/${null}`);
+export const matchNum_instand = ref(database, `instandScouting/${null}/teamInfo/matchNum`);
+export const teamNum_instand = ref(database, `instandScouting/${null}/teamInfo/teamNum`);
+export const alliance_instand = ref(database, `instandScouting/${null}/teamInfo/alliance`);
+export const highCones_Auto_instand = ref(database, `instandScouting/${null}/autoData/high/Cones`);
+export const highCubes_Auto_instand = ref(database, `instandScouting/${null}/autoData/high/Cubes`);
+export const midCones_Auto_instand = ref(database, `instandScouting/${null}/autoData/mid/Cones`);
+export const midCubes_Auto_instand = ref(database, `instandScouting/${null}/autoData/mid/Cubes`);
+export const lowCones_Auto_instand = ref(database, `instandScouting/${null}/autoData/low/Cones`);
+export const lowCubes_Auto_instand = ref(database, `instandScouting/${null}/autoData/low/Cubes`);
+export const chargingStation_Auto_instand = ref(database, `instandScouting/${null}/autoData/chargingStation`);
+export const highCones_Teleop_instand = ref(database, `instandScouting/${null}/teleopData/high/Cones`);
+export const highCubes_Teleop_instand = ref(database, `instandScouting/${null}/teleopData/high/Cubes`);
+export const midCones_Teleop_instand = ref(database, `instandScouting/${null}/teleopData/mid/Cones`);
+export const midCubes_Teleop_instand = ref(database, `instandScouting/${null}/teleopData/mid/Cubes`);
+export const lowCones_Teleop_instand = ref(database, `instandScouting/${null}/teleopData/low/Cones`);
+export const lowCubes_Teleop_instand = ref(database, `instandScouting/${null}/teleopData/low/Cubes`);
+export const chargingStation_Teleop_instand = ref(database, `instandScouting/${null}/teleopData/chargingStation`);
+export const matchResult_instand = ref(database, `instandScouting/${null}/matchResult`);
+export const comments_instand = ref(database, `instandScouting/${null}/comments`);
