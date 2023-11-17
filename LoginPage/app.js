@@ -2,6 +2,9 @@
 import * as teamDatabase from "../firebase.js";
 import {ref, push, onValue, update, remove, set, child, get} from "https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js";
 
+//**By wrapping the code inside the DOMContentLoaded event listener, you ensure that the code will only run when the DOM is ready.
+document.addEventListener("DOMContentLoaded", function() {
+
 //Buttons
 const guestSignIn = document.getElementById("guestSignIn");
 const loginButton = document.getElementById("loginButton");
@@ -75,3 +78,4 @@ function clearUserStatus() {
     console.log(localStorage.getItem('memberUser'));
     console.log(localStorage.getItem('memberPass'));
 }
+});
