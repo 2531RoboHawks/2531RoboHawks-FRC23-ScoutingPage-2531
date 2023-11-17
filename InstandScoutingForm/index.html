@@ -7,6 +7,12 @@
     <link rel="stylesheet" href="style.css">
     <title>Instand Scouting Form</title>
     <link rel="icon" href="../Images/robohawksLogo.png">
+    <script>
+        if (localStorage.getItem('userStatus') != 'member') {
+            alert("You need to login to access this page");
+            window.location.href = '../LoginPage/index.html';
+        }
+    </script>
 </head>
 <body>
     <header>
