@@ -206,7 +206,7 @@ if (localStorage.getItem("instandData/teleop/lowCubes") != null) {
 }else{
     lowCubes_Teleop.value = 0;
 }
-if (localStorage.getItem("intandData/teamInfo/balance") != null) {
+if (localStorage.getItem("intandData/teleop/balance") != null) {
     if(localStorage.getItem("instandData/teleop/balance") == "docked") {
         balanceDocked_Teleop.checked = true;
     }else if(localStorage.getItem("instandData/teleop/balance") == "engaged") {
@@ -222,7 +222,7 @@ if (localStorage.getItem("intandData/teamInfo/balance") != null) {
 
 //Show MatchResult localStorage
 if (localStorage.getItem("instandData/matchResult/comments") != null) {
-    lowCubes_Teleop.value = localStorage.getItem("instandData/matchResult/comments");
+    comments.value = localStorage.getItem("instandData/matchResult/comments");
 }
 if (localStorage.getItem("instandData/matchResult") != null) {
     if(localStorage.getItem("instandData/matchResult") == "Win"){
