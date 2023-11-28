@@ -3,6 +3,7 @@ import { ref, push, onValue, update, remove } from "https://www.gstatic.com/fire
 
 //(import *) lets you import everything from that file
 import * as teamDatabase from "../firebase.js";
+import * as API from "../API_Keys.js";
 
 //**By wrapping the code inside the DOMContentLoaded event listener, you ensure that the code will only run when the DOM is ready.
 document.addEventListener("DOMContentLoaded", function() {
@@ -24,6 +25,8 @@ const red3Input = document.getElementById("red3");
 const blue1Input = document.getElementById("blue1");
 const blue2Input = document.getElementById("blue2");
 const blue3Input = document.getElementById("blue3");
+
+API.requestQualMatchData();
 
 
 //TODO: user validation
