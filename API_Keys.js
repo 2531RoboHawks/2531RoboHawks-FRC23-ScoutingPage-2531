@@ -31,8 +31,7 @@ const year = `2023`
 const event_key = `mndu`;
 
 // Make the API request for 
-export function requestQualMatchData() {
-    const path = `/event/${year}${event_key}/matches/simple`;
+    const path = `/event/${year}${event_key}/matches/keys`;
     const url = `${baseUrl}${path}`;
 
     fetch(url, {
@@ -44,10 +43,9 @@ export function requestQualMatchData() {
     .then(response => response.json())
     .then(data => {
         // Handle the data from the API response
-        console.log(data[1].team_keys);
+        console.log(data[1].alliances.blue.team_keys[0]);
     })
     .catch(error => {
         // Handle errors
         console.error('Error fetching data:', error);
     });
-}
