@@ -33,8 +33,12 @@ const event_key = `mndu`;
 //Variables for API
 const apiKey = 'HuPfMnMdd2A5uh6fVPjVmvycXADyZYWdArPFxaj3UsdVxsQZdqC31ST3bcIhinx0';
 const baseUrl = 'https://www.thebluealliance.com/api/v3'; // Adjust the base URL based on the TBA API version
-const path = `/event/${year}${event_key}/matches/simple`;
+const path = `/event/${year}${event_key}/matches`;
 const url = `${baseUrl}${path}`;
+
+//Variables used within the data handler
+const timeArray = [];
+const matchArray = [];
 
 
 //TODO: (optional) if time >= localTime, then change color --see HTML JavaScript w3schools
@@ -44,39 +48,67 @@ const url = `${baseUrl}${path}`;
 //TODO: filter array based on comp_level: qm
 
 
-//--------------------------------------------------------------------------------------
-// fetch(url, {
-//     method: 'GET',
-//     headers: {
-//         'X-TBA-Auth-Key': apiKey,
-//     },
-//     })
-//     .then(response => response.json())
+////////////////////////////////////////////////////////////////////////////////////////////
+// Make the API request for data
+fetch(url, {
+    method: 'GET',
+    headers: {
+        'X-TBA-Auth-Key': apiKey,
+    },
+    })
+    .then(response => response.json())
 
-//     // Handle the data from the API response
-//     .then(data => { 
-//         // i = 2 because the first qualification match is stored in data[2] on Blue Alliance.
-//         const timeArray = [0, 0];
-//         for (let i = 2; i < data.length; i++) {
-//             timeArray.splice(i, i-2, data[i].predicted_time)
-//         }
-//         let real_time = timeArray.map(convertTimestampToRealTime);
-//         console.log(real_time);
-//     })
-//     .catch(error => {
-//         console.error('Error fetching data:', error);
-//     });
+    //----------------------------------------------------------------------------------------
+    //Most codes are written in this function because this is the only place that can access data.
+    .then(data => { // Handle the data from the API response
 
+        //Creates rows according to the amount of displayed data
+        for (let i = 2; i < data.length; i++) {
+            tbody.innerHTML += `<tr class="tr">
+            <td class = "time" id="timeInput_${tr.length}">
+            </td>
+            <td class = "video" id="video_${tr.length}" >
+            </td>
+            <td class = "matchNumber" id="matchInput_${tr.length}" >
+            </td>
+            <td class = "redAlliance" id="red1_${tr.length}">
+            </td>
+            <td class = "redAlliance" id="red2_${tr.length}">
+            </td>
+            <td class = "redAlliance" id="red3_${tr.length}">
+            </td>
+            <td class = "blueAlliance" id="blue1_${tr.length}">
+            </td>
+            <td class = "blueAlliance" id="blue2_${tr.length}">
+            </td>
+            <td class = "blueAlliance" id="blue3_${tr.length}">
+            </td>
+            </tr>`;
+        }
+        
+        //--------------------------------------------------
+        //This section retrieves predicted_time from Blue Alliance one by one and store into timeArray
+        // i = 2 because the first qualification match is stored in data[2] on Blue Alliance.
+        for (let i = 2; i < data.length; i++) {
+            //format: array.splice(index, howmany, item_1, ..., item_n)
+            timeArray.splice(i, null, data[i].predicted_time);
+        }
 
+        //Convert 'timeArray' into real times and store them into 'real_time' as an array.
+        let real_time = timeArray.map(convertTimestampToRealTime); 
+        console.log(real_time);
+        
+        for (let i = 0; i < real_time.length; i++) {
+            //Print real_time onto the table
+            document.getElementById(`timeInput_${i}`).innerHTML = real_time[i];
+        }
 
-// Function to convert a timestamp to a formatted date
-const convertTimestampToRealTime = (timestamp) => {
-  const date = new Date(timestamp * 1000); // Multiply by 1000 to convert from seconds to milliseconds
-  const hours = date.getHours().toString().padStart(2, '0');
-  const minutes = date.getMinutes().toString().padStart(2, '0');
-  const seconds = date.getSeconds().toString().padStart(2, '0');
-  return `${hours}:${minutes}:${seconds}`;
-};
+        //--------------------------------------------------
+
+    })
+    .catch(error => {
+        console.error('Error fetching data:', error);
+    });
 
 
 
@@ -92,14 +124,8 @@ saveButton.addEventListener("click", function() {
     // console.log("save_" + (tr.length - 1));
 });
 
-//resets the whole table
-resetButton.addEventListener("dblclick", function() {
-    // reset();
-});
-
 // ----------- ONLY FUNCTIONS BELOW!!! ---------------------------------------------------------
 
-// Make the API request for data
 function initialize() {
         for(let i = 0; i < tr.length; i++) {
             onValue(teamDatabase.qualTime, function(snapshot) {
@@ -152,6 +178,14 @@ function initialize() {
         }
 }
 
+// Function to convert a timestamp to a formatted date
+const convertTimestampToRealTime = (timestamp) => {
+    const date = new Date(timestamp * 1000); // Multiply by 1000 to convert from seconds to milliseconds
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    const seconds = date.getSeconds().toString().padStart(2, '0');
+    return `${hours}:${minutes}:${seconds}`;
+  };
 
 function addEmptyRow() {
     let newRow = `<tr class="tr">
@@ -173,7 +207,6 @@ function addEmptyRow() {
         </td>
     </tr>`;
     tbody.innerHTML += newRow;
-    push(teamDatabase.qualRow, newRow);
 }
 
 function resetInputFields() {
@@ -185,11 +218,5 @@ function resetInputFields() {
     blue1Input.value = "";
     blue2Input.value = "";
     blue3Input.value = "";
-}
-
-function reset() {
-    remove(teamDatabase.qualTable); //Remove all data from database
-    tbody.innerHTML = ""
-    ; //Resets table on the front-end
 }
 });

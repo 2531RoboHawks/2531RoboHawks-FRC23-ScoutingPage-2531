@@ -110,23 +110,11 @@ h1 {
     width: 7%;
 }
 
-.redInput{
-    border-color: red;
-    text-align: center;
-    width: 80%;
-}
-
 .redAlliance {
     background-color: red;
     color: white;
     font-weight: 550;
     width: 10%;
-}
-
-.blueInput{
-    border-color: blue;
-    width: 80%;
-    text-align: center;
 }
 
 .blueAlliance {

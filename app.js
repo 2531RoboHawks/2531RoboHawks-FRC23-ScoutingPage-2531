@@ -8,22 +8,21 @@ document.addEventListener("DOMContentLoaded", function() {
     const event_key = `mndu`;
     
     // Make the API request for 
-    const path = `/event/${year}${event_key}/matches/simple`;
+    const path = `/event/${year}${event_key}/matches`;
     const url = `${baseUrl}${path}`;
 
-    // fetch(url, {
-    // method: 'GET',
-    // headers: {
-    //     'X-TBA-Auth-Key': apiKey,
-    // },
-    // })
-    // .then(response => response.json())
-    // .then(data => {
-    //     // Handle the data from the API response
-    //     console.log(data);
-    // })
-    // .catch(error => {
-    //     // Handle errors
-    //     console.error('Error fetching data:', error);
-    // });
+    fetch(url, {
+    method: 'GET',
+    headers: {
+        'X-TBA-Auth-Key': apiKey,
+    },
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+    })
+    .catch(error => {
+        // Handle errors
+        console.error('Error fetching data:', error);
+    });
 });
