@@ -20,6 +20,10 @@ document.addEventListener("DOMContentLoaded", function() {
     .then(response => response.json())
     .then(data => {
         console.log(data);
+        let sortedMatches = data.sort((a, b) => a.match_number - b.match_number);
+
+        // Now 'sortedMatches' contains the match information in the order of 'match_number'
+        console.log(sortedMatches);
     })
     .catch(error => {
         // Handle errors

@@ -38,7 +38,11 @@ const url = `${baseUrl}${path}`;
 
 //Variables used within the data handler
 const timeArray = [];
+const videoArray = [];
+const videoURLs = [];
 const matchArray = [];
+const redAllianceArray = [];
+const blueAllianceArray = [];
 
 
 //TODO: (optional) if time >= localTime, then change color --see HTML JavaScript w3schools
@@ -62,12 +66,19 @@ fetch(url, {
     //Most codes are written in this function because this is the only place that can access data.
     .then(data => { // Handle the data from the API response
 
+        //This variable contains filtered and sorted data.
+        let sortedAndFilteredMatches = data
+            .filter(match => match.comp_level === 'qm') // Filter by comp_level 'qm'
+            .sort((a, b) => a.match_number - b.match_number); // Sort by match_number
+        console.log(sortedAndFilteredMatches);
+
         //Creates rows according to the amount of displayed data
-        for (let i = 2; i < data.length; i++) {
+        for (let i = 0; i < sortedAndFilteredMatches.length; i++) {
             tbody.innerHTML += `<tr class="tr">
             <td class = "time" id="timeInput_${tr.length}">
             </td>
-            <td class = "video" id="video_${tr.length}" >
+            <td class = "video" id="video_${tr.length}>
+                <a id="link_${tr.length}" href="">link</a>
             </td>
             <td class = "matchNumber" id="matchInput_${tr.length}" >
             </td>
@@ -88,10 +99,10 @@ fetch(url, {
         
         //--------------------------------------------------
         //This section retrieves predicted_time from Blue Alliance one by one and store into timeArray
-        // i = 2 because the first qualification match is stored in data[2] on Blue Alliance.
-        for (let i = 2; i < data.length; i++) {
-            //format: array.splice(index, howmany, item_1, ..., item_n)
-            timeArray.splice(i, null, data[i].predicted_time);
+        
+        for (let i = 0; i < sortedAndFilteredMatches.length; i++) {
+            //format: array.splice(index, how_many, item_1, ..., item_n)
+            timeArray.splice(i, null, sortedAndFilteredMatches[i].predicted_time);
         }
 
         //Convert 'timeArray' into real times and store them into 'real_time' as an array.
@@ -101,6 +112,17 @@ fetch(url, {
         for (let i = 0; i < real_time.length; i++) {
             //Print real_time onto the table
             document.getElementById(`timeInput_${i}`).innerHTML = real_time[i];
+        }
+
+        //--------------------------------------------------
+        //This section retrieves video link from Blue Alliance one by one and store into videoArray
+        
+        for (let i = 0; i < sortedAndFilteredMatches.length; i++) {
+            //format: array.splice(index, how_many, item_1, ..., item_n)
+            videoArray.splice(i, null, sortedAndFilteredMatches[i].videos[0]);
+            videoURLs.splice(i, null,  `https://www.thebluealliance.com/watch/${videoArray[i].key}/${videoArray[i].type}`);
+            console.log(videoURLs[i]);
+            // document.getElementById(`link_${i}`).href = videoURLs[i];
         }
 
         //--------------------------------------------------
