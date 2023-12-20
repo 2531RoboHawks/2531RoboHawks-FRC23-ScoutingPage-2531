@@ -148,57 +148,6 @@ saveButton.addEventListener("click", function() {
 
 // ----------- ONLY FUNCTIONS BELOW!!! ---------------------------------------------------------
 
-function initialize() {
-        for(let i = 0; i < tr.length; i++) {
-            onValue(teamDatabase.qualTime, function(snapshot) {
-            let timeArray = Object.values(snapshot.val());
-            document.getElementById("timeInput_"+(i)).innerHTML = timeArray[i];
-            console.log(timeArray[i]); 
-            });
-        
-            onValue(teamDatabase.qualMatch, function(snapshot) {
-            let matchArray = Object.values(snapshot.val());
-            document.getElementById("matchInput_"+(i)).innerHTML = matchArray[i];
-            console.log(matchArray[i]);
-            });
-        
-            onValue(teamDatabase.qualRed1, function(snapshot) {
-            let red1Array = Object.values(snapshot.val());
-            document.getElementById("red1_"+(i)).innerHTML = red1Array[i];
-            console.log(red1Array[i]);
-            });
-            
-            onValue(teamDatabase.qualRed2, function(snapshot) {
-            let red2Array = Object.values(snapshot.val());
-            document.getElementById("red2_"+(i)).innerHTML = red2Array[i];
-            console.log(red2Array[i]);
-            });
-            
-            onValue(teamDatabase.qualRed3, function(snapshot) {
-            let red3Array = Object.values(snapshot.val());
-            document.getElementById("red3_"+(i)).innerHTML = red3Array[i];
-            console.log(red3Array[i]);
-            });
-        
-            onValue(teamDatabase.qualBlue1, function(snapshot) {
-            let blue1Array = Object.values(snapshot.val());
-            document.getElementById("blue1_"+(i)).innerHTML = blue1Array[i];
-            console.log(blue1Array[i]);
-            });
-        
-            onValue(teamDatabase.qualBlue2, function(snapshot) {
-            let blue2Array = Object.values(snapshot.val());
-            document.getElementById("blue2_"+(i)).innerHTML = blue2Array[i];
-            console.log(blue2Array[i]);
-            });
-            
-            onValue(teamDatabase.qualBlue3, function(snapshot) {
-            let blue3Array = Object.values(snapshot.val());
-            document.getElementById("blue3_"+(i)).innerHTML = blue3Array[i];
-            console.log(blue3Array[i]);
-            });
-        }
-}
 
 // Function to convert a timestamp to a formatted date
 const convertTimestampToRealTime = (timestamp) => {
@@ -209,27 +158,6 @@ const convertTimestampToRealTime = (timestamp) => {
     return `${hours}:${minutes}:${seconds}`;
   };
 
-function addEmptyRow() {
-    let newRow = `<tr class="tr">
-        <td class = "time" id="timeInput_${tr.length}">
-        </td>
-        <td class = "matchNumber" id="matchInput_${tr.length}" >
-        </td>
-        <td class = "redAlliance" id="red1_${tr.length}">
-        </td>
-        <td class = "redAlliance" id="red2_${tr.length}">
-        </td>
-        <td class = "redAlliance" id="red3_${tr.length}">
-        </td>
-        <td class = "blueAlliance" id="blue1_${tr.length}">
-        </td>
-        <td class = "blueAlliance" id="blue2_${tr.length}">
-        </td>
-        <td class = "blueAlliance" id="blue3_${tr.length}">
-        </td>
-    </tr>`;
-    tbody.innerHTML += newRow;
-}
 
 function resetInputFields() {
     timeInput.value = "";

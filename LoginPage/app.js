@@ -44,6 +44,7 @@ guestSignIn.addEventListener('click', function() {
 function userLogin() {
     onValue(teamDatabase.memberUser, function(snapshot) {
         let memberUser = Object.values(snapshot.val()); //Get member's username from firebase 
+        console.log(memberUser);
         //Verify username
         if(userInput.value == memberUser) {
             localStorage.setItem('memberUser', 'userValid'); //Store user validation locally
@@ -52,6 +53,7 @@ function userLogin() {
 
     onValue(teamDatabase.memberPass, function(snapshot) {
         let memberPass = Object.values(snapshot.val()); //Get member's password from firebase
+        console.log(memberPass);
         //Verify pass
         if(passInput.value == memberPass) {
             localStorage.setItem('memberPass', 'passValid'); //Store pass validation locally
