@@ -52,7 +52,6 @@ const blueAllianceArray = [];
 //TODO: filter array based on comp_level: qm
 
 
-////////////////////////////////////////////////////////////////////////////////////////////
 // Make the API request for data
 fetch(url, {
     method: 'GET',
@@ -62,7 +61,6 @@ fetch(url, {
     })
     .then(response => response.json())
 
-    //----------------------------------------------------------------------------------------
     //Most codes are written in this function because this is the only place that can access data.
     .then(data => { // Handle the data from the API response
 
@@ -97,9 +95,7 @@ fetch(url, {
             </tr>`;
         }
         
-        //--------------------------------------------------
-        //This section retrieves predicted_time from Blue Alliance one by one and store into timeArray
-        
+        //This section retrieves predicted_time from Blue Alliance one by one and store into timeArray.
         for (let i = 0; i < sortedAndFilteredMatches.length; i++) {
             //format: array.splice(index, how_many, item_1, ..., item_n)
             timeArray.splice(i, null, sortedAndFilteredMatches[i].predicted_time);
@@ -114,9 +110,7 @@ fetch(url, {
             document.getElementById(`timeInput_${i}`).innerHTML = real_time[i];
         }
 
-        //--------------------------------------------------
-        //This section retrieves video link from Blue Alliance one by one and store into videoArray
-        
+        //This section retrieves video link from Blue Alliance one by one and store into videoArray.
         for (let i = 0; i < sortedAndFilteredMatches.length; i++) {
             //format: array.splice(index, how_many, item_1, ..., item_n)
             videoArray.splice(i, null, sortedAndFilteredMatches[i].videos[0]);
@@ -124,9 +118,6 @@ fetch(url, {
             console.log(videoURLs[i]);
             // document.getElementById(`link_${i}`).href = videoURLs[i];
         }
-
-        //--------------------------------------------------
-
     })
     .catch(error => {
         console.error('Error fetching data:', error);
@@ -138,15 +129,6 @@ fetch(url, {
 updateButton.addEventListener("click", function() {
 
 });
-
-//Push input to database and add row
-saveButton.addEventListener("click", function() {
-    // addEmptyRow(); //Adds empty row for new inputs that are programmed to display immediately
-    // resetInputFields(); //Empty input fields after inputs are saved.
-    // console.log("save_" + (tr.length - 1));
-});
-
-// ----------- ONLY FUNCTIONS BELOW!!! ---------------------------------------------------------
 
 
 // Function to convert a timestamp to a formatted date
