@@ -1,16 +1,19 @@
-//Firebase imported functions
-import { ref, push, onValue, update, remove } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js";
+//Firebase imports
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+import { getDatabase, ref, push, onValue, update, remove, set, child, get} from "https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js";
 
-//(import *) lets you import everything from that file
-import * as teamDatabase from "../firebase.js";
+const appSettings = {
+    databaseURL: "https://scoutingapp-e16c4-default-rtdb.firebaseio.com/"
+}
 
-import * as points from "/InstandScoutingForm/app.js";
-console.log(points.contributedPoints);
+// Initialize Firebase
+const app = initializeApp(appSettings);
+
+//Connects database to app
+const database = getDatabase(app); //Realtime-database
 
 //**By wrapping the code inside the DOMContentLoaded event listener, you ensure that the code will only run when the DOM is ready.
 document.addEventListener("DOMContentLoaded", function() {
-
-    //TODO: Keep comments hidden from 'guest' user
 
     
 });

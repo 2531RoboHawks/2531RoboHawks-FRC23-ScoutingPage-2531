@@ -49,11 +49,10 @@ h1 {
 
 .qualContainer{
     display: flex;
-    max-width: max-content;
+    max-width: 100%;
+    justify-content: center;
     margin-left: auto;
     margin-right: auto; /* Having both margins centers the table */
-    user-select: none;
-    
 }
 
 .buttonContainer{
@@ -61,7 +60,7 @@ h1 {
     float: right;
 }
 
-#removeRowButton{
+#updateButton{
     background-color: gold;
     margin-top: 10px;
 }
@@ -77,61 +76,54 @@ h1 {
     background-color: gold;
 }
 
-#table, th, td {
-    border:1px solid white;
+th, td {
+    border:2.5px solid white;
     text-align: center;
     justify-content: center;
-    
 }
 
-.timeInput {
-    border-color: gold;
-    text-align: center;
-    width: 89%;
+table {
+    border:3px solid white;
+    min-width: 400px;
+    max-width: 1000px;
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    margin-left: auto;
+    margin-right: auto; /* Having both margins centers the table */
 }
 
 .time {
     background-color: gold;
     color: purple;
     font-weight: 550;
-    width: 15%;
+    /* width: 15%; */
 }
 
-.matchInput{
-    border-color: gold;
-    text-align: center;
-    width: 74%;
+.video {
+    background-color: gold;
+    color: purple;
+    font-weight: 550;
+    /* width: 15%; */
 }
 
 .matchNumber {
     background-color: gold;
     color: purple;
     font-weight: 550;
-    width: 7%;
-}
-
-.redInput{
-    border-color: red;
-    text-align: center;
-    width: 80%;
+    /* width: 7%; */
 }
 
 .redAlliance {
     background-color: red;
     color: white;
     font-weight: 550;
-    width: 10%;
-}
-
-.blueInput{
-    border-color: blue;
-    width: 80%;
-    text-align: center;
+    /* width: 10%; */
 }
 
 .blueAlliance {
     background-color: blue;
     color: white;
     font-weight: 550;
-    width: 10%;
+    /* width: 10%; */
 }

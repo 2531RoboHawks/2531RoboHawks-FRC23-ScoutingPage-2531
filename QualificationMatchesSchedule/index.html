@@ -14,13 +14,12 @@
         <img height="150px" src="../Images/robohawksPic.png" alt="robohawks-pics">
      </header>   
 
-    <nav>
+    <nav id="nav">
         <a id="homeLink" href="../index.html">Home</a>
         <a href="../PitScoutingForm">Pit Scouting Form</a>
         <a href="../InstandScoutingForm">Instand Scouting Form</a>
         <a href="">Pit Scouting Data</a>
         <a href="../InstandScoutingData">Instand Scouting Data</a>
-        
     </nav>
         <a id="pracSchedLink" href=""><- Practice Match Schedule</a><br><br><br><br><br>
         <h1>Qualification Matches Schedule</h1>
@@ -40,38 +39,12 @@
                 <tbody id="tbody">
                     <!-- app.js have codes that add lines here -->
                 </tbody>
-                <tr>
-                    <td class = "time">
-                        <input class="timeInput" id="timeInput" type="time">
-                    </td>
-                    <td class = "matchNumber">
-                        <input class="matchInput" id="matchInput" type="number">
-                    </td>
-                    <td class = "redAlliance">
-                        <input class="redInput" id="red1" type="number">
-                    </td>
-                    <td class = "redAlliance">
-                        <input class="redInput" id="red2" type="number">
-                    </td>
-                    <td class = "redAlliance">
-                        <input class="redInput" id="red3" type="number">
-                    </td>
-                    <td class = "blueAlliance">
-                        <input class="blueInput" id="blue1" type="number">
-                    </td>
-                    <td class = "blueAlliance">
-                        <input class="blueInput" id="blue2" type="number">
-                    </td>
-                    <td class = "blueAlliance">
-                        <input class="blueInput" id="blue3" type="number">
-                    </td>
-                </tr>
             </table>
     
             <div class="buttonContainer">
                 <button id = "saveButton">Save</button>
             </div>
-            <button id = "removeRowButton">Remove Row</button>
+            <button id = "updateButton">Update Table</button>
             
             <div style="justify-content: center;">
                 <button id = "resetButton">Reset Table</button>

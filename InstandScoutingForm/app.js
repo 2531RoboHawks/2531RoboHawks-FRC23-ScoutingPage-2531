@@ -52,21 +52,31 @@ const saveButton_MatchResult = document.getElementById("saveButton_MatchResult")
 
 let contributedPoints = 0; //Points contributed in match
 
+while(true) {
+setTimeout(function() {
+    saveTeamInfo_localStorage();
+    saveAutoInputs_localStorage();
+    saveTeleopInputs_localStorage();
+    saveMatchResult_localStorage();
+    i++
+}), 5000;
+}
+
 
 //TODO: hide submit button and next boxes until saveButton clicked.
 
 
 //Show localStorage initially; -inputs saved locally in case user accidently exit page before submitting.
-initialize();
+// initialize();
 
 
 //Codes for sumbitButton: saving values from localStorage to Firebase
 submitButton.addEventListener("click", function() {
     //Save all data from localStorage to Firebase
-    saveTeamInfo();
-    saveAutoInputs();
-    saveTeleopInputs();
-    saveMatchResult();
+    // saveTeamInfo();
+    // saveAutoInputs();
+    // saveTeleopInputs();
+    // saveMatchResult();
 
     //Clear localStorage once submitted (last in order)
     clearLocalStorage();
