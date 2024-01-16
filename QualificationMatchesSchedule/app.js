@@ -1,55 +1,38 @@
-//Firebase imported functions
-import { ref, push, onValue, update, remove } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js";
-
-// //(import *) lets you import everything from that file
-// import * as teamDatabase from "../firebase.js";
-
-//**By wrapping the code inside the DOMContentLoaded event listener, you ensure that the code will only run when the DOM is ready.
-document.addEventListener("DOMContentLoaded", function() {
-
-//Table and row
+//HTML elements
 const tbody = document.getElementById("tbody");
 const tr = document.getElementsByClassName("tr");
+const redAllianceElements = document.getElementsByClassName('redAlliance');
+const blueAllianceElements = document.getElementsByClassName('blueAlliance');
+
 
 //Buttons
-const saveButton = document.getElementById("saveButton");
-const resetButton = document.getElementById("resetButton");
 const updateButton = document.getElementById("updateButton");
-
-//Input fields
-const timeInput = document.getElementById("timeInput");
-const matchInput = document.getElementById("matchInput");
-const red1Input = document.getElementById("red1");
-const red2Input = document.getElementById("red2");
-const red3Input = document.getElementById("red3");
-const blue1Input = document.getElementById("blue1");
-const blue2Input = document.getElementById("blue2");
-const blue3Input = document.getElementById("blue3");
 
 //Make changes to corresponding regionals
 const year = `2023`;
 const event_key = `mndu`;
 
 //Variables for API
-const apiKey = 'HuPfMnMdd2A5uh6fVPjVmvycXADyZYWdArPFxaj3UsdVxsQZdqC31ST3bcIhinx0';
+const apiKey = 'HuPfMnMdd2A5uh6fVPjVmvycXADyZYWdArPFxaj3UsdVxsQZdqC31ST3bcIhinx0'; //TODO: hide API key
 const baseUrl = 'https://www.thebluealliance.com/api/v3'; // Adjust the base URL based on the TBA API version
 const path = `/event/${year}${event_key}/matches`;
 const url = `${baseUrl}${path}`;
 
 //Variables used within the data handler
 const timeArray = [];
-const videoArray = [];
-const videoURLs = [];
 const matchArray = [];
-const redAllianceArray = [];
-const blueAllianceArray = [];
+const red1Array = [];
+const red2Array = [];
+const red3Array = [];
+const blue1Array = [];
+const blue2Array = [];
+const blue3Array = [];
 
-
-//TODO: (optional) if time >= localTime, then change color --see HTML JavaScript w3schools
+//**By wrapping the code inside the DOMContentLoaded event listener, you ensure that the code will only run when the DOM is ready.
+document.addEventListener("DOMContentLoaded", function() {
+//TODO: hide API Keys
+//TODO: convert to actual time when available then change color --see HTML JavaScript w3schools
 //TODO: (optional) add hover effects --see firebase mobile app tutorial
-
-//TODO: sort array based on match_level
-//TODO: filter array based on comp_level: qm
 
 
 // Make the API request for data
@@ -73,9 +56,9 @@ fetch(url, {
         //Creates rows according to the amount of displayed data
         for (let i = 0; i < sortedAndFilteredMatches.length; i++) {
             tbody.innerHTML += `<tr class="tr">
-            <td class = "time" id="timeInput_${tr.length}">
+            <td class = "time" id="timeElement_${tr.length}">
             </td>
-            <td class = "matchNumber" id="matchInput_${tr.length}" >
+            <td class = "matchNumber" id="matchElement_${tr.length}" >
             </td>
             <td class = "redAlliance" id="red1_${tr.length}">
             </td>
@@ -91,7 +74,6 @@ fetch(url, {
             </td>
             </tr>`;
         }
-        
         //This section retrieves predicted_time from Blue Alliance one by one and store into timeArray.
         for (let i = 0; i < sortedAndFilteredMatches.length; i++) {
             //format: array.splice(index, how_many, item_1, ..., item_n)
@@ -101,27 +83,77 @@ fetch(url, {
         //Convert 'timeArray' into real times and store them into 'real_time' as an array.
         let real_time = timeArray.map(convertTimestampToRealTime); 
         console.log(real_time);
-        
+
         for (let i = 0; i < real_time.length; i++) {
-            //Print real_time onto the table
-            document.getElementById(`timeInput_${i}`).innerHTML = real_time[i];
+            document.getElementById(`timeElement_${i}`).innerHTML = real_time[i]; //Display real_time onto the table
         }
 
-        //This section retrieves video link from Blue Alliance one by one and store into videoArray.
+        //This section retrieves match_number from Blue Alliance one by one and store into matchArray.
         for (let i = 0; i < sortedAndFilteredMatches.length; i++) {
             //format: array.splice(index, how_many, item_1, ..., item_n)
-            videoArray.splice(i, null, sortedAndFilteredMatches[i].videos[0]);
-            videoURLs.splice(i, null,  `https://www.thebluealliance.com/watch/${videoArray[i].key}/${videoArray[i].type}`);
-            console.log(videoURLs[i]);
-            // document.getElementById(`link_${i}`).href = videoURLs[i];
+            matchArray.splice(i, null, sortedAndFilteredMatches[i].match_number);
+            document.getElementById(`matchElement_${i}`).innerHTML = matchArray[i]; //Display match_number onto the table
+        }
+
+        //This section retrieves teams from Blue Alliance one by one and store into red1Array.
+        for (let i = 0; i < sortedAndFilteredMatches.length; i++) {
+            //format: array.splice(index, how_many, item_1, ..., item_n)
+            red1Array.splice(i, null, sortedAndFilteredMatches[i].alliances.red.team_keys[0].slice(3)); //slice(3) slice out 'frc'
+            document.getElementById(`red1_${i}`).innerHTML = red1Array[i]; //Display red1 teams onto the table
+            red2Array.splice(i, null, sortedAndFilteredMatches[i].alliances.red.team_keys[1].slice(3)); //slice(3) slice out 'frc'
+            document.getElementById(`red2_${i}`).innerHTML = red2Array[i]; //Display red2 teams onto the table
+            red3Array.splice(i, null, sortedAndFilteredMatches[i].alliances.red.team_keys[2].slice(3)); //slice(3) slice out 'frc'
+            document.getElementById(`red3_${i}`).innerHTML = red3Array[i]; //Display red3 teams onto the table
+
+            blue1Array.splice(i, null, sortedAndFilteredMatches[i].alliances.blue.team_keys[0].slice(3)); //slice(3) slice out 'frc'
+            document.getElementById(`blue1_${i}`).innerHTML = blue1Array[i]; //Display blue1 teams onto the table
+            blue2Array.splice(i, null, sortedAndFilteredMatches[i].alliances.blue.team_keys[1].slice(3)); //slice(3) slice out 'frc'
+            document.getElementById(`blue2_${i}`).innerHTML = blue2Array[i]; //Display blue2 teams onto the table
+            blue3Array.splice(i, null, sortedAndFilteredMatches[i].alliances.blue.team_keys[2].slice(3)); //slice(3) slice out 'frc'
+            document.getElementById(`blue3_${i}`).innerHTML = blue3Array[i]; //Display blue3 teams onto the table
+        }
+
+        //This section looks for '2531' and change color
+        for (let i = 0; i < redAllianceElements.length; i++) {
+            let currentRedAllianceValue = redAllianceElements[i].innerHTML;
+            // Check if the current element's value is '2531'
+            if (currentRedAllianceValue === '2531') {
+                redAllianceElements[i].style.backgroundColor = 'yellow';
+                redAllianceElements[i].style.color = 'purple';
+                let time = redAllianceElements[i].id.slice(5);
+                document.getElementById(`timeElement_${time}`).style.backgroundColor = 'purple';
+                document.getElementById(`timeElement_${time}`).style.color = 'yellow';
+                    //Check if match won
+                    if(sortedAndFilteredMatches[time].winning_alliance == 'red') {
+                        document.getElementById(`timeElement_${time}`).innerHTML = 'Won';
+                    }else if (sortedAndFilteredMatches[time].winning_alliance == 'blue') {
+                        document.getElementById(`timeElement_${time}`).innerHTML = 'Lost';
+                    }
+            }
+        }
+        for (let i = 0; i < redAllianceElements.length; i++) {
+            let currentBlueAllianceValue = blueAllianceElements[i].innerHTML;
+
+            // Check if the current element's value is '2531'
+            if (currentBlueAllianceValue === '2531') {
+                blueAllianceElements[i].style.backgroundColor = 'yellow';
+                blueAllianceElements[i].style.color = 'purple';
+                let time = blueAllianceElements[i].id.slice(6);
+                console.log(time);
+                document.getElementById(`timeElement_${time}`).style.backgroundColor = 'purple';
+                document.getElementById(`timeElement_${time}`).style.color = 'yellow';
+                    //Check if match won
+                    if(sortedAndFilteredMatches[time].winning_alliance == 'blue') {
+                        document.getElementById(`timeElement_${time}`).innerHTML = 'Won';
+                    }else if (sortedAndFilteredMatches[time].winning_alliance == 'red') {
+                        document.getElementById(`timeElement_${time}`).innerHTML = 'Lost';
+                    }
+            }
         }
     })
     .catch(error => {
         console.error('Error fetching data:', error);
     });
-
-
-
 
 updateButton.addEventListener("click", function() {
 
@@ -137,15 +169,4 @@ const convertTimestampToRealTime = (timestamp) => {
     return `${hours}:${minutes}:${seconds}`;
   };
 
-
-function resetInputFields() {
-    timeInput.value = "";
-    matchInput.value = "";
-    red1Input.value = "";
-    red2Input.value = "";
-    red3Input.value = "";
-    blue1Input.value = "";
-    blue2Input.value = "";
-    blue3Input.value = "";
-}
 });

@@ -23,10 +23,15 @@ document.addEventListener("DOMContentLoaded", function() {
     .then(response => response.json())
     .then(data => {
         console.log(data);
-        let sortedMatches = data.sort((a, b) => a.match_number - b.match_number);
 
-        // Now 'sortedMatches' contains the match information in the order of 'match_number'
+        // 'sortedMatches' contains the match information in the order of 'match_number'
+        let sortedMatches = data.sort((a, b) => a.match_number - b.match_number);
         console.log(sortedMatches);
+
+        let sortedAndFilteredMatches = data
+            .filter(match => match.comp_level === 'qm') // Filter by comp_level 'qm'
+            .sort((a, b) => a.match_number - b.match_number); // Sort by match_number
+        console.log(sortedAndFilteredMatches);
     })
     .catch(error => {
         // Handle errors
