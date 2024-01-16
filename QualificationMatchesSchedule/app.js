@@ -74,7 +74,7 @@ fetch(url, {
             </td>
             </tr>`;
         }
-        //This section retrieves predicted_time from Blue Alliance one by one and store into timeArray.
+        //This section retrieves predicted_time from Blue Alliance one by one and stores it into timeArray.
         for (let i = 0; i < sortedAndFilteredMatches.length; i++) {
             //format: array.splice(index, how_many, item_1, ..., item_n)
             timeArray.splice(i, null, sortedAndFilteredMatches[i].predicted_time);
@@ -88,14 +88,14 @@ fetch(url, {
             document.getElementById(`timeElement_${i}`).innerHTML = real_time[i]; //Display real_time onto the table
         }
 
-        //This section retrieves match_number from Blue Alliance one by one and store into matchArray.
+        //This section retrieves match_number from Blue Alliance one by one and stores it into matchArray.
         for (let i = 0; i < sortedAndFilteredMatches.length; i++) {
             //format: array.splice(index, how_many, item_1, ..., item_n)
             matchArray.splice(i, null, sortedAndFilteredMatches[i].match_number);
             document.getElementById(`matchElement_${i}`).innerHTML = matchArray[i]; //Display match_number onto the table
         }
 
-        //This section retrieves teams from Blue Alliance one by one and store into red1Array.
+        //This section retrieves teams from Blue Alliance one by one and stores them into red1Array.
         for (let i = 0; i < sortedAndFilteredMatches.length; i++) {
             //format: array.splice(index, how_many, item_1, ..., item_n)
             red1Array.splice(i, null, sortedAndFilteredMatches[i].alliances.red.team_keys[0].slice(3)); //slice(3) slice out 'frc'
@@ -113,7 +113,7 @@ fetch(url, {
             document.getElementById(`blue3_${i}`).innerHTML = blue3Array[i]; //Display blue3 teams onto the table
         }
 
-        //This section looks for '2531' and change color
+        //This section looks for '2531' and changes color
         for (let i = 0; i < redAllianceElements.length; i++) {
             let currentRedAllianceValue = redAllianceElements[i].innerHTML;
             // Check if the current element's value is '2531'
