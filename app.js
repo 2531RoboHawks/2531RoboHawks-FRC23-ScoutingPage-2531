@@ -1,4 +1,7 @@
 //**By wrapping the code inside the DOMContentLoaded event listener, you ensure that the code will only run when the DOM is ready.
+// //(import *) lets you import everything from that file
+// import * as teamDatabase from "../firebase.js";
+
 document.addEventListener("DOMContentLoaded", function() {
     const apiKey = 'HuPfMnMdd2A5uh6fVPjVmvycXADyZYWdArPFxaj3UsdVxsQZdqC31ST3bcIhinx0';
     const baseUrl = 'https://www.thebluealliance.com/api/v3'; // Adjust the base URL based on the TBA API version

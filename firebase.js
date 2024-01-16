@@ -1,6 +1,5 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
-//initializeApp(): *one-time-use*, to initialize our app with app settings *app settings are set on firebase*
 
 // Follow this pattern to import other Firebase services
     // import {} from "https://www.gstatic.com/firebasejs/${FIREBASE_VERSION}/firebase-analytics.js";
@@ -38,48 +37,3 @@ const database = getDatabase(app); //Realtime-database
 export const memberUser = ref(database, "authentication/member/user");
 export const memberPass = ref(database, "authentication/member/pass");
 
-// Database for Qualification Matches Schedule
-export const qualTable = ref(database, "qualSchedule");
-export const qualRow = ref(database, "qualSchedule/Row");
-export const qualTime = ref(database, "qualSchedule/Time");
-export const qualMatch = ref(database, "qualSchedule/Match");
-export const qualRed1 = ref(database, "qualSchedule/Red1");
-export const qualRed2 = ref(database, "qualSchedule/Red2");
-export const qualRed3 = ref(database, "qualSchedule/Red3");
-export const qualBlue1 = ref(database, "qualSchedule/Blue1");
-export const qualBlue2 = ref(database, "qualSchedule/Blue2");
-export const qualBlue3 = ref(database, "qualSchedule/Blue3");
-
-// Database for Practice Match Schedule
-export const pracTable = ref(database, "pracSchedule");
-export const pracRow = ref(database, "pracSchedule/Row");
-export const pracTime = ref(database, "pracSchedule/Time");
-export const pracMatch = ref(database, "pracSchedule/Match");
-export const pracRed1 = ref(database, "pracSchedule/Red1");
-export const pracRed2 = ref(database, "pracSchedule/Red2");
-export const pracRed3 = ref(database, "pracSchedule/Red3");
-export const pracBlue1 = ref(database, "pracSchedule/Blue1");
-export const pracBlue2 = ref(database, "pracSchedule/Blue2");
-export const pracBlue3 = ref(database, "pracSchedule/Blue3");
-
-// Database for Instand Scouting Data
-export const team_instand = ref(database, `instandScouting/${null}`);
-export const matchNum_instand = ref(database, `instandScouting/${null}/teamInfo/matchNum`);
-export const teamNum_instand = ref(database, `instandScouting/${null}/teamInfo/teamNum`);
-export const alliance_instand = ref(database, `instandScouting/${null}/teamInfo/alliance`);
-export const highCones_Auto_instand = ref(database, `instandScouting/${null}/autoData/high/Cones`);
-export const highCubes_Auto_instand = ref(database, `instandScouting/${null}/autoData/high/Cubes`);
-export const midCones_Auto_instand = ref(database, `instandScouting/${null}/autoData/mid/Cones`);
-export const midCubes_Auto_instand = ref(database, `instandScouting/${null}/autoData/mid/Cubes`);
-export const lowCones_Auto_instand = ref(database, `instandScouting/${null}/autoData/low/Cones`);
-export const lowCubes_Auto_instand = ref(database, `instandScouting/${null}/autoData/low/Cubes`);
-export const chargingStation_Auto_instand = ref(database, `instandScouting/${null}/autoData/chargingStation`);
-export const highCones_Teleop_instand = ref(database, `instandScouting/${null}/teleopData/high/Cones`);
-export const highCubes_Teleop_instand = ref(database, `instandScouting/${null}/teleopData/high/Cubes`);
-export const midCones_Teleop_instand = ref(database, `instandScouting/${null}/teleopData/mid/Cones`);
-export const midCubes_Teleop_instand = ref(database, `instandScouting/${null}/teleopData/mid/Cubes`);
-export const lowCones_Teleop_instand = ref(database, `instandScouting/${null}/teleopData/low/Cones`);
-export const lowCubes_Teleop_instand = ref(database, `instandScouting/${null}/teleopData/low/Cubes`);
-export const chargingStation_Teleop_instand = ref(database, `instandScouting/${null}/teleopData/chargingStation`);
-export const matchResult_instand = ref(database, `instandScouting/${null}/matchResult`);
-export const comments_instand = ref(database, `instandScouting/${null}/comments`);
