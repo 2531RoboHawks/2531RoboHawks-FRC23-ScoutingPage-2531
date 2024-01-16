@@ -128,6 +128,7 @@ fetch(url, {
                         document.getElementById(`timeElement_${time}`).innerHTML = 'Won';
                     }else if (sortedAndFilteredMatches[time].winning_alliance == 'blue') {
                         document.getElementById(`timeElement_${time}`).innerHTML = 'Lost';
+                        document.getElementById(`timeElement_${time}`).style.backgroundColor = 'gray';
                     }
             }
         }
@@ -147,6 +148,7 @@ fetch(url, {
                         document.getElementById(`timeElement_${time}`).innerHTML = 'Won';
                     }else if (sortedAndFilteredMatches[time].winning_alliance == 'red') {
                         document.getElementById(`timeElement_${time}`).innerHTML = 'Lost';
+                        document.getElementById(`timeElement_${time}`).style.backgroundColor = 'gray';
                     }
             }
         }

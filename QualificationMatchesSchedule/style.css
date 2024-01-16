@@ -84,7 +84,7 @@ th, td {
 
 table {
     border:3px solid white;
-    min-width: 400px;
+    min-width: 350px;
     max-width: 1000px;
     width: 90%;
     border-collapse: collapse;
