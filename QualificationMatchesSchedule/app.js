@@ -75,9 +75,6 @@ fetch(url, {
             tbody.innerHTML += `<tr class="tr">
             <td class = "time" id="timeInput_${tr.length}">
             </td>
-            <td class = "video" id="video_${tr.length}>
-                <a id="link_${tr.length}" href="">link</a>
-            </td>
             <td class = "matchNumber" id="matchInput_${tr.length}" >
             </td>
             <td class = "redAlliance" id="red1_${tr.length}">
