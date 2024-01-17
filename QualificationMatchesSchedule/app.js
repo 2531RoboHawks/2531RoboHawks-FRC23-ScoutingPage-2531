@@ -1,3 +1,17 @@
+//Firebase imports
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+import { getDatabase, ref, push, onValue, update, remove} from "https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js";
+
+const appSettings = {
+    databaseURL: "https://scoutingapp-e16c4-default-rtdb.firebaseio.com/"
+}
+
+// Initialize Firebase
+const app = initializeApp(appSettings);
+
+//Connects database to app
+const database = getDatabase(app); //Realtime-database
+
 //HTML elements
 const tbody = document.getElementById("tbody");
 const tr = document.getElementsByClassName("tr");
@@ -8,18 +22,19 @@ const blueAllianceElements = document.getElementsByClassName('blueAlliance');
 //Buttons
 const updateButton = document.getElementById("updateButton");
 
-//Make changes to corresponding regionals
-const year = `2023`;
-const event_key = `mndu`;
+//TODO: change these variables to the attending regional
+const year = `2023`; 
+const event_key = `mndu`; //Found on apiDoc - Blue Alliance
 
 //Variables for API
-const apiKey = 'HuPfMnMdd2A5uh6fVPjVmvycXADyZYWdArPFxaj3UsdVxsQZdqC31ST3bcIhinx0'; //TODO: hide API key
+const apiKey_Firebase = ref(database, "apiKey"); //Stored in Firebase
 const baseUrl = 'https://www.thebluealliance.com/api/v3'; // Adjust the base URL based on the TBA API version
 const path = `/event/${year}${event_key}/matches`;
 const url = `${baseUrl}${path}`;
 
 //Variables used within the data handler
 const timeArray = [];
+const actualTimeArray = [];
 const matchArray = [];
 const red1Array = [];
 const red2Array = [];
@@ -34,6 +49,12 @@ document.addEventListener("DOMContentLoaded", function() {
 //TODO: convert to actual time when available then change color --see HTML JavaScript w3schools
 //TODO: (optional) add hover effects --see firebase mobile app tutorial
 
+// updateButton.addEventListener("click", function() {
+// location.reload();
+
+onValue(apiKey_Firebase, function(snapshot) {
+    let apiKey = Object.values(snapshot.val()).join(''); //Get apiKey from firebase 
+    console.log(apiKey);
 
 // Make the API request for data
 fetch(url, {
@@ -74,28 +95,37 @@ fetch(url, {
             </td>
             </tr>`;
         }
-        //This section retrieves predicted_time from Blue Alliance one by one and stores it into timeArray.
+        //This portion retrieves predicted_time from Blue Alliance one by one and stores it into timeArray.
         for (let i = 0; i < sortedAndFilteredMatches.length; i++) {
             //format: array.splice(index, how_many, item_1, ..., item_n)
             timeArray.splice(i, null, sortedAndFilteredMatches[i].predicted_time);
+            actualTimeArray.splice(i, null, sortedAndFilteredMatches[i].actual_time);
         }
 
-        //Convert 'timeArray' into real times and store them into 'real_time' as an array.
-        let real_time = timeArray.map(convertTimestampToRealTime); 
-        console.log(real_time);
+        //Convert 'time' from Blue Alliance to 'real_time'.
+        let converted_predicted_time = timeArray.map(convertTimestampToRealTime); 
+        let converted_actual_time = actualTimeArray.map(convertTimestampToRealTime); 
+        console.log(converted_actual_time);
+        console.log(converted_predicted_time);
 
-        for (let i = 0; i < real_time.length; i++) {
-            document.getElementById(`timeElement_${i}`).innerHTML = real_time[i]; //Display real_time onto the table
+        for (let i = 0; i < sortedAndFilteredMatches.length; i++) {
+            if(actualTimeArray[i]) {
+                document.getElementById(`timeElement_${i}`).innerHTML = converted_actual_time[i]; //Display actual_time onto the table
+                document.getElementById(`timeElement_${i}`).style.backgroundColor = 'gray';
+                document.getElementById(`matchElement_${i}`).style.backgroundColor = 'gray';
+            }else {
+                document.getElementById(`timeElement_${i}`).innerHTML = converted_predicted_time[i]; //Display predicted_time onto the table
+            }
         }
 
-        //This section retrieves match_number from Blue Alliance one by one and stores it into matchArray.
+        //This portion retrieves match_number from Blue Alliance one by one and stores it into matchArray.
         for (let i = 0; i < sortedAndFilteredMatches.length; i++) {
             //format: array.splice(index, how_many, item_1, ..., item_n)
             matchArray.splice(i, null, sortedAndFilteredMatches[i].match_number);
             document.getElementById(`matchElement_${i}`).innerHTML = matchArray[i]; //Display match_number onto the table
         }
 
-        //This section retrieves teams from Blue Alliance one by one and stores them into red1Array.
+        //This portion retrieves teams from Blue Alliance one by one and stores them into red1Array.
         for (let i = 0; i < sortedAndFilteredMatches.length; i++) {
             //format: array.splice(index, how_many, item_1, ..., item_n)
             red1Array.splice(i, null, sortedAndFilteredMatches[i].alliances.red.team_keys[0].slice(3)); //slice(3) slice out 'frc'
@@ -113,22 +143,28 @@ fetch(url, {
             document.getElementById(`blue3_${i}`).innerHTML = blue3Array[i]; //Display blue3 teams onto the table
         }
 
-        //This section looks for '2531' and changes color
+        //This portion looks for '2531' and changes color
         for (let i = 0; i < redAllianceElements.length; i++) {
             let currentRedAllianceValue = redAllianceElements[i].innerHTML;
+
             // Check if the current element's value is '2531'
             if (currentRedAllianceValue === '2531') {
                 redAllianceElements[i].style.backgroundColor = 'yellow';
                 redAllianceElements[i].style.color = 'purple';
-                let time = redAllianceElements[i].id.slice(5);
+                let time = redAllianceElements[i].id.slice(5); //Get id and then slice 'red_n' to 'n'
                 document.getElementById(`timeElement_${time}`).style.backgroundColor = 'purple';
                 document.getElementById(`timeElement_${time}`).style.color = 'yellow';
                     //Check if match won
                     if(sortedAndFilteredMatches[time].winning_alliance == 'red') {
                         document.getElementById(`timeElement_${time}`).innerHTML = 'Won';
+                        document.getElementById(`timeElement_${time}`).style.backgroundColor = 'lime';
+                        document.getElementById(`timeElement_${time}`).style.color = 'mediumvioletred';
                     }else if (sortedAndFilteredMatches[time].winning_alliance == 'blue') {
                         document.getElementById(`timeElement_${time}`).innerHTML = 'Lost';
-                        document.getElementById(`timeElement_${time}`).style.backgroundColor = 'gray';
+                        document.getElementById(`timeElement_${time}`).style.backgroundColor = 'darkred';
+                    }else{
+                        document.getElementById(`timeElement_${time}`).innerHTML = 'Tie';
+                        document.getElementById(`timeElement_${time}`).style.backgroundColor = 'black';
                     }
             }
         }
@@ -139,27 +175,30 @@ fetch(url, {
             if (currentBlueAllianceValue === '2531') {
                 blueAllianceElements[i].style.backgroundColor = 'yellow';
                 blueAllianceElements[i].style.color = 'purple';
-                let time = blueAllianceElements[i].id.slice(6);
-                console.log(time);
+                let time = blueAllianceElements[i].id.slice(6); //Get id and then slice 'blue_n' to 'n'
                 document.getElementById(`timeElement_${time}`).style.backgroundColor = 'purple';
                 document.getElementById(`timeElement_${time}`).style.color = 'yellow';
                     //Check if match won
                     if(sortedAndFilteredMatches[time].winning_alliance == 'blue') {
                         document.getElementById(`timeElement_${time}`).innerHTML = 'Won';
+                        document.getElementById(`timeElement_${time}`).style.backgroundColor = 'lime';
+                        document.getElementById(`timeElement_${time}`).style.color = 'mediumvioletred';
                     }else if (sortedAndFilteredMatches[time].winning_alliance == 'red') {
                         document.getElementById(`timeElement_${time}`).innerHTML = 'Lost';
-                        document.getElementById(`timeElement_${time}`).style.backgroundColor = 'gray';
+                        document.getElementById(`timeElement_${time}`).style.backgroundColor = 'darkred';
+                    }else{
+                        document.getElementById(`timeElement_${time}`).innerHTML = 'Tie';
+                        document.getElementById(`timeElement_${time}`).style.backgroundColor = 'black';
                     }
             }
         }
+
     })
     .catch(error => {
         console.error('Error fetching data:', error);
     });
-
-updateButton.addEventListener("click", function() {
-
 });
+// });
 
 
 // Function to convert a timestamp to a formatted date
