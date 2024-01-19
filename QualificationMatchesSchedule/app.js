@@ -154,6 +154,8 @@ fetch(url, {
                 let time = redAllianceElements[i].id.slice(5); //Get id and then slice 'red_n' to 'n'
                 document.getElementById(`timeElement_${time}`).style.backgroundColor = 'purple';
                 document.getElementById(`timeElement_${time}`).style.color = 'yellow';
+                document.getElementById(`matchElement_${time}`).style.backgroundColor = 'purple';
+                document.getElementById(`matchElement_${time}`).style.color = 'yellow';
                     //Check if match won
                     if(sortedAndFilteredMatches[time].winning_alliance == 'red') {
                         document.getElementById(`timeElement_${time}`).innerHTML = 'Won';
@@ -178,6 +180,8 @@ fetch(url, {
                 let time = blueAllianceElements[i].id.slice(6); //Get id and then slice 'blue_n' to 'n'
                 document.getElementById(`timeElement_${time}`).style.backgroundColor = 'purple';
                 document.getElementById(`timeElement_${time}`).style.color = 'yellow';
+                document.getElementById(`matchElement_${time}`).style.backgroundColor = 'purple';
+                document.getElementById(`matchElement_${time}`).style.color = 'yellow';
                     //Check if match won
                     if(sortedAndFilteredMatches[time].winning_alliance == 'blue') {
                         document.getElementById(`timeElement_${time}`).innerHTML = 'Won';
