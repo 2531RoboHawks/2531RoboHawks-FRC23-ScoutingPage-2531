@@ -161,12 +161,18 @@ fetch(url, {
                         document.getElementById(`timeElement_${time}`).innerHTML = 'Won';
                         document.getElementById(`timeElement_${time}`).style.backgroundColor = 'lime';
                         document.getElementById(`timeElement_${time}`).style.color = 'mediumvioletred';
+                        document.getElementById(`matchElement_${time}`).style.backgroundColor = 'gray';
+                        document.getElementById(`matchElement_${time}`).style.color = 'purple';
                     }else if (sortedAndFilteredMatches[time].winning_alliance == 'blue') {
                         document.getElementById(`timeElement_${time}`).innerHTML = 'Lost';
                         document.getElementById(`timeElement_${time}`).style.backgroundColor = 'darkred';
+                        document.getElementById(`matchElement_${time}`).style.backgroundColor = 'gray';
+                        document.getElementById(`matchElement_${time}`).style.color = 'purple';
                     }else{
                         document.getElementById(`timeElement_${time}`).innerHTML = 'Tie';
                         document.getElementById(`timeElement_${time}`).style.backgroundColor = 'black';
+                        document.getElementById(`matchElement_${time}`).style.backgroundColor = 'gray';
+                        document.getElementById(`matchElement_${time}`).style.color = 'purple';
                     }
             }
         }
@@ -187,12 +193,18 @@ fetch(url, {
                         document.getElementById(`timeElement_${time}`).innerHTML = 'Won';
                         document.getElementById(`timeElement_${time}`).style.backgroundColor = 'lime';
                         document.getElementById(`timeElement_${time}`).style.color = 'mediumvioletred';
+                        document.getElementById(`matchElement_${time}`).style.backgroundColor = 'gray';
+                        document.getElementById(`matchElement_${time}`).style.color = 'purple';
                     }else if (sortedAndFilteredMatches[time].winning_alliance == 'red') {
                         document.getElementById(`timeElement_${time}`).innerHTML = 'Lost';
                         document.getElementById(`timeElement_${time}`).style.backgroundColor = 'darkred';
+                        document.getElementById(`matchElement_${time}`).style.backgroundColor = 'gray';
+                        document.getElementById(`matchElement_${time}`).style.color = 'purple';
                     }else{
                         document.getElementById(`timeElement_${time}`).innerHTML = 'Tie';
                         document.getElementById(`timeElement_${time}`).style.backgroundColor = 'black';
+                        document.getElementById(`matchElement_${time}`).style.backgroundColor = 'gray';
+                        document.getElementById(`matchElement_${time}`).style.color = 'purple';
                     }
             }
         }
