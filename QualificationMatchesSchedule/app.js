@@ -18,10 +18,6 @@ const tr = document.getElementsByClassName("tr");
 const redAllianceElements = document.getElementsByClassName('redAlliance');
 const blueAllianceElements = document.getElementsByClassName('blueAlliance');
 
-
-//Buttons
-const updateButton = document.getElementById("updateButton");
-
 //TODO: change these variables to the attending regional
 const year = `2023`; 
 const event_key = `mndu`; //Found on apiDoc - Blue Alliance
@@ -43,18 +39,18 @@ const blue1Array = [];
 const blue2Array = [];
 const blue3Array = [];
 
+const scheduledUpdateTime = [
+    '9:10','9:20','9:30','9:40','9:50',
+    '17:05'
+]
+
+//TODO: update array to firebase in scheduled time.
+
 //**By wrapping the code inside the DOMContentLoaded event listener, you ensure that the code will only run when the DOM is ready.
 document.addEventListener("DOMContentLoaded", function() {
-//TODO: hide API Keys
-//TODO: convert to actual time when available then change color --see HTML JavaScript w3schools
-//TODO: (optional) add hover effects --see firebase mobile app tutorial
-
-// updateButton.addEventListener("click", function() {
-// location.reload();
 
 onValue(apiKey_Firebase, function(snapshot) {
-    let apiKey = Object.values(snapshot.val()).join(''); //Get apiKey from firebase 
-    console.log(apiKey);
+    let apiKey = Object.values(snapshot.val()).join(''); //Get apiKey from firebase
 
 // Make the API request for data
 fetch(url, {
@@ -67,12 +63,17 @@ fetch(url, {
 
     //Most codes are written in this function because this is the only place that can access data.
     .then(data => { // Handle the data from the API response
+        const currentTime = convertCurrentTimeStamp(Date.now());
+        console.log(currentTime);
+    
 
         //This variable contains filtered and sorted data.
         let sortedAndFilteredMatches = data
             .filter(match => match.comp_level === 'qm') // Filter by comp_level 'qm'
             .sort((a, b) => a.match_number - b.match_number); // Sort by match_number
-        console.log(sortedAndFilteredMatches);
+        saveArrayToLocalStorage('localSchedule', sortedAndFilteredMatches);
+        const localSchedule = getArrayFromLocalStorage('localSchedule');
+        console.log(localSchedule);
 
         //Creates rows according to the amount of displayed data
         for (let i = 0; i < sortedAndFilteredMatches.length; i++) {
@@ -103,8 +104,8 @@ fetch(url, {
         }
 
         //Convert 'time' from Blue Alliance to 'real_time'.
-        let converted_predicted_time = timeArray.map(convertTimestampToRealTime); 
-        let converted_actual_time = actualTimeArray.map(convertTimestampToRealTime); 
+        let converted_predicted_time = timeArray.map(convertFRCTimestamps); 
+        let converted_actual_time = actualTimeArray.map(convertFRCTimestamps); 
         console.log(converted_actual_time);
         console.log(converted_predicted_time);
 
@@ -213,17 +214,36 @@ fetch(url, {
     .catch(error => {
         console.error('Error fetching data:', error);
     });
+
+
+    //Function to save array to local storage
+    function saveArrayToLocalStorage(arrayName, array) {
+        localStorage.setItem(arrayName, JSON.stringify(array)); //JSON.stringify() converts the array to a string format
+    }
+
+    //Function to retrieve array from local storage
+    function getArrayFromLocalStorage(arrayName) {
+        const storedArray = localStorage.getItem(arrayName);
+        return storedArray ? JSON.parse(storedArray) : null;
+}
+
+
+    //Converts Date.now() to hour:min
+    const convertCurrentTimeStamp = (timestamp) => {
+        const currentDate = new Date(timestamp); 
+        const hours = currentDate.getHours();
+        const minutes = currentDate.getMinutes();
+        const seconds = currentDate.getSeconds();
+        return `${hours}:${minutes}`;
+    };
+
+    //Converts FRC timestamps to hour:min
+    const convertFRCTimestamps = (timestamp) => {
+        const date = new Date(timestamp * 1000); // Multiply by 1000 to convert from seconds to milliseconds
+        const hours = date.getHours().toString().padStart(2, '0');
+        const minutes = date.getMinutes().toString().padStart(2, '0');
+        const seconds = date.getSeconds().toString().padStart(2, '0');
+        return `${hours}:${minutes}`;
+    };
 });
-// });
-
-
-// Function to convert a timestamp to a formatted date
-const convertTimestampToRealTime = (timestamp) => {
-    const date = new Date(timestamp * 1000); // Multiply by 1000 to convert from seconds to milliseconds
-    const hours = date.getHours().toString().padStart(2, '0');
-    const minutes = date.getMinutes().toString().padStart(2, '0');
-    const seconds = date.getSeconds().toString().padStart(2, '0');
-    return `${hours}:${minutes}`;
-  };
-
 });
