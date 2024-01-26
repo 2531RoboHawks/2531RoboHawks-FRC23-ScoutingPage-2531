@@ -2,6 +2,9 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
 import { getDatabase, ref, push, onValue, update, remove} from "https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js";
 
+//**By wrapping the code inside the DOMContentLoaded event listener, you ensure that the code will only run when the DOM is ready.
+document.addEventListener("DOMContentLoaded", function() {
+
 const appSettings = {
     databaseURL: "https://scoutingapp-e16c4-default-rtdb.firebaseio.com/"
 }
@@ -11,6 +14,7 @@ const app = initializeApp(appSettings);
 
 //Connects database to app
 const database = getDatabase(app); //Realtime-database
+const qualSchedule = ref(database, 'qualSchedule');
 
 //HTML elements
 const tbody = document.getElementById("tbody");
@@ -46,8 +50,6 @@ const scheduledUpdateTime = [
 
 //TODO: update array to firebase in scheduled time.
 
-//**By wrapping the code inside the DOMContentLoaded event listener, you ensure that the code will only run when the DOM is ready.
-document.addEventListener("DOMContentLoaded", function() {
 
 onValue(apiKey_Firebase, function(snapshot) {
     let apiKey = Object.values(snapshot.val()).join(''); //Get apiKey from firebase
@@ -74,6 +76,7 @@ fetch(url, {
         saveArrayToLocalStorage('localSchedule', sortedAndFilteredMatches);
         const localSchedule = getArrayFromLocalStorage('localSchedule');
         console.log(localSchedule);
+        push(qualSchedule, sortedAndFilteredMatches)
 
         //Creates rows according to the amount of displayed data
         for (let i = 0; i < sortedAndFilteredMatches.length; i++) {
