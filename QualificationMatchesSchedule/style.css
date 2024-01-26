@@ -86,7 +86,7 @@ table {
     border:3px solid white;
     min-width: 350px;
     max-width: 1000px;
-    width: 90%;
+    width: 95%;
     border-collapse: collapse;
     table-layout: fixed;
     margin-left: auto;
@@ -94,13 +94,6 @@ table {
 }
 
 .time {
-    background-color: gold;
-    color: purple;
-    font-weight: 550;
-    /* width: 15%; */
-}
-
-.video {
     background-color: gold;
     color: purple;
     font-weight: 550;
