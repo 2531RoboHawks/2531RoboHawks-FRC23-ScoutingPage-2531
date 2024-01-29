@@ -1,6 +1,6 @@
 //Firebase imports
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
-import { getDatabase, ref, push, onValue, update, remove} from "https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js";
+import { getDatabase, ref, push, onValue, update, get, set, remove} from "https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js";
 
 //**By wrapping the code inside the DOMContentLoaded event listener, you ensure that the code will only run when the DOM is ready.
 document.addEventListener("DOMContentLoaded", function() {
@@ -15,7 +15,6 @@ const app = initializeApp(appSettings);
 //Connects database to app
 const database = getDatabase(app); //Realtime-database
 const qualSchedule = ref(database, 'qualSchedule');
-const qualData = ref(database, 'qualSchedule')
 
 //HTML elements
 const tbody = document.getElementById("tbody");
@@ -51,36 +50,38 @@ const blue3Array = [];
 onValue(apiKey_Firebase, function(snapshot) {
     let apiKey = Object.values(snapshot.val()).join(''); //Get apiKey from firebase
 
-// Make the API request for data
-fetch(url, {
-    method: 'GET',
-    headers: {
-        'X-TBA-Auth-Key': apiKey,
-    },
-    })
-    .then(response => response.json())
-    //Most codes are written in this function because this is the only place that can access data.
-    .then(data => { // Handle the data from the API response
-        const currentTime = convertCurrentTimeStamp(Date.now());
-        console.log(currentTime);
-    
-        //This variable contains filtered and sorted data.
-        let sortedAndFilteredMatches = data
-            .filter(match => match.comp_level === 'qm') // Filter by comp_level 'qm'
-            .sort((a, b) => a.match_number - b.match_number); // Sort by match_number
-        saveArrayToLocalStorage('localSchedule', sortedAndFilteredMatches);
-        const localSchedule = getArrayFromLocalStorage('localSchedule');
-        console.log(localSchedule);
-        push(qualSchedule, sortedAndFilteredMatches);
-    })
-    .catch(error => {
-        console.error('Error fetching data:', error);
-    });
+    // Make the API request for data
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            'X-TBA-Auth-Key': apiKey,
+        },
+        })
+        .then(response => response.json())
+        //Most codes are written in this function because this is the only place that can access data.
+        .then(data => { // Handle the data from the API response
+            const currentTime = convertCurrentTimeStamp(Date.now());
+            console.log(currentTime); 
+        
+            //This variable contains filtered and sorted data.
+            let sortedAndFilteredMatches = data
+                .filter(match => match.comp_level === 'qm') // Filter by comp_level 'qm'
+                .sort((a, b) => a.match_number - b.match_number); // Sort by match_number
+                
+                remove(qualSchedule);
+                set(qualSchedule, sortedAndFilteredMatches);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+});
 
-    onValue(qualSchedule, function(snapshot) {
+onValue(qualSchedule, function(snapshot) {
+    let qualData_firebase = Object.values(snapshot.val());
+    console.log(qualData_firebase)
 
         //Creates rows according to the amount of displayed data
-        for (let i = 0; i < sortedAndFilteredMatches.length; i++) {
+        for (let i = 0; i < qualData_firebase.length; i++) {
             tbody.innerHTML += `<tr class="tr">
             <td class = "time" id="timeElement_${tr.length}">
             </td>
@@ -101,10 +102,10 @@ fetch(url, {
             </tr>`;
         }
         //This portion retrieves predicted_time from Blue Alliance one by one and stores it into timeArray.
-        for (let i = 0; i < sortedAndFilteredMatches.length; i++) {
+        for (let i = 0; i < qualData_firebase.length; i++) {
             //format: array.splice(index, how_many, item_1, ..., item_n)
-            timeArray.splice(i, null, sortedAndFilteredMatches[i].predicted_time);
-            actualTimeArray.splice(i, null, sortedAndFilteredMatches[i].actual_time);
+            timeArray.splice(i, null, qualData_firebase[i].predicted_time);
+            actualTimeArray.splice(i, null, qualData_firebase[i].actual_time);
         }
 
     //Convert 'time' from Blue Alliance to 'real_time'.
@@ -113,7 +114,7 @@ fetch(url, {
     console.log(converted_actual_time);
     console.log(converted_predicted_time);
 
-    for (let i = 0; i < sortedAndFilteredMatches.length; i++) {
+    for (let i = 0; i < qualData_firebase.length; i++) {
         if(actualTimeArray[i]) {
             document.getElementById(`timeElement_${i}`).innerHTML = converted_actual_time[i]; //Display actual_time onto the table
             document.getElementById(`timeElement_${i}`).style.backgroundColor = 'gray';
@@ -124,27 +125,27 @@ fetch(url, {
     }
 
     //This portion retrieves match_number from Blue Alliance one by one and stores it into matchArray.
-    for (let i = 0; i < sortedAndFilteredMatches.length; i++) {
+    for (let i = 0; i < qualData_firebase.length; i++) {
         //format: array.splice(index, how_many, item_1, ..., item_n)
-        matchArray.splice(i, null, sortedAndFilteredMatches[i].match_number);
+        matchArray.splice(i, null, qualData_firebase[i].match_number);
         document.getElementById(`matchElement_${i}`).innerHTML = matchArray[i]; //Display match_number onto the table
     }
 
     //This portion retrieves teams from Blue Alliance one by one and stores them into red1Array.
-    for (let i = 0; i < sortedAndFilteredMatches.length; i++) {
+    for (let i = 0; i < qualData_firebase.length; i++) {
         //format: array.splice(index, how_many, item_1, ..., item_n)
-        red1Array.splice(i, null, sortedAndFilteredMatches[i].alliances.red.team_keys[0].slice(3)); //slice(3) slice out 'frc'
+        red1Array.splice(i, null, qualData_firebase[i].alliances.red.team_keys[0].slice(3)); //slice(3) slice out 'frc'
         document.getElementById(`red1_${i}`).innerHTML = red1Array[i]; //Display red1 teams onto the table
-        red2Array.splice(i, null, sortedAndFilteredMatches[i].alliances.red.team_keys[1].slice(3)); //slice(3) slice out 'frc'
+        red2Array.splice(i, null, qualData_firebase[i].alliances.red.team_keys[1].slice(3)); //slice(3) slice out 'frc'
         document.getElementById(`red2_${i}`).innerHTML = red2Array[i]; //Display red2 teams onto the table
-        red3Array.splice(i, null, sortedAndFilteredMatches[i].alliances.red.team_keys[2].slice(3)); //slice(3) slice out 'frc'
+        red3Array.splice(i, null, qualData_firebase[i].alliances.red.team_keys[2].slice(3)); //slice(3) slice out 'frc'
         document.getElementById(`red3_${i}`).innerHTML = red3Array[i]; //Display red3 teams onto the table
 
-        blue1Array.splice(i, null, sortedAndFilteredMatches[i].alliances.blue.team_keys[0].slice(3)); //slice(3) slice out 'frc'
+        blue1Array.splice(i, null, qualData_firebase[i].alliances.blue.team_keys[0].slice(3)); //slice(3) slice out 'frc'
         document.getElementById(`blue1_${i}`).innerHTML = blue1Array[i]; //Display blue1 teams onto the table
-        blue2Array.splice(i, null, sortedAndFilteredMatches[i].alliances.blue.team_keys[1].slice(3)); //slice(3) slice out 'frc'
+        blue2Array.splice(i, null, qualData_firebase[i].alliances.blue.team_keys[1].slice(3)); //slice(3) slice out 'frc'
         document.getElementById(`blue2_${i}`).innerHTML = blue2Array[i]; //Display blue2 teams onto the table
-        blue3Array.splice(i, null, sortedAndFilteredMatches[i].alliances.blue.team_keys[2].slice(3)); //slice(3) slice out 'frc'
+        blue3Array.splice(i, null, qualData_firebase[i].alliances.blue.team_keys[2].slice(3)); //slice(3) slice out 'frc'
         document.getElementById(`blue3_${i}`).innerHTML = blue3Array[i]; //Display blue3 teams onto the table
     }
 
@@ -162,13 +163,13 @@ fetch(url, {
             document.getElementById(`matchElement_${time}`).style.backgroundColor = 'purple';
             document.getElementById(`matchElement_${time}`).style.color = 'yellow';
                 //Check if match won
-                if(sortedAndFilteredMatches[time].winning_alliance == 'red') {
+                if(qualData_firebase[time].winning_alliance == 'red') {
                     document.getElementById(`timeElement_${time}`).innerHTML = 'Won';
                     document.getElementById(`timeElement_${time}`).style.backgroundColor = 'lime';
                     document.getElementById(`timeElement_${time}`).style.color = 'mediumvioletred';
                     document.getElementById(`matchElement_${time}`).style.backgroundColor = 'gray';
                     document.getElementById(`matchElement_${time}`).style.color = 'purple';
-                }else if (sortedAndFilteredMatches[time].winning_alliance == 'blue') {
+                }else if (qualData_firebase[time].winning_alliance == 'blue') {
                     document.getElementById(`timeElement_${time}`).innerHTML = 'Lost';
                     document.getElementById(`timeElement_${time}`).style.backgroundColor = 'darkred';
                     document.getElementById(`matchElement_${time}`).style.backgroundColor = 'gray';
@@ -194,13 +195,13 @@ fetch(url, {
             document.getElementById(`matchElement_${time}`).style.backgroundColor = 'purple';
             document.getElementById(`matchElement_${time}`).style.color = 'yellow';
                 //Check if match won
-                if(sortedAndFilteredMatches[time].winning_alliance == 'blue') {
+                if(qualData_firebase[time].winning_alliance == 'blue') {
                     document.getElementById(`timeElement_${time}`).innerHTML = 'Won';
                     document.getElementById(`timeElement_${time}`).style.backgroundColor = 'lime';
                     document.getElementById(`timeElement_${time}`).style.color = 'mediumvioletred';
                     document.getElementById(`matchElement_${time}`).style.backgroundColor = 'gray';
                     document.getElementById(`matchElement_${time}`).style.color = 'purple';
-                }else if (sortedAndFilteredMatches[time].winning_alliance == 'red') {
+                }else if (qualData_firebase[time].winning_alliance == 'red') {
                     document.getElementById(`timeElement_${time}`).innerHTML = 'Lost';
                     document.getElementById(`timeElement_${time}`).style.backgroundColor = 'darkred';
                     document.getElementById(`matchElement_${time}`).style.backgroundColor = 'gray';
@@ -214,18 +215,6 @@ fetch(url, {
         }
     }
 });
-
-    //Function to save array to local storage
-    function saveArrayToLocalStorage(arrayName, array) {
-        localStorage.setItem(arrayName, JSON.stringify(array)); //JSON.stringify() converts the array to a string format
-}
-
-    //Function to retrieve array from local storage
-    function getArrayFromLocalStorage(arrayName) {
-        const storedArray = localStorage.getItem(arrayName);
-        return storedArray ? JSON.parse(storedArray) : null;
-}
-
 
     //Converts Date.now() to hour:min
     const convertCurrentTimeStamp = (timestamp) => {
@@ -244,5 +233,4 @@ fetch(url, {
         const seconds = date.getSeconds().toString().padStart(2, '0');
         return `${hours}:${minutes}`;
 };
-});
 });
