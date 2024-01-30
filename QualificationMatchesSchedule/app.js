@@ -1,6 +1,6 @@
 //Firebase imports
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
-import { getDatabase, ref, push, onValue, update, get, set, remove} from "https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js";
+import { getDatabase, ref, push, onValue, update, set, remove} from "https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js";
 
 //**By wrapping the code inside the DOMContentLoaded event listener, you ensure that the code will only run when the DOM is ready.
 document.addEventListener("DOMContentLoaded", function() {
@@ -14,7 +14,9 @@ const app = initializeApp(appSettings);
 
 //Connects database to app
 const database = getDatabase(app); //Realtime-database
-const qualSchedule = ref(database, 'qualSchedule');
+const qualSchedule = ref(database, 'qualSchedule/qualMatches');
+const lastUpdate = ref(database, 'qualSchedule/lastUpdate');
+const convertedLastUpdate = ref(database, "qualSchedule/convertedLastUpdate");
 
 //HTML elements
 const tbody = document.getElementById("tbody");
@@ -33,7 +35,7 @@ const path = `/event/${year}${event_key}/matches`;
 const url = `${baseUrl}${path}`;
 
 //Variables used within the data handler
-const timeArray = [];
+const predictedTimeArray = [];
 const actualTimeArray = [];
 const matchArray = [];
 const red1Array = [];
@@ -61,15 +63,19 @@ onValue(apiKey_Firebase, function(snapshot) {
         //Most codes are written in this function because this is the only place that can access data.
         .then(data => { // Handle the data from the API response
             const currentTime = convertCurrentTimeStamp(Date.now());
-            console.log(currentTime); 
+            console.log(currentTime);
+            set(lastUpdate, Date.now());
+            set(convertedLastUpdate, currentTime);
         
             //This variable contains filtered and sorted data.
             let sortedAndFilteredMatches = data
                 .filter(match => match.comp_level === 'qm') // Filter by comp_level 'qm'
                 .sort((a, b) => a.match_number - b.match_number); // Sort by match_number
                 
-                remove(qualSchedule);
+                // remove(qualSchedule);
                 set(qualSchedule, sortedAndFilteredMatches);
+            
+            
         })
         .catch(error => {
             console.error(error);
@@ -104,15 +110,16 @@ onValue(qualSchedule, function(snapshot) {
         //This portion retrieves predicted_time from Blue Alliance one by one and stores it into timeArray.
         for (let i = 0; i < qualData_firebase.length; i++) {
             //format: array.splice(index, how_many, item_1, ..., item_n)
-            timeArray.splice(i, null, qualData_firebase[i].predicted_time);
+            predictedTimeArray.splice(i, null, qualData_firebase[i].predicted_time);
             actualTimeArray.splice(i, null, qualData_firebase[i].actual_time);
         }
 
     //Convert 'time' from Blue Alliance to 'real_time'.
-    let converted_predicted_time = timeArray.map(convertFRCTimestamps); 
+    let converted_predicted_time = predictedTimeArray.map(convertFRCTimestamps); 
     let converted_actual_time = actualTimeArray.map(convertFRCTimestamps); 
-    console.log(converted_actual_time);
-    console.log(converted_predicted_time);
+    console.log("predicted_time: " + converted_predicted_time);
+    console.log(predictedTimeArray[1] - predictedTimeArray[0]);
+    console.log("actual_time: " + converted_actual_time);
 
     for (let i = 0; i < qualData_firebase.length; i++) {
         if(actualTimeArray[i]) {
