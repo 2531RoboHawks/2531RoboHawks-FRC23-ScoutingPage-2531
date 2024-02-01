@@ -14,7 +14,11 @@ const app = initializeApp(appSettings);
 
 //Connects database to app
 const database = getDatabase(app); //Realtime-database
-const qualSchedule = ref(database, 'qualSchedule/qualMatches');
+
+//Firebase reference
+const apiKey_Firebase = ref(database, "apiKey"); //Stored in Firebase
+const qualSchedule = ref(database, 'qualSchedule');
+const matchesData = ref(database, 'qualSchedule/matchesData');
 const lastUpdate = ref(database, 'qualSchedule/lastUpdate');
 const convertedLastUpdate = ref(database, "qualSchedule/convertedLastUpdate");
 
@@ -29,7 +33,6 @@ const year = `2023`;
 const event_key = `mndu`; //Found on apiDoc - Blue Alliance
 
 //Variables for API
-const apiKey_Firebase = ref(database, "apiKey"); //Stored in Firebase
 const baseUrl = 'https://www.thebluealliance.com/api/v3'; // Adjust the base URL based on the TBA API version
 const path = `/event/${year}${event_key}/matches`;
 const url = `${baseUrl}${path}`;
@@ -51,6 +54,12 @@ const blue3Array = [];
 
 onValue(apiKey_Firebase, function(snapshot) {
     let apiKey = Object.values(snapshot.val()).join(''); //Get apiKey from firebase
+    console.log(apiKey);
+
+    const currentTime = convertCurrentTimeStamp(Date.now());
+    console.log(currentTime);
+    set(lastUpdate, Date.now());
+    set(convertedLastUpdate, currentTime);
 
     // Make the API request for data
     fetch(url, {
@@ -62,18 +71,13 @@ onValue(apiKey_Firebase, function(snapshot) {
         .then(response => response.json())
         //Most codes are written in this function because this is the only place that can access data.
         .then(data => { // Handle the data from the API response
-            const currentTime = convertCurrentTimeStamp(Date.now());
-            console.log(currentTime);
-            set(lastUpdate, Date.now());
-            set(convertedLastUpdate, currentTime);
         
             //This variable contains filtered and sorted data.
             let sortedAndFilteredMatches = data
                 .filter(match => match.comp_level === 'qm') // Filter by comp_level 'qm'
                 .sort((a, b) => a.match_number - b.match_number); // Sort by match_number
                 
-                // remove(qualSchedule);
-                set(qualSchedule, sortedAndFilteredMatches);
+                set(matchesData, sortedAndFilteredMatches);
             
             
         })
@@ -82,37 +86,37 @@ onValue(apiKey_Firebase, function(snapshot) {
         });
 });
 
-onValue(qualSchedule, function(snapshot) {
+onValue(matchesData, function(snapshot) {
     let qualData_firebase = Object.values(snapshot.val());
-    console.log(qualData_firebase)
+    console.log(qualData_firebase);
 
-        //Creates rows according to the amount of displayed data
-        for (let i = 0; i < qualData_firebase.length; i++) {
-            tbody.innerHTML += `<tr class="tr">
-            <td class = "time" id="timeElement_${tr.length}">
-            </td>
-            <td class = "matchNumber" id="matchElement_${tr.length}" >
-            </td>
-            <td class = "redAlliance" id="red1_${tr.length}">
-            </td>
-            <td class = "redAlliance" id="red2_${tr.length}">
-            </td>
-            <td class = "redAlliance" id="red3_${tr.length}">
-            </td>
-            <td class = "blueAlliance" id="blue1_${tr.length}">
-            </td>
-            <td class = "blueAlliance" id="blue2_${tr.length}">
-            </td>
-            <td class = "blueAlliance" id="blue3_${tr.length}">
-            </td>
-            </tr>`;
-        }
-        //This portion retrieves predicted_time from Blue Alliance one by one and stores it into timeArray.
-        for (let i = 0; i < qualData_firebase.length; i++) {
-            //format: array.splice(index, how_many, item_1, ..., item_n)
-            predictedTimeArray.splice(i, null, qualData_firebase[i].predicted_time);
-            actualTimeArray.splice(i, null, qualData_firebase[i].actual_time);
-        }
+    //Creates rows according to the amount of displayed data
+    for (let i = 0; i < qualData_firebase.length; i++) {
+        tbody.innerHTML += `<tr class="tr">
+        <td class = "time" id="timeElement_${tr.length}">
+        </td>
+        <td class = "matchNumber" id="matchElement_${tr.length}" >
+        </td>
+        <td class = "redAlliance" id="red1_${tr.length}">
+        </td>
+        <td class = "redAlliance" id="red2_${tr.length}">
+        </td>
+        <td class = "redAlliance" id="red3_${tr.length}">
+        </td>
+        <td class = "blueAlliance" id="blue1_${tr.length}">
+        </td>
+        <td class = "blueAlliance" id="blue2_${tr.length}">
+        </td>
+        <td class = "blueAlliance" id="blue3_${tr.length}">
+        </td>
+        </tr>`;
+    }
+    //This portion retrieves predicted_time from Blue Alliance one by one and stores it into timeArray.
+    for (let i = 0; i < qualData_firebase.length; i++) {
+        //format: array.splice(index, how_many, item_1, ..., item_n)
+        predictedTimeArray.splice(i, null, qualData_firebase[i].predicted_time);
+        actualTimeArray.splice(i, null, qualData_firebase[i].actual_time);
+    }
 
     //Convert 'time' from Blue Alliance to 'real_time'.
     let converted_predicted_time = predictedTimeArray.map(convertFRCTimestamps); 
@@ -227,7 +231,7 @@ onValue(qualSchedule, function(snapshot) {
     const convertCurrentTimeStamp = (timestamp) => {
         const currentDate = new Date(timestamp); 
         const hours = currentDate.getHours();
-        const minutes = currentDate.getMinutes();
+        const minutes = currentDate.getMinutes().toString().padStart(2, '0');
         const seconds = currentDate.getSeconds();
         return `${hours}:${minutes}`;
 };
@@ -235,7 +239,7 @@ onValue(qualSchedule, function(snapshot) {
     //Converts FRC timestamps to hour:min
     const convertFRCTimestamps = (timestamp) => {
         const date = new Date(timestamp * 1000); // Multiply by 1000 to convert from seconds to milliseconds
-        const hours = date.getHours().toString().padStart(2, '0');
+        const hours = date.getHours();
         const minutes = date.getMinutes().toString().padStart(2, '0');
         const seconds = date.getSeconds().toString().padStart(2, '0');
         return `${hours}:${minutes}`;
