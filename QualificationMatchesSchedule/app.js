@@ -1,6 +1,6 @@
 //Firebase imports
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
-import { getDatabase, ref, push, onValue, update, set, remove} from "https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js";
+import { getDatabase, ref, push, onValue, update, set, remove, child} from "https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js";
 
 //**By wrapping the code inside the DOMContentLoaded event listener, you ensure that the code will only run when the DOM is ready.
 document.addEventListener("DOMContentLoaded", function() {
@@ -23,14 +23,15 @@ const lastUpdate = ref(database, 'qualSchedule/lastUpdate');
 const convertedLastUpdate = ref(database, "qualSchedule/convertedLastUpdate");
 
 //HTML elements
+const updatedTime = document.getElementById("updatedTime");
 const tbody = document.getElementById("tbody");
 const tr = document.getElementsByClassName("tr");
 const redAllianceElements = document.getElementsByClassName('redAlliance');
 const blueAllianceElements = document.getElementsByClassName('blueAlliance');
 
 //TODO: change these variables to the attending regional
-const year = `2023`; 
-const event_key = `mndu`; //Found on apiDoc - Blue Alliance
+const year = `2023`; //yyyy
+const event_key = `mndu`; //Found on 'apiDoc - Blue Alliance' OR 'Scoutradioz'
 
 //Variables for API
 const baseUrl = 'https://www.thebluealliance.com/api/v3'; // Adjust the base URL based on the TBA API version
@@ -58,9 +59,12 @@ onValue(apiKey_Firebase, function(snapshot) {
 
     const currentTime = convertCurrentTimeStamp(Date.now());
     console.log(currentTime);
-    set(lastUpdate, Date.now());
-    set(convertedLastUpdate, currentTime);
+    // remove(lastUpdate);
+    // remove(convertedLastUpdate);
+    push(lastUpdate, Date.now());
+    push(convertedLastUpdate, currentTime);
 
+    
     // Make the API request for data
     fetch(url, {
         method: 'GET',
@@ -78,12 +82,16 @@ onValue(apiKey_Firebase, function(snapshot) {
                 .sort((a, b) => a.match_number - b.match_number); // Sort by match_number
                 
                 set(matchesData, sortedAndFilteredMatches);
-            
-            
+
         })
         .catch(error => {
             console.error(error);
         });
+});
+
+onValue(convertedLastUpdate, function(snapshot) {
+    let convertedTime = Object.values(snapshot.val());
+    updatedTime.innerHTML += convertedTime[(convertedTime.length - 1)];
 });
 
 onValue(matchesData, function(snapshot) {
