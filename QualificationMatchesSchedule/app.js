@@ -17,13 +17,12 @@ const database = getDatabase(app); //Realtime-database
 
 //Firebase reference
 const apiKey_Firebase = ref(database, "apiKey"); //Stored in Firebase
-const qualSchedule = ref(database, 'qualSchedule');
 const matchesData = ref(database, 'qualSchedule/matchesData');
 const lastUpdate = ref(database, 'qualSchedule/lastUpdate');
 const convertedLastUpdate = ref(database, "qualSchedule/convertedLastUpdate");
 
 //HTML elements
-const updatedTime = document.getElementById("updatedTime");
+const updatedTime_element = document.getElementById("updatedTime");
 const tbody = document.getElementById("tbody");
 const tr = document.getElementsByClassName("tr");
 const redAllianceElements = document.getElementsByClassName('redAlliance');
@@ -49,50 +48,63 @@ const blue1Array = [];
 const blue2Array = [];
 const blue3Array = [];
 
+//TODO: store fetch data in a function
 
-//TODO: if currentTime - updated time >= 10min, then update.
+onValue(lastUpdate, function(snapshot) {
+    let updatedTime = Object.values(snapshot.val());
+    // console.log(updatedTime);
+    // console.log(Date.now() - updatedTime[updatedTime.length - 1]);
 
+    //TODO: if updated time not available, then push data and fetch
+    if(updatedTime) {
 
-onValue(apiKey_Firebase, function(snapshot) {
-    let apiKey = Object.values(snapshot.val()).join(''); //Get apiKey from firebase
-    console.log(apiKey);
+    }else{
+        push(lastUpdate, Date.now()); //Update on the updatedTime
+    }
+    //On every ____ ms (300000ms = 5min; 540000ms = 9min), 
+    //the website will retrieve data from Blue Alliance to Firebase
+    if(Date.now() - updatedTime[updatedTime.length - 1] >= 300000) {
+        onValue(apiKey_Firebase, function(snapshot) {
+            let apiKey = Object.values(snapshot.val()).join(''); //Get apiKey from firebase
+            console.log(apiKey);
 
-    const currentTime = convertCurrentTimeStamp(Date.now());
-    console.log(currentTime);
-    // remove(lastUpdate);
-    // remove(convertedLastUpdate);
-    push(lastUpdate, Date.now());
-    push(convertedLastUpdate, currentTime);
-
-    
-    // Make the API request for data
-    fetch(url, {
-        method: 'GET',
-        headers: {
-            'X-TBA-Auth-Key': apiKey,
-        },
-        })
-        .then(response => response.json())
-        //Most codes are written in this function because this is the only place that can access data.
-        .then(data => { // Handle the data from the API response
-        
-            //This variable contains filtered and sorted data.
-            let sortedAndFilteredMatches = data
-                .filter(match => match.comp_level === 'qm') // Filter by comp_level 'qm'
-                .sort((a, b) => a.match_number - b.match_number); // Sort by match_number
+            
+            // Make the API request for data
+            fetch(url, {
+                method: 'GET',
+                headers: {
+                    'X-TBA-Auth-Key': apiKey,
+                },
+                })
+                .then(response => response.json())
                 
-                set(matchesData, sortedAndFilteredMatches);
-
-        })
-        .catch(error => {
-            console.error(error);
+                // Handle the data from the API response
+                .then(data => { 
+                
+                    //This variable contains filtered and sorted data.
+                    let sortedAndFilteredMatches = data
+                        .filter(match => match.comp_level === 'qm') // Filter by comp_level 'qm'
+                        .sort((a, b) => a.match_number - b.match_number); // Sort by match_number
+                        
+                        set(matchesData, sortedAndFilteredMatches); //Push data to Firebase
+                        push(lastUpdate, Date.now()); //Update on the updatedTime
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+            
         });
+    }
+
+    //Takes the updatedTime and convert it to real time for reference
+    let convertedTime = convertTimeStamp(updatedTime[updatedTime.length - 1]);
+    let minutesAgo = new Date((Date.now() - updatedTime[updatedTime.length - 1])).getMinutes();
+    let secondsAgo = new Date((Date.now() - updatedTime[updatedTime.length - 1])).getSeconds();
+    updatedTime_element.innerHTML += `${convertedTime} <br> (${minutesAgo} min ${secondsAgo} sec ago)`;
 });
 
-onValue(convertedLastUpdate, function(snapshot) {
-    let convertedTime = Object.values(snapshot.val());
-    updatedTime.innerHTML += convertedTime[(convertedTime.length - 1)];
-});
+
+/* Everything from here is only handling data from Firebase */
 
 onValue(matchesData, function(snapshot) {
     let qualData_firebase = Object.values(snapshot.val());
@@ -236,7 +248,7 @@ onValue(matchesData, function(snapshot) {
 });
 
     //Converts Date.now() to hour:min
-    const convertCurrentTimeStamp = (timestamp) => {
+    const convertTimeStamp = (timestamp) => {
         const currentDate = new Date(timestamp); 
         const hours = currentDate.getHours();
         const minutes = currentDate.getMinutes().toString().padStart(2, '0');

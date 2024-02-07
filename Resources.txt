@@ -1,4 +1,4 @@
-Hosted Website: https://2531scoutingpage.netlify.app/
+Hosted Website:
 
 Guides:
 
@@ -12,6 +12,6 @@ Netify: https://app.netlify.com/teams/daonguyenk06/overview
 
 How to save user input: https://stackoverflow.com/questions/17433557/how-to-save-user-input-into-a-variable-in-html-and-javascript
 
-Firebase instructions: https://firebase.google.com/docs/firestore/quickstart
+Firebase Set-Up: https://firebase.google.com/docs/firestore/quickstart
 
 Table: https://codesandbox.io/s/react-material-ui-vcjmn
