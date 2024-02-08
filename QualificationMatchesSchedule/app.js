@@ -48,26 +48,15 @@ const blue1Array = [];
 const blue2Array = [];
 const blue3Array = [];
 
-//TODO: store fetch data in a function
 
 onValue(lastUpdate, function(snapshot) {
-    let updatedTime = Object.values(snapshot.val());
-    // console.log(updatedTime);
-    // console.log(Date.now() - updatedTime[updatedTime.length - 1]);
-
-    //TODO: if updated time not available, then push data and fetch
-    if(updatedTime) {
-
-    }else{
-        push(lastUpdate, Date.now()); //Update on the updatedTime
-    }
-    //On every ____ ms (300000ms = 5min; 540000ms = 9min), 
-    //the website will retrieve data from Blue Alliance to Firebase
-    if(Date.now() - updatedTime[updatedTime.length - 1] >= 300000) {
+    let updatedTime = snapshot.val();
+    
+    //On every ____ ms, the website will retrieve data from Blue Alliance to Firebase
+    if(Date.now() - updatedTime >= 300000) {
         onValue(apiKey_Firebase, function(snapshot) {
             let apiKey = Object.values(snapshot.val()).join(''); //Get apiKey from firebase
             console.log(apiKey);
-
             
             // Make the API request for data
             fetch(url, {
@@ -87,7 +76,7 @@ onValue(lastUpdate, function(snapshot) {
                         .sort((a, b) => a.match_number - b.match_number); // Sort by match_number
                         
                         set(matchesData, sortedAndFilteredMatches); //Push data to Firebase
-                        push(lastUpdate, Date.now()); //Update on the updatedTime
+                        set(lastUpdate, Date.now()); //Update on the updatedTime
                 })
                 .catch(error => {
                     console.error(error);
@@ -95,11 +84,13 @@ onValue(lastUpdate, function(snapshot) {
             
         });
     }
-
+    
     //Takes the updatedTime and convert it to real time for reference
-    let convertedTime = convertTimeStamp(updatedTime[updatedTime.length - 1]);
-    let minutesAgo = new Date((Date.now() - updatedTime[updatedTime.length - 1])).getMinutes();
-    let secondsAgo = new Date((Date.now() - updatedTime[updatedTime.length - 1])).getSeconds();
+    let convertedTime = convertTimeStamp(updatedTime);
+    let minutesAgo = new Date((Date.now() - updatedTime)).getMinutes();
+    let secondsAgo = new Date((Date.now() - updatedTime)).getSeconds();
+
+    //Display on webpage
     updatedTime_element.innerHTML += `${convertedTime} <br> (${minutesAgo} min ${secondsAgo} sec ago)`;
 });
 
@@ -142,7 +133,6 @@ onValue(matchesData, function(snapshot) {
     let converted_predicted_time = predictedTimeArray.map(convertFRCTimestamps); 
     let converted_actual_time = actualTimeArray.map(convertFRCTimestamps); 
     console.log("predicted_time: " + converted_predicted_time);
-    console.log(predictedTimeArray[1] - predictedTimeArray[0]);
     console.log("actual_time: " + converted_actual_time);
 
     for (let i = 0; i < qualData_firebase.length; i++) {
