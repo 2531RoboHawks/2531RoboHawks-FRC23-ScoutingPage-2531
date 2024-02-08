@@ -29,18 +29,13 @@ nav {
     flex-wrap: wrap;
 }
 
-#pracSchedLink {
-    margin-top: 5px;
-    float: left;
-    background-color: gold;
-    border: purple;
-    font-size: 120%;
-    border-radius: 10px;
-    padding: 3px;
+h6 {
+    color: yellow;
+    text-align-last: right;
+    font-size: x-small;
 }
 
 h1 {
-    margin-top: 5px;
     font-size: 200%;
     font-family: monospace;
     text-align: center;
