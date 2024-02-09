@@ -2,6 +2,8 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
 import { getDatabase, ref, push, onValue, update, set, remove, child} from "https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js";
 
+import * as constants from "../Constants.js";
+
 //**By wrapping the code inside the DOMContentLoaded event listener, you ensure that the code will only run when the DOM is ready.
 document.addEventListener("DOMContentLoaded", function() {
 
@@ -28,15 +30,6 @@ const tr = document.getElementsByClassName("tr");
 const redAllianceElements = document.getElementsByClassName('redAlliance');
 const blueAllianceElements = document.getElementsByClassName('blueAlliance');
 
-//TODO: change these variables to the attending regional
-const year = `2023`; //yyyy
-const event_key = `mndu`; //Found on 'apiDoc - Blue Alliance' OR 'Scoutradioz'
-
-//Variables for API
-const baseUrl = 'https://www.thebluealliance.com/api/v3'; // Adjust the base URL based on the TBA API version
-const path = `/event/${year}${event_key}/matches`;
-const url = `${baseUrl}${path}`;
-
 //Variables used within the data handler
 const predictedTimeArray = [];
 const actualTimeArray = [];
@@ -59,7 +52,7 @@ onValue(lastUpdate, function(snapshot) {
             console.log(apiKey);
             
             // Make the API request for data
-            fetch(url, {
+            fetch(constants.url, {
                 method: 'GET',
                 headers: {
                     'X-TBA-Auth-Key': apiKey,

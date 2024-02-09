@@ -8,6 +8,7 @@
     <title>Pit Scouting Form</title>
     <link rel="icon" href="../Images/robohawksLogo.png">
     <script>
+        //Check if user is a member (only RoboHawks member can access this page)
         if (localStorage.getItem('userStatus') != 'member') {
             alert("You need to login to access this page");
             window.location.href = '../LoginPage/index.html';

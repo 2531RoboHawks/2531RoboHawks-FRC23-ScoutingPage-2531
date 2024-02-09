@@ -8,6 +8,7 @@
     <title>Instand Scouting Form</title>
     <link rel="icon" href="../Images/robohawksLogo.png">
     <script>
+        //Check if user is a member (only RoboHawks member can access this page)
         if (localStorage.getItem('userStatus') != 'member') {
             alert("You need to login to access this page");
             window.location.href = '../LoginPage/index.html';
@@ -22,11 +23,9 @@
     <nav>
         <a id="homeLink" href="../index.html">Home</a>
         <a href="../PitScoutingForm">Pit Scouting Form</a>
-        <a href="../QualificationMatchesSchedule">Qualification Matches Schedule</a>
-        <a href="../PracticeMatchesSchedule">Practice Matches Schedule</a>
         <a href="">Pit Scouting Data</a>
         <a href="../InstandScoutingData">Instand Scouting Data</a>
-        
+        <a href="../QualificationMatchesSchedule">Qualification Matches Schedule</a>
     </nav>
 
     <h1>Instand Scouting Form</h1>
