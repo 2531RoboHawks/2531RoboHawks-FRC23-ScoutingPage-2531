@@ -1,4 +1,4 @@
-//TODO: change these variables to the attending regional
+//TODO: change these variables to the attending regional ccc
 const year = `2023`; //yyyy
 const event_key = `mndu`; //Found on 'apiDoc - Blue Alliance' OR 'Scoutradioz'
 
