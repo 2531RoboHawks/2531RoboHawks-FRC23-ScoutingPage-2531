@@ -21,7 +21,6 @@ const database = getDatabase(app); //Realtime-database
 const apiKey_Firebase = ref(database, "apiKey"); //Stored in Firebase
 const matchesData = ref(database, 'qualSchedule/matchesData');
 const lastUpdate = ref(database, 'qualSchedule/lastUpdate');
-const convertedLastUpdate = ref(database, "qualSchedule/convertedLastUpdate");
 
 //HTML elements
 const updatedTime_element = document.getElementById("updatedTime");
