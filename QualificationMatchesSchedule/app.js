@@ -18,7 +18,6 @@ const app = initializeApp(appSettings);
 const database = getDatabase(app); //Realtime-database
 
 //Firebase reference
-const apiKey_Firebase = ref(database, "apiKey"); //Stored in Firebase
 const matchesData = ref(database, 'qualSchedule/matchesData');
 const lastUpdate = ref(database, 'qualSchedule/lastUpdate');
 
@@ -46,35 +45,7 @@ onValue(lastUpdate, function(snapshot) {
     
     //On every ____ ms, the website will retrieve data from Blue Alliance to Firebase
     if(Date.now() - updatedTime >= 300000) {
-        onValue(apiKey_Firebase, function(snapshot) {
-            let apiKey = Object.values(snapshot.val()).join(''); //Get apiKey from firebase
-            console.log(apiKey);
-            
-            // Make the API request for data
-            fetch(constants.url, {
-                method: 'GET',
-                headers: {
-                    'X-TBA-Auth-Key': apiKey,
-                },
-                })
-                .then(response => response.json())
-                
-                // Handle the data from the API response
-                .then(data => { 
-                
-                    //This variable contains filtered and sorted data.
-                    let sortedAndFilteredMatches = data
-                        .filter(match => match.comp_level === 'qm') // Filter by comp_level 'qm'
-                        .sort((a, b) => a.match_number - b.match_number); // Sort by match_number
-                        
-                        set(matchesData, sortedAndFilteredMatches); //Push data to Firebase
-                        set(lastUpdate, Date.now()); //Update on the updatedTime
-                })
-                .catch(error => {
-                    console.error(error);
-                });
-            
-        });
+        constants.fetchQualSchedule();
     }
     
     //Takes the updatedTime and convert it to real time for reference
