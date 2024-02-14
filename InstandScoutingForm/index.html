@@ -28,8 +28,9 @@
         <a href="../QualificationMatchesSchedule">Qualification Matches Schedule</a>
     </nav>
 
-    <h1>Instand Scouting Form</h1>
+    
     <div class="container">
+        <h1>Instand Scouting Form</h1>
         <table class="teamInfo">
             <tr>
                 <th>Team Info</th>
@@ -40,16 +41,16 @@
                         <label>Match:</label>
                             <input type="number" id="matchNum"><br>
                         <label>Team: </label>
-                            <input type="number" id="teamNum"><br>
-                        <label>Alliance:</label>
-                            <input type="radio" id="allianceBlue">Blue
-                            <input type="radio" id="allianceRed">Red
+                            <select name="" id="selectTeam">
+                                <!-- teamList will list out all teams here -->
+                                <option value=""></option>
+                            </select><br>
                     </form>
                 </td>
             </tr>
         </table>
             <div class="buttonContainer">
-                <button id="saveButton_TeamInfo">Save</button>
+                <button id="nextButton_teamInfo">Next</button>
             </div>
 
         <table class="auto">
@@ -62,25 +63,12 @@
                         <label style="margin-right: 5%;">High:</label>
                             <input type="number" id="highCones_Auto"><label style="margin-right: 5%;"> cones</label>
                             <input type="number" id="highCubes_Auto"><label> cubes</label><br>
-                        <label style="margin-right: 5%;">Mid: </label>
-                            <input type="number" id="midCones_Auto"><label style="margin-right: 5%;"> cones</label>
-                            <input type="number" id="midCubes_Auto"><label> cubes</label><br>
-                        <label style="margin-right: 5%;">Low: </label>
-                            <input type="number" id="lowCones_Auto"><label style="margin-right: 5%;"> cones</label>
-                            <input type="number" id="lowCubes_Auto"><label> cubes</label>
                     </form><br>
-                    <form action="">
-                        <label style="margin-right: 5%;">Charging Station: </label>
-                            <input type="radio" id="balanceNone_Auto">none
-                            <input type="radio" id="balanceDocked_Auto">docked
-                            <input type="radio" id="balanceEngaged_Auto">engaged
-                            <p style="font-size: small; color: red;">*answer for only your team, not the alliance!</p>
-                    </form>
                 </td>
             </tr>
         </table>
             <div class="buttonContainer">
-                <button id="saveButton_Auto">Save</button>
+                <button id="nextButton_auto">Next</button>
             </div>
 
         <table class="teleop">
@@ -93,25 +81,48 @@
                         <label style="margin-right: 5%;">High:</label>
                             <input type="number" id="highCones_Teleop"><label style="margin-right: 5%;"> cones</label>
                             <input type="number" id="highCubes_Teleop"><label> cubes</label><br>
-                        <label style="margin-right: 5%;">Mid: </label>
-                            <input type="number" id="midCones_Teleop"><label style="margin-right: 5%;"> cones</label>
-                            <input type="number" id="midCubes_Teleop"><label> cubes</label><br>
-                        <label style="margin-right: 5%;">Low: </label>
-                            <input type="number" id="lowCones_Teleop"><label style="margin-right: 5%;"> cones</label>
-                            <input type="number" id="lowCubes_Teleop"><label> cubes</label>
                     </form><br>
-                    <form action="">
-                        <label style="margin-right: 5%;">Charging Station: </label>
-                            <input type="radio" id="balanceNone_Teleop">none
-                            <input type="radio" id="balanceDocked_Teleop">docked
-                            <input type="radio" id="balanceEngaged_Teleop">engaged
-                            <p style="font-size: small; color: red;">*answer for only your team, not the alliance!</p>
-                    </form>
                 </td>
             </tr>
         </table>
             <div class="buttonContainer">
-                <button id="saveButton_Teleop">Save</button>
+                <button id="nextButton_teleop">Next</button>
+            </div>
+        
+        <table class="endgame">
+            <tr>
+                <th>End Game</th>
+            </tr>
+            <tr>
+                <td><br>
+                    <form action="">
+                        <label style="margin-right: 5%;">High:</label>
+                            <input type="number" id="highCones_Teleop"><label style="margin-right: 5%;"> cones</label>
+                            <input type="number" id="highCubes_Teleop"><label> cubes</label><br>
+                </td>
+            </tr>
+        </table>
+            <div class="buttonContainer">
+                <button id="nextButton_endgame">Next</button>
+            </div>
+
+        
+        <table class="teleop">
+            <tr>
+                <th>Teleop</th>
+            </tr>
+            <tr>
+                <td><br>
+                    <form action="">
+                        <label style="margin-right: 5%;">High:</label>
+                            <input type="number" id="highCones_Teleop"><label style="margin-right: 5%;"> cones</label>
+                            <input type="number" id="highCubes_Teleop"><label> cubes</label><br>
+                    </form><br>
+                </td>
+            </tr>
+        </table>
+            <div class="buttonContainer">
+                <button id="saveButton_endgame">Next</button>
             </div>
 
         <table class="matchResult">
@@ -126,17 +137,14 @@
                     <br>
                     <input type="radio" id="matchTie">Tie <br><br>
                     <label>Comments:</label>
-                    <textarea id="comments" cols="25" rows="5" placeholder="Something unique or unexpected happened..."></textarea>
+                    <textarea id="comments" cols="25" rows="5" placeholder="Something unique or unexpected..."></textarea>
                 </td>
             </tr>
         </table>
-            <div class="buttonContainer">
-                <button id="saveButton_MatchResult">Save</button>
-            </div>
     </div>
 
     <div class="buttonContainer">
-        <button id="submitButton" style="font-size: 120%;">Submit (test: clear storage)</button>
+        <button id="submitButton" style="font-size: 120%;">Submit</button>
     </div>
     
 
