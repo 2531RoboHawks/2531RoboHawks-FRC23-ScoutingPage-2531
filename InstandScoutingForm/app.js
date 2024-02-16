@@ -2,7 +2,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
 import { getDatabase, ref, push, onValue, update, set, remove, child} from "https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js";
 
-import * as constants from "../Constants.js";
+import * as layout from "../Constants/layout.js";
 
 //**By wrapping the code inside the DOMContentLoaded event listener, you ensure that the code will only run when the DOM is ready.
 document.addEventListener("DOMContentLoaded", function() {  
@@ -17,7 +17,9 @@ const app = initializeApp(appSettings);
 const database = getDatabase(app); //Realtime-database
 
 //Firebase references
+// const layout = ref(database, "Instand_layout");
 const teamInfo = ref(database, "teamInfo");
+const data = ref(database, "Instand_data");
 
 //HTML Elements
 const teamInfo_table = document.getElementsByClassName("teamInfo");
@@ -28,7 +30,7 @@ const selectTeam = document.getElementById("selectTeam");
 const matchNum = document.getElementById("matchNum");
 const teamNum = document.getElementById("teamNum");
 
-
+//Add teams to the list of options
 onValue(teamInfo, function(snapshot) {
     const teamInfo_Array = Object.values(snapshot.val());
     let teamList = [];
@@ -37,5 +39,6 @@ onValue(teamInfo, function(snapshot) {
         selectTeam.innerHTML += `<option value="" id="selectTeam_${i}">${teamInfo_Array[i].team_number}</option>`
     }
 });
+
 
 });

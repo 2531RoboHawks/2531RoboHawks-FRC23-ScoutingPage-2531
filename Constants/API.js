@@ -62,6 +62,7 @@ export function fetchQualSchedule() {
     });
 }
 
+//Function to fetch all attending teams and their info
 export function fetchAttendingTeams() {
     const url = `${baseUrl}/event/${year}${event_key}/teams`;
 
@@ -83,12 +84,6 @@ export function fetchAttendingTeams() {
                 let sortedTeamsByNumber = data
                     .sort((a, b) => a.team_number - b.team_number); // Sort by team_number
                 set(teamInfo, sortedTeamsByNumber); //Upload teamInfo to Firebase
-                
-                let teamList = [];
-                for(let i = 0; i < sortedTeamsByNumber.length; i++) {
-                    teamList.push(sortedTeamsByNumber[i].team_number);
-                }
-
             })
             .catch(error => {
                 console.error(error);
