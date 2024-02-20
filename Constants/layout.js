@@ -22,7 +22,7 @@ export const instand_layout = {
         0: {
             task: "Leave Auto",
             points: 2, 
-            type_of_input: inputTypes.boolean,
+            type_of_input: inputTypes.boolean
         },
         1: {
             task: "AMP Notes",
