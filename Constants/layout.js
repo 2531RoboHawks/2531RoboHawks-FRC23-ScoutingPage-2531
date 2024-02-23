@@ -2,18 +2,16 @@
 const inputTypes = {
     number: "number",
     text: "text",
-    boolean: "boolean",
-    multi_choice: "mc"
+    chooser: "radio",
+    multi_choice: "checkbox"
 };
 /*  
     The two array lists below are layouts for Pit and Instand Scouting Forms.
     Edit these variables according to each year's game.
     Adjust these lists as needed.
 
-    Also, if 'type_of_input: inputTypes.multi_choice', then add a 4th item to the list like this:
-    choices: {
-        item1, item2, item3, ...
-    }
+    Also, if input type is a chooser OR mult_choice, then add a 4th item to the list like this:
+    choices: [item1, item2, item3, ...]
 */
 
 //Layout for Instand Scouting Form
@@ -22,7 +20,8 @@ export const instand_layout = {
         0: {
             task: "Leave Auto",
             points: 2, 
-            type_of_input: inputTypes.boolean
+            type_of_input: inputTypes.chooser,
+            choices: ["Yes", "No"]
         },
         1: {
             task: "AMP Notes",
@@ -56,27 +55,32 @@ export const instand_layout = {
         0: {
             task: "Park",
             points: 1,
-            type_of_input: inputTypes.boolean
+            type_of_input: inputTypes.chooser,
+            choices: ["Yes", "No"]
         },
         1: {
             task: "Onstage (not SPOTLIT)",
             points: 3,
-            type_of_input: inputTypes.boolean
+            type_of_input: inputTypes.chooser,
+            choices: ["Yes", "No"]
         },
         2: {
             task: "Onstage (SPOTLIT)",
             points: 4,
-            type_of_input: inputTypes.boolean
+            type_of_input: inputTypes.chooser,
+            choices: ["Yes", "No"]
         },
         3: {
             task: "Harmony",
             points: 2,
-            type_of_input: inputTypes.boolean
+            type_of_input: inputTypes.chooser,
+            choices: ["Yes", "No"]
         },
         4: {
             task: "Note in TRAP",
             points: 5,
-            type_of_input: inputTypes.boolean
+            type_of_input: inputTypes.chooser,
+            choices: ["Yes", "No"]
         },
     }
 }
@@ -88,7 +92,8 @@ export const pit_layout = {
     auto: {
         0: {
             question: "Leave Auto?", 
-            type_of_input: inputTypes.boolean,
+            type_of_input: inputTypes.chooser,
+            choices: ["Yes", "No"]
         },
         1: {
             question: "How many AMP Notes?",
@@ -96,7 +101,7 @@ export const pit_layout = {
         },
         2: {
             question: "How many Speaker Notes?",
-            type_of_input: inputTypes.boolean
+            type_of_input: inputTypes.number
         },
         3: {
             question: "Is there anything special you would like to share about your Auto?",
@@ -109,22 +114,25 @@ export const pit_layout = {
             type_of_input: inputTypes.number
         },
         2: {
-            question: "How many Speaker Notes?",
-            type_of_input: inputTypes.boolean
+            question: "What your cycle time?",
+            type_of_input: inputTypes.text
         },
     },
     endGame: {
         1: {
             question: "Onstage?",
-            type_of_input: inputTypes.boolean
+            type_of_input: inputTypes.chooser,
+            choices: ["Yes", "No"]
         },
         3: {
             question: "Can you harmony?",
-            type_of_input: inputTypes.boolean
+            type_of_input: inputTypes.chooser,
+            choices: ["Yes", "No"]
         },
         4: {
             question: "Note in TRAP?",
-            type_of_input: inputTypes.boolean
+            type_of_input: inputTypes.chooser,
+            choices: ["Yes", "No"]
         },
     },
     other: {

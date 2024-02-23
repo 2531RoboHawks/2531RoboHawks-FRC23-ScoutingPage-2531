@@ -2,7 +2,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
 import { getDatabase, ref, push, onValue, update, set, remove, child} from "https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js";
 
-import * as constants from "../Constants.js";
+import { fetchQualSchedule } from "../Constants/API.js";
 
 //**By wrapping the code inside the DOMContentLoaded event listener, you ensure that the code will only run when the DOM is ready.
 document.addEventListener("DOMContentLoaded", function() {
@@ -45,7 +45,7 @@ onValue(lastUpdate, function(snapshot) {
     
     //On every ____ ms, the website will retrieve data from Blue Alliance to Firebase
     if(Date.now() - updatedTime >= 300000) {
-        constants.fetchQualSchedule();
+        fetchQualSchedule();
     }
     
     //Takes the updatedTime and convert it to real time for reference

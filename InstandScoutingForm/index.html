@@ -72,12 +72,7 @@
                 <th>Teleop</th>
             </tr>
             <tr>
-                <td><br>
-                    <form action="">
-                        <label style="margin-right: 5%;">High:</label>
-                            <input type="number" id="highCones_Teleop"><label style="margin-right: 5%;"> cones</label>
-                            <input type="number" id="highCubes_Teleop"><label> cubes</label><br>
-                    </form><br>
+                <td id="td_teleop">
                 </td>
             </tr>
         </table>
@@ -85,40 +80,17 @@
                 <button id="nextButton_teleop">Next</button>
             </div>
         
-        <table class="endgame">
+        <table class="endGame">
             <tr>
                 <th>End Game</th>
             </tr>
             <tr>
-                <td><br>
-                    <form action="">
-                        <label style="margin-right: 5%;">High:</label>
-                            <input type="number" id="highCones_Teleop"><label style="margin-right: 5%;"> cones</label>
-                            <input type="number" id="highCubes_Teleop"><label> cubes</label><br>
+                <td id="td_endGame">
                 </td>
             </tr>
         </table>
             <div class="buttonContainer">
                 <button id="nextButton_endgame">Next</button>
-            </div>
-
-        
-        <table class="teleop">
-            <tr>
-                <th>Teleop</th>
-            </tr>
-            <tr>
-                <td><br>
-                    <form action="">
-                        <label style="margin-right: 5%;">High:</label>
-                            <input type="number" id="highCones_Teleop"><label style="margin-right: 5%;"> cones</label>
-                            <input type="number" id="highCubes_Teleop"><label> cubes</label><br>
-                    </form><br>
-                </td>
-            </tr>
-        </table>
-            <div class="buttonContainer">
-                <button id="saveButton_endgame">Next</button>
             </div>
 
         <table class="matchResult">
@@ -127,12 +99,12 @@
             </tr>
             <tr>
                 <td>
-                    <input type="radio" id="matchWin">Win
+                    <input type="radio" class="matchOutcome" id="matchWin">Win
                     <br>
-                    <input type="radio" id="matchLose">Lose
+                    <input type="radio" class="matchOutcome" id="matchLose">Lose
                     <br>
-                    <input type="radio" id="matchTie">Tie <br><br>
-                    <label>Comments:</label>
+                    <input type="radio" class="matchOutcome" id="matchTie">Tie <br><br>
+                    <label id="comments">Comments:</label>
                     <textarea id="comments" cols="25" rows="5" placeholder="Something unique or unexpected..."></textarea>
                 </td>
             </tr>

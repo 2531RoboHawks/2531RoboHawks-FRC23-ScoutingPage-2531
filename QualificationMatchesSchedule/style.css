@@ -22,11 +22,8 @@ nav {
     padding: 20px;
     font-family: arial;
     font-weight: 600;
-    margin-bottom: 20px;
-    justify-content: space-evenly;
     align-items: center;
-    gap: 50px;
-    flex-wrap: wrap;
+    gap: 20px;
 }
 
 h6 {
@@ -88,18 +85,10 @@ table {
     margin-right: auto; /* Having both margins centers the table */
 }
 
-.time {
+.time, .matchNumber {
     background-color: gold;
     color: purple;
     font-weight: 550;
-    /* width: 15%; */
-}
-
-.matchNumber {
-    background-color: gold;
-    color: purple;
-    font-weight: 550;
-    /* width: 7%; */
 }
 
 .redAlliance {
