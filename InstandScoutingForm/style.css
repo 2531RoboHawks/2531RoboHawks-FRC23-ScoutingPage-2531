@@ -47,30 +47,27 @@ th {
 td {
     background-color: purple;
     padding: 10px;
-    display: block;
 }
 
 form {
     width: 100%;
 }
 
-label:not(#comments) {
-    font-size: 110%;
-    float: left;
-    margin-left: 30%;
+label {
+    font-size: larger;
+    font-weight: bold;
+    font-style: italic;
 }
 
 input, select, textarea {
     background-color: rgb(237, 208, 221);
 }
 
-input:not(.matchOutcome), select {
-    width: 15%;
+input:not([type='radio'],[type='checkbox']), select {
+    width: 20%;
     text-align: center;
-    min-width: 20px;
-    max-width: 60px;
-    float: right;
-    margin-right: 30%;
+    min-width: 10px;
+    max-width: 100px;
 }
 
 .alliance {
@@ -94,7 +91,6 @@ input:not(.matchOutcome), select {
     width: 90%;
     min-width: 400px;
     max-width: 1000px;
-    flex-wrap: wrap;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
@@ -119,4 +115,6 @@ input:not(.matchOutcome), select {
 button {
     margin: 10px;
     border-radius: 10px;
+    font-style: italic;
+    color: black;
 }

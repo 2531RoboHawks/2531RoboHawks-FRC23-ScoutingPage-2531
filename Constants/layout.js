@@ -1,5 +1,5 @@
 //Use this for type_of_input to prevent typos
-const inputTypes = {
+export const inputTypes = {
     number: "number",
     text: "text",
     chooser: "radio",
