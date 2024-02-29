@@ -53,7 +53,7 @@ while(instand_layout.auto[i_auto]) {
 
         //Create choices
         for (let i = 0; i < instand_layout.auto[i_auto].choices.length; i++) {
-        auto_td.innerHTML += `<input name="input_${instand_layout.auto[i_auto].task}" type="${instand_layout.auto[i_auto].type_of_input}"
+        auto_td.innerHTML += `<input id="autoTask_${i_auto}" name="input_${instand_layout.auto[i_auto].task}" type="${instand_layout.auto[i_auto].type_of_input}"
                             <label>${instand_layout.auto[i_auto].choices[i]}</label>`;
         }
         auto_td.innerHTML += `<br><br>`;
@@ -61,12 +61,12 @@ while(instand_layout.auto[i_auto]) {
     }else {
         auto_td.innerHTML += 
         `<label>${instand_layout.auto[i_auto].task}</label> <br>
-        <input type="${instand_layout.auto[i_auto].type_of_input}">
+        <input id="autoTask_${i_auto}" type="${instand_layout.auto[i_auto].type_of_input}">
         <br><br>`;
     }
     i_auto++;
+    
 }
-
 //Teleop Table
 let i_teleop = 0;
 while(instand_layout.teleop[i_teleop]) {
@@ -78,7 +78,7 @@ while(instand_layout.teleop[i_teleop]) {
 
         //Create choices
         for (let i = 0; i < instand_layout.teleop[i_teleop].choices.length; i++) {
-        teleop_td.innerHTML += `<input name="input_${instand_layout.teleop[i_teleop].task}" type="${instand_layout.teleop[i_teleop].type_of_input}"
+        teleop_td.innerHTML += `<input id="teleopTask_${i_teleop}" name="input_${instand_layout.teleop[i_teleop].task}" type="${instand_layout.teleop[i_teleop].type_of_input}"
                             <label>${instand_layout.teleop[i_teleop].choices[i]}</label>`
         }
         teleop_td.innerHTML += `<br><br>`;
@@ -86,11 +86,12 @@ while(instand_layout.teleop[i_teleop]) {
     }else {
         teleop_td.innerHTML += 
         `<label>${instand_layout.teleop[i_teleop].task}</label> <br>
-        <input type="${instand_layout.teleop[i_teleop].type_of_input}">
+        <input id="teleopTask_${i_teleop}" type="${instand_layout.teleop[i_teleop].type_of_input}">
         <br><br>`;
     }
     i_teleop++;
 }
+
 
 //Endgame Table
 let i_endGame = 0;
@@ -103,7 +104,7 @@ while(instand_layout.endGame[i_endGame]) {
 
         //Create choices
         for (let i = 0; i < instand_layout.endGame[i_endGame].choices.length; i++) {
-        endGame_td.innerHTML += `<input name="input_${instand_layout.endGame[i_endGame].task}" type="${instand_layout.endGame[i_endGame].type_of_input}"
+        endGame_td.innerHTML += `<input id="endGameTask_${i_endGame}" name="input_${instand_layout.endGame[i_endGame].task}" type="${instand_layout.endGame[i_endGame].type_of_input}"
                             <label>${instand_layout.endGame[i_endGame].choices[i]}</label>`;
         }
         endGame_td.innerHTML += `<br><br>`;
@@ -111,11 +112,10 @@ while(instand_layout.endGame[i_endGame]) {
     }else {
         endGame_td.innerHTML += 
         `<label>${instand_layout.endGame[i_endGame].task}</label> <br>
-        <input type="${instand_layout.endGame[i_endGame].type_of_input}">
+        <input id="endGameTask_${i_endGame}" type="${instand_layout.endGame[i_endGame].type_of_input}">
         <br><br>`;
     }
     i_endGame++;
 }
-
 
 });
