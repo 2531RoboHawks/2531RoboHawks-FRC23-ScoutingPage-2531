@@ -160,7 +160,7 @@ onValue(matchesData, function(snapshot) {
                             document.getElementById(`timeElement_${time}`).style.backgroundColor = 'darkred';
                             document.getElementById(`matchElement_${time}`).style.backgroundColor = 'gray';
                             document.getElementById(`matchElement_${time}`).style.color = 'purple';
-                        }else if (qualData_firebase[time].winning_alliance == ''{
+                        }else {
                             document.getElementById(`timeElement_${time}`).innerHTML = 'Tie';
                             document.getElementById(`timeElement_${time}`).style.backgroundColor = 'black';
                             document.getElementById(`matchElement_${time}`).style.backgroundColor = 'gray';
@@ -198,7 +198,7 @@ onValue(matchesData, function(snapshot) {
                             document.getElementById(`timeElement_${time}`).style.backgroundColor = 'darkred';
                             document.getElementById(`matchElement_${time}`).style.backgroundColor = 'gray';
                             document.getElementById(`matchElement_${time}`).style.color = 'purple';
-                        }else if (qualData_firebase[time].winning_alliance == ''{
+                        }else {
                             document.getElementById(`timeElement_${time}`).innerHTML = 'Tie';
                             document.getElementById(`timeElement_${time}`).style.backgroundColor = 'black';
                             document.getElementById(`matchElement_${time}`).style.backgroundColor = 'gray';
