@@ -147,7 +147,7 @@ onValue(matchesData, function(snapshot) {
             document.getElementById(`matchElement_${time}`).style.backgroundColor = 'purple';
             document.getElementById(`matchElement_${time}`).style.color = 'gold';
                 for(let i = 0; i < qualData_firebase.length; i++) {
-                    if(typeof actualTimeArray[i] === "number") {
+                    if(typeof actualTimeArray[i] === "number" && actualTimeArray[i] > 0) {
                         //Check if match won
                         if(qualData_firebase[time].winning_alliance == 'red') {
                             document.getElementById(`timeElement_${time}`).innerHTML = 'Won';
@@ -185,7 +185,7 @@ onValue(matchesData, function(snapshot) {
             document.getElementById(`matchElement_${time}`).style.backgroundColor = 'purple';
             document.getElementById(`matchElement_${time}`).style.color = 'gold';
                 for(let i = 0; i < qualData_firebase.length; i++) {
-                    if(typeof actualTimeArray[i] === "number") {
+                    if(typeof actualTimeArray[i] === "number" && actualTimeArray[i] > 0) {
                         // Check if match won
                         if(qualData_firebase[time].winning_alliance == 'blue') {
                             document.getElementById(`timeElement_${time}`).innerHTML = 'Won';
