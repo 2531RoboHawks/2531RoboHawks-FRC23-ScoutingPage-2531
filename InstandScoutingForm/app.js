@@ -17,7 +17,6 @@ const app = initializeApp(appSettings);
 const database = getDatabase(app); //Realtime-database
 
 //Firebase references
-// const layout = ref(database, "Instand_layout");
 const teamInfo_Firebase = ref(database, "teamInfo");
 const data = ref(database, "Instand_data");
 
@@ -30,6 +29,33 @@ const selectTeam = document.getElementById("selectTeam");
 const matchNum = document.getElementById("matchNum");
 const teamNum = document.getElementById("teamNum");
 
+//Buttons
+const nextButton_teamInfo = document.getElementById('nextButton_teamInfo');
+const nextButton_auto = document.getElementById('nextButton_auto');
+const nextButton_teleop = document.getElementById('nextButton_teleop');
+const nextButton_endGame = document.getElementById('nextButton_endGame');
+const submitButton = document.getElementById('submitButton');
+
+
+//This empty JS dictionary will contain user inputs
+const data_local = {
+    teamInto: {
+
+    },
+    teleop: {
+
+    },
+    auto: {
+
+    },
+    endGame: {
+
+    },
+    matchResult: {
+
+    }
+}
+
 //Add teams to the list of options
 onValue(teamInfo_Firebase, function(snapshot) {
     const teamInfo_Array = Object.values(snapshot.val());
@@ -39,8 +65,6 @@ onValue(teamInfo_Firebase, function(snapshot) {
         selectTeam.innerHTML += `<option value="" id="selectTeam_${i}">${teamInfo_Array[i].team_number}</option>`;
     }
 });
-
-//TODO: create ids for each of these elements
 
 //Auto Table
 let i_auto = 0;
@@ -57,7 +81,6 @@ while(instand_layout.auto[i_auto]) {
                             <label>${instand_layout.auto[i_auto].choices[i]}</label>`;
         }
         auto_td.innerHTML += `<br><br>`;
-
     }else {
         auto_td.innerHTML += 
         `<label>${instand_layout.auto[i_auto].task}</label> <br>
@@ -65,8 +88,8 @@ while(instand_layout.auto[i_auto]) {
         <br><br>`;
     }
     i_auto++;
-    
 }
+
 //Teleop Table
 let i_teleop = 0;
 while(instand_layout.teleop[i_teleop]) {
@@ -117,5 +140,62 @@ while(instand_layout.endGame[i_endGame]) {
     }
     i_endGame++;
 }
+
+//Actions
+nextButton_auto.addEventListener('click', function() {
+    let i = 0;
+    let input;
+    let output;
+
+    while(instand_layout.auto[i]) {
+        if (instand_layout.auto[i].type_of_input === inputTypes.chooser || instand_layout.auto[i].type_of_input === inputTypes.multi_choice) {
+            input = document.querySelector(input[name=`input_${instand_layout.auto[i].task}`])
+            for (let i = 0, length = input.length; i < length; i++) {
+                if (input[i].checked) {
+                    output = input[i].value;
+                    // only one radio can be logically checked, don't check the rest
+                    break;
+                }
+              }
+            data_local.auto[i] = {
+                task: instand_layout.auto[i].task,
+                data: `${output}`,
+                points: instand_layout.auto[i].points
+            }
+        } else{
+            // console.log(document.getElementById(`autoTask_${i}`).value)
+            data_local.auto[i] = {
+                task: instand_layout.auto[i].task,
+                data: document.getElementById(`autoTask_${i}`).value,
+                points: instand_layout.auto[i].points
+            }
+        }
+        i++;
+    }
+    console.log(data_local);
+});
+
+// function saveAuto() {
+//          i_auto = 0;
+//     while(instand_layout.auto[i_auto]) {
+//         if (instand_layout.auto[i_auto].type_of_input === inputTypes.chooser || instand_layout.auto[i_auto].type_of_input === inputTypes.multi_choice) {
+//             data_local.auto[i_auto] = {
+//                 task: instand_layout.auto[i_auto].task,
+//                 data: document.getElementsByName(`input_${instand_layout.auto[i_auto].task}`).value,
+//                 points: instand_layout.auto[i_auto].points
+//             }
+//         } else{
+//             data_local.auto[i_auto] = {
+//                 task: instand_layout.auto[i_auto].task,
+//                 data: document.getElementById(`input_${instand_layout.auto[i_auto].task}`).value,
+//                 points: instand_layout.auto[i_auto].points
+//             }
+//         }
+//     }
+//     console.log(data_local);
+// }
+
+
+console.log(data_local);
 
 });
