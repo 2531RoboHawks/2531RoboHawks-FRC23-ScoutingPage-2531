@@ -44,7 +44,7 @@ onValue(lastUpdate, function(snapshot) {
     let updatedTime = snapshot.val();
     
     //On every ____ ms, the website will retrieve data from Blue Alliance to Firebase
-    if(Date.now() - updatedTime >= 30000) {
+    if(Date.now() - updatedTime >= 300000) {
         constants.fetchQualSchedule();
     }
     
