@@ -18,7 +18,7 @@ const matchesData = ref(database, 'qualSchedule/matchesData');
 const lastUpdate = ref(database, 'qualSchedule/lastUpdate');
 
 //TODO: change these variables to the attending regional
-const year = `2023`; //yyyy
+const year = `2024`; //yyyy
 const event_key = `mndu`; //Found on 'apiDoc - Blue Alliance' OR 'Scoutradioz'
 
 //Variables for API
