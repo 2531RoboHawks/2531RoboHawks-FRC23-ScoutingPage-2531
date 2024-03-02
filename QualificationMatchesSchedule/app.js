@@ -45,7 +45,7 @@ onValue(lastUpdate, function(snapshot) {
     
     //On every ____ ms, the website will retrieve data from Blue Alliance to Firebase
     if(Date.now() - updatedTime >= 300000) {
-        constants.fetchQualSchedule();
+        fetchQualSchedule();
     }
     
     //Takes the updatedTime and convert it to real time for reference
@@ -145,34 +145,28 @@ onValue(matchesData, function(snapshot) {
             document.getElementById(`timeElement_${time}`).style.backgroundColor = 'purple';
             document.getElementById(`timeElement_${time}`).style.color = 'gold';
             document.getElementById(`matchElement_${time}`).style.backgroundColor = 'purple';
-            document.getElementById(`matchElement_${time}`).style.color = 'gold';
-                for(let i = 0; i < qualData_firebase.length; i++) {
-                    if(typeof actualTimeArray[i] === "number" && actualTimeArray[i] > 0) {
-                        //Check if match won
-                        if(qualData_firebase[time].winning_alliance == 'red') {
-                            document.getElementById(`timeElement_${time}`).innerHTML = 'Won';
-                            document.getElementById(`timeElement_${time}`).style.backgroundColor = 'lime';
-                            document.getElementById(`timeElement_${time}`).style.color = 'mediumvioletred';
-                            document.getElementById(`matchElement_${time}`).style.backgroundColor = 'gray';
-                            document.getElementById(`matchElement_${time}`).style.color = 'purple';
-                        }else if(qualData_firebase[time].winning_alliance == 'blue') {
-                            document.getElementById(`timeElement_${time}`).innerHTML = 'Lost';
-                            document.getElementById(`timeElement_${time}`).style.backgroundColor = 'darkred';
-                            document.getElementById(`matchElement_${time}`).style.backgroundColor = 'gray';
-                            document.getElementById(`matchElement_${time}`).style.color = 'purple';
-                        }else if(typeof qualData_firebase[time].actual_time == 'number'){
-                            document.getElementById(`timeElement_${time}`).innerHTML = 'Tie';
-                            document.getElementById(`timeElement_${time}`).style.backgroundColor = 'black';
-                            document.getElementById(`matchElement_${time}`).style.backgroundColor = 'gray';
-                            document.getElementById(`matchElement_${time}`).style.color = 'purple';
-                        }
-                    }
+            document.getElementById(`matchElement_${time}`).style.color = 'yellow';
+                //Check if match won
+                if(qualData_firebase[time].winning_alliance == 'red') {
+                    document.getElementById(`timeElement_${time}`).innerHTML = 'Won';
+                    document.getElementById(`timeElement_${time}`).style.backgroundColor = 'lime';
+                    document.getElementById(`timeElement_${time}`).style.color = 'mediumvioletred';
+                    document.getElementById(`matchElement_${time}`).style.backgroundColor = 'gray';
+                    document.getElementById(`matchElement_${time}`).style.color = 'purple';
+                }else if (qualData_firebase[time].winning_alliance == 'blue') {
+                    document.getElementById(`timeElement_${time}`).innerHTML = 'Lost';
+                    document.getElementById(`timeElement_${time}`).style.backgroundColor = 'darkred';
+                    document.getElementById(`matchElement_${time}`).style.backgroundColor = 'gray';
+                    document.getElementById(`matchElement_${time}`).style.color = 'purple';
+                }else{
+                    document.getElementById(`timeElement_${time}`).innerHTML = 'Tie';
+                    document.getElementById(`timeElement_${time}`).style.backgroundColor = 'black';
+                    document.getElementById(`matchElement_${time}`).style.backgroundColor = 'gray';
+                    document.getElementById(`matchElement_${time}`).style.color = 'purple';
                 }
-                
-                
         }
     }
-    for (let i = 0; i < redAllianceElements.length; i++) {
+    for (let i = 0; i < blueAllianceElements.length; i++) {
         let currentBlueAllianceValue = blueAllianceElements[i].innerHTML;
 
         // Check if the current element's value is '2531'
@@ -183,31 +177,25 @@ onValue(matchesData, function(snapshot) {
             document.getElementById(`timeElement_${time}`).style.backgroundColor = 'purple';
             document.getElementById(`timeElement_${time}`).style.color = 'gold';
             document.getElementById(`matchElement_${time}`).style.backgroundColor = 'purple';
-            document.getElementById(`matchElement_${time}`).style.color = 'gold';
-                for(let i = 0; i < qualData_firebase.length; i++) {
-                    if(typeof actualTimeArray[i] === "number" && actualTimeArray[i] > 0) {
-                        // Check if match won
-                        if(qualData_firebase[time].winning_alliance == 'blue') {
-                            document.getElementById(`timeElement_${time}`).innerHTML = 'Won';
-                            document.getElementById(`timeElement_${time}`).style.backgroundColor = 'lime';
-                            document.getElementById(`timeElement_${time}`).style.color = 'mediumvioletred';
-                            document.getElementById(`matchElement_${time}`).style.backgroundColor = 'gray';
-                            document.getElementById(`matchElement_${time}`).style.color = 'purple';
-                        }else if(qualData_firebase[time].winning_alliance == 'red') {
-                            document.getElementById(`timeElement_${time}`).innerHTML = 'Lost';
-                            document.getElementById(`timeElement_${time}`).style.backgroundColor = 'darkred';
-                            document.getElementById(`matchElement_${time}`).style.backgroundColor = 'gray';
-                            document.getElementById(`matchElement_${time}`).style.color = 'purple';
-                        }else if(typeof qualData_firebase[time].actual_time == 'number'){
-                            document.getElementById(`timeElement_${time}`).innerHTML = 'Tie';
-                            document.getElementById(`timeElement_${time}`).style.backgroundColor = 'black';
-                            document.getElementById(`matchElement_${time}`).style.backgroundColor = 'gray';
-                            document.getElementById(`matchElement_${time}`).style.color = 'purple';
-                        }
-                    }
+            document.getElementById(`matchElement_${time}`).style.color = 'yellow';
+                //Check if match won
+                if(qualData_firebase[time].winning_alliance == 'blue') {
+                    document.getElementById(`timeElement_${time}`).innerHTML = 'Won';
+                    document.getElementById(`timeElement_${time}`).style.backgroundColor = 'lime';
+                    document.getElementById(`timeElement_${time}`).style.color = 'mediumvioletred';
+                    document.getElementById(`matchElement_${time}`).style.backgroundColor = 'gray';
+                    document.getElementById(`matchElement_${time}`).style.color = 'purple';
+                }else if (qualData_firebase[time].winning_alliance == 'red') {
+                    document.getElementById(`timeElement_${time}`).innerHTML = 'Lost';
+                    document.getElementById(`timeElement_${time}`).style.backgroundColor = 'darkred';
+                    document.getElementById(`matchElement_${time}`).style.backgroundColor = 'gray';
+                    document.getElementById(`matchElement_${time}`).style.color = 'purple';
+                }else{
+                    document.getElementById(`timeElement_${time}`).innerHTML = 'Tie';
+                    document.getElementById(`timeElement_${time}`).style.backgroundColor = 'black';
+                    document.getElementById(`matchElement_${time}`).style.backgroundColor = 'gray';
+                    document.getElementById(`matchElement_${time}`).style.color = 'purple';
                 }
-                
-                
         }
     }
 });

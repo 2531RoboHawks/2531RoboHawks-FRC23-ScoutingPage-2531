@@ -11,6 +11,11 @@ header {
     line-break:loose;
 }
 
+body {
+    color: yellow;
+    background-color: black;
+}
+
 nav {
     flex-direction: column;
     background-color: gold;
@@ -20,11 +25,8 @@ nav {
     padding: 20px;
     font-family: arial;
     font-weight: 600;
-    margin-bottom: 20px;
-    justify-content: space-evenly;
     align-items: center;
-    gap: 50px;
-    flex-wrap: wrap;
+    gap: 20px;
 }
 
 h1 {
@@ -33,13 +35,18 @@ h1 {
 }
 
 table, th, td {
-    border: 1px solid black;
-    
+    border: 1px solid yellow;
 }
 
 th {
     color: black;
+    background-color: yellow;
     font-size: 140%;
+}
+
+td {
+    background-color: purple;
+    padding: 10px;
 }
 
 form {
@@ -47,7 +54,26 @@ form {
 }
 
 label {
-    font-size: 110%;
+    font-size: larger;
+    font-weight: bold;
+    font-style: italic;
+}
+
+input, select, textarea {
+    background-color: rgb(237, 208, 221);
+}
+
+input:not([type='radio'],[type='checkbox']), select {
+    width: 20%;
+    text-align: center;
+    min-width: 10px;
+    max-width: 100px;
+}
+
+.alliance {
+    width: 20%;
+    min-width: 60px;
+    max-width: 70px;
 }
 
 .teamInfo {
@@ -60,36 +86,11 @@ label {
     text-align: center;
 }
 
-input[type=number]{
-    width: 15%;
-    text-align: center;
-    min-width: 20px;
-    max-width: 60px;
-}
-
-.alliance {
-    width: 20%;
-    min-width: 60px;
-    max-width: 70px;
-}
-
-.teleop {
+.teleop, .auto, .endGame {
     margin-top: 20px;
     width: 90%;
     min-width: 400px;
     max-width: 1000px;
-    flex-wrap: wrap;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-}
-
-.auto {
-    margin-top: 20px;
-    width: 90%;
-    min-width: 400px;
-    max-width: 1000px;
-    flex-wrap: wrap;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
@@ -113,4 +114,7 @@ input[type=number]{
 
 button {
     margin: 10px;
+    border-radius: 10px;
+    font-style: italic;
+    color: black;
 }
