@@ -2,7 +2,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
 import { getDatabase, ref, push, onValue, update, set, remove, child} from "https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js";
 
-import * as constants from "../Constants.js";
+import * as constants from "../Constants/Constants.js";
 
 //**By wrapping the code inside the DOMContentLoaded event listener, you ensure that the code will only run when the DOM is ready.
 document.addEventListener("DOMContentLoaded", function() {
@@ -153,12 +153,12 @@ onValue(matchesData, function(snapshot) {
                     document.getElementById(`timeElement_${time}`).style.color = 'mediumvioletred';
                     document.getElementById(`matchElement_${time}`).style.backgroundColor = 'gray';
                     document.getElementById(`matchElement_${time}`).style.color = 'purple';
-                }else if (qualData_firebase[time].winning_alliance == 'blue') {
+                }else if(qualData_firebase[time].winning_alliance == 'blue') {
                     document.getElementById(`timeElement_${time}`).innerHTML = 'Lost';
                     document.getElementById(`timeElement_${time}`).style.backgroundColor = 'darkred';
                     document.getElementById(`matchElement_${time}`).style.backgroundColor = 'gray';
                     document.getElementById(`matchElement_${time}`).style.color = 'purple';
-                }else{
+                }else if(typeof qualData_firebase[time].actual_time == 'number'){
                     document.getElementById(`timeElement_${time}`).innerHTML = 'Tie';
                     document.getElementById(`timeElement_${time}`).style.backgroundColor = 'black';
                     document.getElementById(`matchElement_${time}`).style.backgroundColor = 'gray';
@@ -185,12 +185,12 @@ onValue(matchesData, function(snapshot) {
                     document.getElementById(`timeElement_${time}`).style.color = 'mediumvioletred';
                     document.getElementById(`matchElement_${time}`).style.backgroundColor = 'gray';
                     document.getElementById(`matchElement_${time}`).style.color = 'purple';
-                }else if (qualData_firebase[time].winning_alliance == 'red') {
+                }else if(qualData_firebase[time].winning_alliance == 'red') {
                     document.getElementById(`timeElement_${time}`).innerHTML = 'Lost';
                     document.getElementById(`timeElement_${time}`).style.backgroundColor = 'darkred';
                     document.getElementById(`matchElement_${time}`).style.backgroundColor = 'gray';
                     document.getElementById(`matchElement_${time}`).style.color = 'purple';
-                }else{
+                }else if(typeof qualData_firebase[time].actual_time == 'number'){
                     document.getElementById(`timeElement_${time}`).innerHTML = 'Tie';
                     document.getElementById(`timeElement_${time}`).style.backgroundColor = 'black';
                     document.getElementById(`matchElement_${time}`).style.backgroundColor = 'gray';
