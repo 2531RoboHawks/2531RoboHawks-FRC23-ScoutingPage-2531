@@ -2,7 +2,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
 import { getDatabase, ref, push, onValue, update, set, remove, child} from "https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js";
 
-import * as constants from "../Constants/Constants.js";
+import { fetchQualSchedule } from "../Constants/API.js";
 
 //**By wrapping the code inside the DOMContentLoaded event listener, you ensure that the code will only run when the DOM is ready.
 document.addEventListener("DOMContentLoaded", function() {
@@ -52,6 +52,8 @@ onValue(lastUpdate, function(snapshot) {
     let convertedTime = convertTimeStamp(updatedTime);
     let minutesAgo = new Date((Date.now() - updatedTime)).getMinutes();
     let secondsAgo = new Date((Date.now() - updatedTime)).getSeconds();
+    console.log(minutesAgo)
+    console.log(secondsAgo)
 
     //Display on webpage
     updatedTime_element.innerHTML += `${convertedTime} <br> (${minutesAgo} min ${secondsAgo} sec ago)`;
