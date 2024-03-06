@@ -52,8 +52,6 @@ onValue(lastUpdate, function(snapshot) {
     let convertedTime = convertTimeStamp(updatedTime);
     let minutesAgo = new Date((Date.now() - updatedTime)).getMinutes();
     let secondsAgo = new Date((Date.now() - updatedTime)).getSeconds();
-    console.log(minutesAgo)
-    console.log(secondsAgo)
 
     //Display on webpage
     updatedTime_element.innerHTML += `${convertedTime} <br> (${minutesAgo} min ${secondsAgo} sec ago)`;
