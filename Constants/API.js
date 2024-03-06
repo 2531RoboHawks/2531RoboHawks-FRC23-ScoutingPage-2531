@@ -79,6 +79,22 @@ export function fetchAttendingTeams() {
     });
 }
 
+//Fetch all regionals of selected year
+export function fetchRegionals(year) {
+    const url = `${baseUrl}/events/${year}/simple`;
+
+    onValue(apiKey_Firebase, function(snapshot) {
+        let apiKey = Object.values(snapshot.val()).join(''); //Get apiKey from firebase
+        console.log(apiKey);
+        
+        // Make the API request for data
+        fetchData(url, apiKey, function(data) {
+            set(regionalsList, data);
+        });
+        
+    });
+}
+
 //Fetch Qualification Matches Schedule
 export function fetchQualSchedule() {
     const url = `${baseUrl}/event/${year}${event_code}/matches`;
