@@ -28,8 +28,8 @@ const event_code = `mndu`; //Found on 'apiDoc - Blue Alliance' OR 'Scoutradioz'
 export const team_number = '2531';
 
 
-//***Fetch data format function
-function fetchData(url, apiKey) {
+//General fetch data function
+function fetchData(url, apiKey, handleData) {
     return fetch(url, {
         method: 'GET',
         headers: {
@@ -42,12 +42,24 @@ function fetchData(url, apiKey) {
         }
         return response.json();
     })
+    .then(data => {
+        // Call the handleData callback with the fetched data
+        handleData(data);
+    })
     .catch(error => {
         console.error('Error fetching data:', error);
         // Re-throw the error or return a rejected Promise to propagate the error
         throw error;
     });
 }
+
+/*
+ * fetchData() is a general formated function used to fetch any data from Blue Alliance.
+ * To fetch data, use the function in the following format:
+        fetchData('your-url-here', 'your-api-key-here', function(data) {
+            //Handle fetched data here
+        });
+ */
 
 //Fetch all attending teams and their info
 export function fetchAttendingTeams() {
@@ -58,23 +70,11 @@ export function fetchAttendingTeams() {
         console.log(apiKey);
         
         // Make the API request for data
-        fetch(url, {
-            method: 'GET',
-            headers: {
-                'X-TBA-Auth-Key': apiKey,
-            },
-            })
-            .then(response => response.json())
-            
-            // Handle the data from the API response
-            .then(data => {
-                let sortedTeamsByNumber = data
-                    .sort((a, b) => a.team_number - b.team_number); // Sort by team_number
-                set(attendingTeams, sortedTeamsByNumber); //Upload attendingTeams to Firebase
-            })
-            .catch(error => {
-                console.error(error);
-            });
+        fetchData(url, apiKey, function(data) {
+            let sortedTeamsByNumber = data
+            .sort((a, b) => a.team_number - b.team_number); // Sort by team_number
+            set(attendingTeams, sortedTeamsByNumber); //Upload attendingTeams to Firebase        
+        });
         
     });
 }
@@ -88,28 +88,15 @@ export function fetchQualSchedule() {
         console.log(apiKey);
         
         // Make the API request for data
-        fetch(url, {
-            method: 'GET',
-            headers: {
-                'X-TBA-Auth-Key': apiKey,
-            },
-            })
-            .then(response => response.json())
-            
-            // Handle the data from the API response
-            .then(data => { 
-            
-                //This variable contains filtered and sorted data.
-                let sortedAndFilteredMatches = data
-                    .filter(match => match.comp_level === 'qm') // Filter by comp_level 'qm'
-                    .sort((a, b) => a.match_number - b.match_number); // Sort by match_number
-                    
-                    set(matchesData, sortedAndFilteredMatches); //Push data to Firebase
-                    set(lastUpdate, Date.now()); //Update on the updatedTime
-            })
-            .catch(error => {
-                console.error(error);
-            });
+        fetchData(url, apiKey, function(data) {
+            //This variable contains filtered and sorted data.
+            let sortedAndFilteredMatches = data
+                .filter(match => match.comp_level === 'qm') // Filter by comp_level 'qm'
+                .sort((a, b) => a.match_number - b.match_number); // Sort by match_number
+                
+                set(matchesData, sortedAndFilteredMatches); //Push data to Firebase
+                set(lastUpdate, Date.now()); //Update on the updatedTime
+        });
         
     });
 }
