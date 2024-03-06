@@ -175,27 +175,6 @@ nextButton_auto.addEventListener('click', function() {
     console.log(data_local);
 });
 
-// function saveAuto() {
-//          i_auto = 0;
-//     while(instand_layout.auto[i_auto]) {
-//         if (instand_layout.auto[i_auto].type_of_input === inputTypes.chooser || instand_layout.auto[i_auto].type_of_input === inputTypes.multi_choice) {
-//             data_local.auto[i_auto] = {
-//                 task: instand_layout.auto[i_auto].task,
-//                 data: document.getElementsByName(`input_${instand_layout.auto[i_auto].task}`).value,
-//                 points: instand_layout.auto[i_auto].points
-//             }
-//         } else{
-//             data_local.auto[i_auto] = {
-//                 task: instand_layout.auto[i_auto].task,
-//                 data: document.getElementById(`input_${instand_layout.auto[i_auto].task}`).value,
-//                 points: instand_layout.auto[i_auto].points
-//             }
-//         }
-//     }
-//     console.log(data_local);
-// }
-
-
 console.log(data_local);
 
 });

@@ -19,23 +19,35 @@ const database = getDatabase(app); //Realtime-database
 
 //Firebase reference
 const regionalsList = ref(database, 'generalInfo/regionalsList');
-const selectedRegional = ref(database, 'generalInfo/selectedRegional')
+const selectedRegional_ref = ref(database, 'generalInfo/selectedRegional')
 const attendingTeams = ref(database, 'generalInfo/attendingTeams');
 
 //HTML elements
 const year_input = document.getElementById("year_input");
-const selectRegional = document.getElementById("selectRegional");
+const selectRegional_input = document.getElementById("selectRegional");
 const eventUpdate_Button = document.getElementById("eventUpdate_Button");
+const yearUpdate_Button = document.getElementById("yearUpdate_Button");
 
 let year;
 let event_code;
 let team_number;
+//Add regionals to the list of options
+onValue(regionalsList, function(snapshot) {
+    const regionalsList_Array = Object.values(snapshot.val());
+    for(let i = 0; i < regionalsList_Array.length; i++) {
+        selectRegional_input.innerHTML += `<option value="" id="selectRegional_${i}">${regionalsList_Array[i].name}</option>`;
+    }
 
-eventUpdate_Button.addEventListener("click", function() {
-    year = year_input.value;
-    fetchRegionals(year);
+    yearUpdate_Button.addEventListener("click", function() {
+        year = year_input.value;
+        fetchRegionals(year, null);
+
+    });
+
+    eventUpdate_Button.addEventListener("click", function() {
+        // console.log(regionalsList_Array.indexOf(selectRegional_input.value));
+    })
+
 });
-
-
 
 });

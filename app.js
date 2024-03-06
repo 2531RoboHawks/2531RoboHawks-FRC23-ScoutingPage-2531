@@ -17,25 +17,5 @@ const app = initializeApp(appSettings);
 //Connects database to app
 const database = getDatabase(app); //Realtime-database
 
-//Firebase reference
-const regionalsList = ref(database, 'generalInfo/regionalsList');
-const selectedRegional = ref(database, 'generalInfo/selectedRegional')
-const attendingTeams = ref(database, 'generalInfo/attendingTeams');
-
-//HTML elements
-const year_input = document.getElementById("year_input");
-const selectRegional = document.getElementById("selectRegional");
-const eventUpdate_Button = document.getElementById("eventUpdate_Button");
-
-let year;
-let event_code;
-let team_number;
-
-eventUpdate_Button.addEventListener("click", function() {
-    year = year_input.value;
-    fetchRegionals(year);
-});
-
-
 
 });

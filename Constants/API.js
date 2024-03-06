@@ -80,7 +80,7 @@ export function fetchAttendingTeams() {
 }
 
 //Fetch all regionals of selected year
-export function fetchRegionals(year) {
+export function fetchRegionals(year, event_code) {
     const url = `${baseUrl}/events/${year}/simple`;
 
     onValue(apiKey_Firebase, function(snapshot) {
@@ -90,6 +90,7 @@ export function fetchRegionals(year) {
         // Make the API request for data
         fetchData(url, apiKey, function(data) {
             set(regionalsList, data);
+            console.log(data);
         });
         
     });
