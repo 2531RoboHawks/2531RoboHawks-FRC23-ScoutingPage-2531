@@ -1,5 +1,27 @@
-.homeContainer {
+header {
+    justify-content: center;
+    align-items: center;
     display: flex;
+}
+
+img {
+    max-width: 1000px;
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+}
+
+nav {
+    flex-direction: column;
+    background-color: gold;
+    border-radius: 12px;
+    display: flex;
+    font-size: 130%;
+    padding: 20px;
+    font-family: arial;
+    font-weight: 600;
+    align-items: center;
+    gap: 20px;
 }
 
 h1 {
@@ -7,46 +29,3 @@ h1 {
     text-align: center;
     font-family: monospace;
 }
-
-#practiceMatchSchedule {
-    display: flex;
-    justify-content: space-evenly;
-    font-size: 160%;
-    color: rgb(97, 94, 94);
-}
-
-#qualMatchSchedule {
-    display: flex;
-    justify-content: space-evenly;
-    font-size: 160%;
-    color: blue;
-}
-
-#instandScoutingForm {
-    display: flex;
-    justify-content: space-evenly;
-    font-size: 130%;
-    color: rgb(228, 150, 35);
-}
-
-#instandScoutingData {
-    display: flex;
-    justify-content: space-evenly;
-    font-size: 130%;
-    color: rgb(120, 56, 180);
-}
-
-#scoutingForm {
-    display: flex;
-    justify-content: space-evenly;
-    font-size: 130%;
-    color: rgb(228, 150, 35);
-}
-
-#scoutingData {
-    display: flex;
-    justify-content: space-evenly;
-    font-size: 130%;
-    color: rgb(120, 56, 180);
-}
-

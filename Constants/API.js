@@ -16,8 +16,8 @@ const database = getDatabase(app); //Realtime-database
 const apiKey_Firebase = ref(database, "apiKey"); //Stored in Firebase
 const matchesData = ref(database, 'qualSchedule/matchesData');
 const lastUpdate = ref(database, 'qualSchedule/lastUpdate');
-const teamInfo = ref(database, 'teamInfo');
-const teamScoutingData = ref(database, 'teamScoutingData');
+const teamInfo = ref(database, 'generalInfo/teamInfo');
+const scoutingData = ref(database, 'scoutingData');
 
 //Variables for API
 const baseUrl = 'https://www.thebluealliance.com/api/v3'; // Adjust the base URL based on the TBA API version
@@ -25,7 +25,7 @@ const baseUrl = 'https://www.thebluealliance.com/api/v3'; // Adjust the base URL
 //TODO: change these variables to the attending regional
 const year = `2024`; //yyyy
 const event_key = `mndu`; //Found on 'apiDoc - Blue Alliance' OR 'Scoutradioz'
-
+export const team_number = '2531';
 
 //Function to fetch Qualification Matches Schedule
 export function fetchQualSchedule() {
