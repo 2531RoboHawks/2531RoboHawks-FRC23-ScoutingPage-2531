@@ -2,7 +2,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
 import { getDatabase, ref, push, onValue, update, set, remove, child} from "https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js";
 
-import { fetchQualSchedule } from "../Constants/API.js";
+import { fetchQualSchedule, team_number } from "../Constants/API.js";
 
 //**By wrapping the code inside the DOMContentLoaded event listener, you ensure that the code will only run when the DOM is ready.
 document.addEventListener("DOMContentLoaded", function() {
@@ -52,8 +52,6 @@ onValue(lastUpdate, function(snapshot) {
     let convertedTime = convertTimeStamp(updatedTime);
     let minutesAgo = new Date((Date.now() - updatedTime)).getMinutes();
     let secondsAgo = new Date((Date.now() - updatedTime)).getSeconds();
-    console.log(minutesAgo)
-    console.log(secondsAgo)
 
     //Display on webpage
     updatedTime_element.innerHTML += `${convertedTime} <br> (${minutesAgo} min ${secondsAgo} sec ago)`;
@@ -135,12 +133,12 @@ onValue(matchesData, function(snapshot) {
         document.getElementById(`blue3_${i}`).innerHTML = blue3Array[i]; //Display blue3 teams onto the table
     }
 
-    //This portion looks for '2531' and changes color
+    //This portion looks for set team_number and changes color
     for (let i = 0; i < redAllianceElements.length; i++) {
         let currentRedAllianceValue = redAllianceElements[i].innerHTML;
 
-        // Check if the current element's value is '2531'
-        if (currentRedAllianceValue === '2531') {
+        // Check if the current element's value matches set team_number
+        if (currentRedAllianceValue === team_number) {
             redAllianceElements[i].style.backgroundColor = 'gold';
             redAllianceElements[i].style.color = 'purple';
             let time = redAllianceElements[i].id.slice(5); //Get id and then slice 'red_n' to 'n'
@@ -171,8 +169,8 @@ onValue(matchesData, function(snapshot) {
     for (let i = 0; i < blueAllianceElements.length; i++) {
         let currentBlueAllianceValue = blueAllianceElements[i].innerHTML;
 
-        // Check if the current element's value is '2531'
-        if (currentBlueAllianceValue === '2531') {
+        // Check if the current element's value is set team_number
+        if (currentBlueAllianceValue === team_number) {
             blueAllianceElements[i].style.backgroundColor = 'gold';
             blueAllianceElements[i].style.color = 'purple';
             let time = blueAllianceElements[i].id.slice(6); //Get id and then slice 'blue_n' to 'n'

@@ -65,6 +65,8 @@ function userLogin() {
 
     if(localStorage.getItem('memberUser') == 'userValid'  &&  localStorage.getItem('memberPass') == 'passValid') {
         localStorage.setItem('userStatus', 'member');
+        alert("You're logged in as a member!!");
+        window.history.back();
     } else {
         clearUserStatus();
         localStorage.setItem('userStatus', 'guest');
