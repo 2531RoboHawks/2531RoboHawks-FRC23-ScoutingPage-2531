@@ -16,20 +16,72 @@ const database = getDatabase(app); //Realtime-database
 const apiKey_Firebase = ref(database, "apiKey"); //Stored in Firebase
 const matchesData = ref(database, 'qualSchedule/matchesData');
 const lastUpdate = ref(database, 'qualSchedule/lastUpdate');
-const teamInfo = ref(database, 'generalInfo/teamInfo');
-const scoutingData = ref(database, 'scoutingData');
+const regionalsList = ref(database, 'generalInfo/regionalsList');
+const attendingTeams = ref(database, 'generalInfo/attendingTeams');
 
 //Variables for API
 const baseUrl = 'https://www.thebluealliance.com/api/v3'; // Adjust the base URL based on the TBA API version
 
 //TODO: change these variables to the attending regional
 const year = `2024`; //yyyy
-const event_key = `mndu`; //Found on 'apiDoc - Blue Alliance' OR 'Scoutradioz'
+const event_code = `mndu`; //Found on 'apiDoc - Blue Alliance' OR 'Scoutradioz'
 export const team_number = '2531';
 
-//Function to fetch Qualification Matches Schedule
+
+//***Fetch data format function
+function fetchData(url, apiKey) {
+    return fetch(url, {
+        method: 'GET',
+        headers: {
+            'X-TBA-Auth-Key': apiKey,
+        },
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .catch(error => {
+        console.error('Error fetching data:', error);
+        // Re-throw the error or return a rejected Promise to propagate the error
+        throw error;
+    });
+}
+
+//Fetch all attending teams and their info
+export function fetchAttendingTeams() {
+    const url = `${baseUrl}/event/${year}${event_code}/teams`;
+
+    onValue(apiKey_Firebase, function(snapshot) {
+        let apiKey = Object.values(snapshot.val()).join(''); //Get apiKey from firebase
+        console.log(apiKey);
+        
+        // Make the API request for data
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                'X-TBA-Auth-Key': apiKey,
+            },
+            })
+            .then(response => response.json())
+            
+            // Handle the data from the API response
+            .then(data => {
+                let sortedTeamsByNumber = data
+                    .sort((a, b) => a.team_number - b.team_number); // Sort by team_number
+                set(attendingTeams, sortedTeamsByNumber); //Upload attendingTeams to Firebase
+            })
+            .catch(error => {
+                console.error(error);
+            });
+        
+    });
+}
+
+//Fetch Qualification Matches Schedule
 export function fetchQualSchedule() {
-    const url = `${baseUrl}/event/${year}${event_key}/matches`;
+    const url = `${baseUrl}/event/${year}${event_code}/matches`;
 
     onValue(apiKey_Firebase, function(snapshot) {
         let apiKey = Object.values(snapshot.val()).join(''); //Get apiKey from firebase
@@ -54,36 +106,6 @@ export function fetchQualSchedule() {
                     
                     set(matchesData, sortedAndFilteredMatches); //Push data to Firebase
                     set(lastUpdate, Date.now()); //Update on the updatedTime
-            })
-            .catch(error => {
-                console.error(error);
-            });
-        
-    });
-}
-
-//Function to fetch all attending teams and their info
-export function fetchAttendingTeams() {
-    const url = `${baseUrl}/event/${year}${event_key}/teams`;
-
-    onValue(apiKey_Firebase, function(snapshot) {
-        let apiKey = Object.values(snapshot.val()).join(''); //Get apiKey from firebase
-        console.log(apiKey);
-        
-        // Make the API request for data
-        fetch(url, {
-            method: 'GET',
-            headers: {
-                'X-TBA-Auth-Key': apiKey,
-            },
-            })
-            .then(response => response.json())
-            
-            // Handle the data from the API response
-            .then(data => {
-                let sortedTeamsByNumber = data
-                    .sort((a, b) => a.team_number - b.team_number); // Sort by team_number
-                set(teamInfo, sortedTeamsByNumber); //Upload teamInfo to Firebase
             })
             .catch(error => {
                 console.error(error);
