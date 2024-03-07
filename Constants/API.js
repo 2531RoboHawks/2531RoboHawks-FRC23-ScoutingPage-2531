@@ -9,16 +9,20 @@ const lastUpdate_ref = ref(database, 'qualSchedule/lastUpdate');
 const regionalsList_ref = ref(database, 'generalInfo/regionalsList');
 const selectedRegional_ref = ref(database, 'generalInfo/selectedRegional');
 const attendingTeams_ref = ref(database, 'generalInfo/attendingTeams');
-const year_ref = ref(database, 'generalInfo/year');
-const event_code_ref = ref(database, 'generalInfo/event_code');
+const generalInfo_ref = ref(database, 'generalInfo');
 
 //Variables for API
 const baseUrl = 'https://www.thebluealliance.com/api/v3'; // Adjust the base URL based on the TBA API version
 
-let year = '2024';
-let event_code = 'mndu';
+let year;
+let event_code;
 export let team_number = '2531';
 
+onValue(generalInfo_ref, function(snapshot) {
+    let info = snapshot.val();
+    year = info.year;
+    event_code = info.event_code;
+});
 
 //General fetch data function
 function fetchData(url, apiKey, handleData) {

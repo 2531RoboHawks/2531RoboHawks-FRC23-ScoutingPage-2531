@@ -14,12 +14,12 @@ const attendingTeams = ref(database, 'generalInfo/attendingTeams');
 const year_ref = ref(database, 'generalInfo/year');
 const event_code_ref = ref(database, 'generalInfo/event_code');
 
+
 //HTML elements
 const year_input = document.getElementById("year_input");
 const selectRegional_input = document.getElementById("selectRegional");
 const eventUpdate_Button = document.getElementById("eventUpdate_Button");
 const yearUpdate_Button = document.getElementById("yearUpdate_Button");
-
 
 onValue(regionalsList, function(snapshot) {
     //Add regionals to the list of options
@@ -31,24 +31,29 @@ onValue(regionalsList, function(snapshot) {
     //Update both year and regional
     yearUpdate_Button.addEventListener("click", function() {
         let year = year_input.value;
-        fetchRegionalsList(year);
-        fetchQualSchedule();
-        fetchAttendingTeams();
-
         let regionalPosition = regionalsList_Array.findIndex(item => item.name === selectRegional_input.value);
-        set(selectedRegional_ref, regionalsList_Array[regionalPosition]);
-        console.log(regionalsList_Array[regionalPosition].event_code);
-        set(year_ref, year_input.value);
-        set(event_code_ref, regionalsList_Array[regionalPosition].event_code);
+        setTimeout(function() {
+            set(year_ref, year_input.value);
+            set(event_code_ref, regionalsList_Array[regionalPosition].event_code);
+            fetchRegionalsList(year);
+            fetchQualSchedule();
+            fetchAttendingTeams();
 
+            set(selectedRegional_ref, regionalsList_Array[regionalPosition]);
+            console.log(regionalsList_Array[regionalPosition].event_code);
+            console.log(regionalsList_Array[regionalPosition].year);
+        }, 1500);
+        
     });
 
     //Update only regional
     eventUpdate_Button.addEventListener("click", function() {
-        let regionalPosition = regionalsList_Array.findIndex(item => item.name === selectRegional_input.value);
-        set(selectedRegional_ref, regionalsList_Array[regionalPosition]);
-        fetchQualSchedule();
-        fetchAttendingTeams();
+        setTimeout(function() {
+            let regionalPosition = regionalsList_Array.findIndex(item => item.name === selectRegional_input.value);
+            set(selectedRegional_ref, regionalsList_Array[regionalPosition]);
+            fetchQualSchedule();
+            fetchAttendingTeams();                  
+        }, 1500);
     });
 });
 
