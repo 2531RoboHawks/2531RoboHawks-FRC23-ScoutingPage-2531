@@ -37,6 +37,17 @@ h1 {
     font-family: monospace;
 }
 
+#status {
+    width: fit-content;
+    background-color: yellow;
+    border: solid 2px purple;
+    color: purple;
+    font-size: medium;
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+}
+
 .adminContainer{
     display: flex;
     flex-direction: column;
@@ -88,6 +99,18 @@ input {
     width: 50%;
     min-width: 10px;
     max-width: 100px;
+}
+
+button {
+    margin: 10px;
+    border-radius: 10px;
+    font-style: italic;
+    color: black;
+}
+
+.buttonContainer {
+    justify-content: center;
+    display: flex;
 }
 
 button {

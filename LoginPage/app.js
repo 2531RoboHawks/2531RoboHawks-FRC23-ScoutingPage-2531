@@ -40,7 +40,6 @@ loginButton.addEventListener('click', function(){
 guestSignIn.addEventListener('click', function() {
     clearUserStatus();
     console.log(localStorage.getItem('userStatus')); //set user as guest
-    // location.replace("../app.js");
 });
 
 //Checking login validation

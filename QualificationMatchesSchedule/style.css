@@ -58,27 +58,6 @@ h1 {
     margin-right: auto; /* Having both margins centers the table */
 }
 
-.buttonContainer{
-    margin-top: 10px;
-    float: right;
-}
-
-#updateButton{
-    background-color: gold;
-    margin-top: 10px;
-}
-
-#resetButton{
-    background-color: gold;
-    font-size: 50%;
-    margin-top: 40px;
-    display: flex;
-}
-
-#saveButton {
-    background-color: gold;
-}
-
 th, td {
     border:2.5px solid white;
     text-align: center;
