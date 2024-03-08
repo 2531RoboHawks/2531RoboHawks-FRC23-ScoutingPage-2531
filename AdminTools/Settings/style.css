@@ -1,3 +1,9 @@
+body {
+    max-width: 650px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
 header {
     justify-content: center;
     align-items: center;

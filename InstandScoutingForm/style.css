@@ -1,3 +1,16 @@
+body {
+    max-width: 650px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+img {
+    max-width: 650px;
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+}
+
 header {
     background-color: black;
     flex-direction: row;
