@@ -45,7 +45,7 @@ guestSignIn.addEventListener('click', function() {
 //Checking login validation
 function userLogin() {
     onValue(memberUser, function(snapshot) {
-        let memberUser = Object.values(snapshot.val()); //Get member's username from firebase 
+        let memberUser = Object.values(snapshot.val()).join(''); //Get member's username from firebase 
         console.log(memberUser);
         //Verify username
         if(userInput.value == memberUser) {
@@ -54,7 +54,7 @@ function userLogin() {
     });
 
     onValue(memberPass, function(snapshot) {
-        let memberPass = Object.values(snapshot.val()); //Get member's password from firebase
+        let memberPass = Object.values(snapshot.val()).join(''); //Get member's password from firebase
         console.log(memberPass);
         //Verify pass
         if(passInput.value == memberPass) {
