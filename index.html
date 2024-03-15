@@ -7,71 +7,86 @@
     <link rel="stylesheet" href="style.css">
     <title>Home - Scouting App</title>
     <link rel="icon" href="Images/robohawksLogo.png">
+    <script>
+        //Function to toggle different side menus
+        function toggleSideSection(event, showSection, hideSection) {
+            event.stopPropagation(); // Prevent the click event from propagating to the body
+
+            // Toggle the section's visibility by changing its left position
+            const s_section = document.getElementById(showSection);
+            const h_section = hideSection ? document.getElementById(hideSection) : null;
+
+            if (s_section) {
+                if (s_section.style.left === '-100%' || s_section.style.left === '') {
+                    if (h_section && (h_section.style.left !== '100%' && h_section.style.left !== '')) {
+                        h_section.style.left = '-100%';
+                    }
+                    s_section.style.left = '0'; // Show section
+                } else {
+                    s_section.style.left = '-100%'; // Hide section
+                }
+            }
+        }
+    </script>
 </head>
 
 <body style="background-color: black;">
     <header>
         <img src="Images/Crescendo_Pic.jpeg" alt="robohawks-pics">
-     </header>   
-
-    <nav id="nav">
-        <a href="QualificationMatchesSchedule">Qualification Matches Schedule</a>
-        <a href="PitScoutingForm">Pit Scouting Form</a>
-        <a href="InstandScoutingForm">Instand Scouting Form</a>
-        <a href="">Pit Scouting Data</a>
-        <a href="InstandScoutingData">Instand Scouting Data</a>
-    </nav>
+     </header>
 
     <div id="top-container">
-        <div id="menu-icon">
+        <div onclick="toggleSideSection(event, 'sidebar', null)" id="menu-icon">
             <span></span>
             <span></span>
             <span></span>
         </div>
+        <div class="custom-link" data-href="LoginPage" style="position: right;"><p>Login</p></div>
     </div>
          
 
     <section id="sidebar">
-        <p class="custom-link" id="admin-directory" data-href="AdminTools/Settings" style="margin-top: 4%;">Admin Settings -></p>
+        <div class="custom-link" data-href="QualificationMatchesSchedule" style="margin-top: 3%;"><p>QualificationMatchesSchedule</p></div>
         <hr>
-        <p class="custom-link">sidsjao</p>
+        <div onclick="toggleSideSection(event, 'admin-bar', 'sidebar')" class="admin"><p>Admin -></p></div>
+        <hr>
+        <div onclick="toggleSideSection(event, 'matchScouting-bar', 'sidebar')"><p>Match Scouting -></p></div>
+        <hr>
+        <div onclick="toggleSideSection(event, 'pitScouting-bar', 'sidebar')"><p>Pit Scouting -></p></div>
         <hr>
     </section>
 
-    <section class="admin-bar">
-        <p class="custom-link" data-href="AdminTools/Settings" style="margin-top: 4%;">Admin Settings</p>
+    <section class="admin" id="admin-bar">
+        <div class="custom-link admin" data-href="AdminTools/Settings" style="margin-top: 3%;"><p>Settings</p></div>
         <hr>
+        <div class="custom-link admin" data-href="AdminTools/ManagePitScouting"><p>Manage Pit Scouting</p></div>
+        <hr>
+        <div class="custom-link admin" data-href="AdminTools/ManageMatchScouting"><p>Manage Match Scouting</p></div>
+        <hr>
+        <div onclick="toggleSideSection(event, 'sidebar', 'admin-bar')" style="position: absolute; bottom: 0; margin-bottom: 10px;"><p><- Back</p></div>
     </section>
 
-    <div id="main-container">
+    <section class="member" id="matchScouting-bar">
+        <div class="custom-link member" data-href="MatchScouting/Form" style="margin-top: 3%;"><p>Match Scouting Form</p></div>
+        <hr>
+        <div class="custom-link member" data-href="MatchScouting/Data" style="margin-top: 3%;"><p>Match Scouting Data</p></div>
+        <hr>
+        <div onclick="toggleSideSection(event, 'sidebar', 'matchScouting-bar')" style="position: absolute; bottom: 0; margin-bottom: 10px;"><p><- Back</p></div>
+    </section>
+
+    <section class="member" id="pitScouting-bar">
+        <div class="custom-link member" data-href="pitScouting/Form" style="margin-top: 3%;"><p>Pit Scouting Form</p></div>
+        <hr>
+        <div class="custom-link member" data-href="pitScouting/Data" style="margin-top: 3%;"><p>Pit Scouting Data</p></div>
+        <hr>
+        <div onclick="toggleSideSection(event, 'sidebar', 'pitScouting-bar')" style="position: absolute; bottom: 0; margin-bottom: 10px;"><p><- Back</p></div>
+    </section>
+
         <strong><h1><u>2024 Crescendo</u></h1></strong>
-        <a href="../LoginPage">login (temporary link)</a>
         <br>
-        
-        <footer>
-            <a href="AdminTools/Settings">Settings</a>
-        </footer>
-    </div>
     
 
     <script type="module" src="app.js"></script>
 
 </body>
 </html>
-
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Toggle Section</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <button id="toggleButton">Toggle Section</button>
-    <div id="sidebar">This is the sidebar content.</div>
-    <div id="mainContent">This is the main content.</div>
-    <script src="script.js"></script>
-</body>
-</html>
- -->

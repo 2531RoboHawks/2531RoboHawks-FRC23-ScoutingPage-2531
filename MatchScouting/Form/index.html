@@ -5,32 +5,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Instand Scouting Form</title>
-    <link rel="icon" href="../Images/robohawksLogo.png">
+    <title>Match Scouting Form</title>
+    <link rel="icon" href="../../Images/robohawksLogo.png">
     <script>
         //Check if user is a member (only RoboHawks member can access this page)
         if (localStorage.getItem('userStatus') != 'member') {
             alert("You need to login to access this page");
-            window.location.href = '../LoginPage/index.html';
+            window.location.href = '../../LoginPage/index.html';
         }
     </script>
 </head>
 <body>
     <header>
-        <img height="150px" src="../Images/robohawksPic.png" alt="robohawks-pics">
+        <img height="150px" src="../../Images/robohawksPic.png" alt="robohawks-pics">
      </header>   
 
     <nav>
-        <a id="homeLink" href="../index.html">Home</a>
-        <a href="../PitScoutingForm">Pit Scouting Form</a>
-        <a href="../PitScoutingData">Pit Scouting Data</a>
-        <a href="../InstandScoutingData">Instand Scouting Data</a>
-        <a href="../QualificationMatchesSchedule">Qualification Matches Schedule</a>
+        <a id="homeLink" href="../../index.html">Home</a>
+        <a href="../../PitScouting/Form/index.html">Pit Scouting Form</a>
+        <a href="../../PitScouting/Data/index.html">Pit Scouting Data</a>
+        <a href="../../MatchScouting/Data/index.html">Match Scouting Data</a>
+        <a href="../../QualificationMatchesSchedule">Qualification Matches Schedule</a>
     </nav>
 
     
     <div class="container">
-        <h1>Instand Scouting Form</h1>
+        <h1>Match Scouting Form</h1>
         <table class="teamInfo">
             <tr>
                 <th>Team Info</th>

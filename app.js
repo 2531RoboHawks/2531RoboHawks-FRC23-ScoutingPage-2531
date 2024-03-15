@@ -18,36 +18,18 @@ const database = getDatabase(app); //Realtime-database
 
 //HTML elements
 const menuIcon = document.getElementById('menu-icon');
-const adminDir = document.getElementById('admin-directory');
-const sidebar = document.getElementById('sidebar');
-const adminBar = document.getElementById('admin-bar');
+const allSections = document.querySelectorAll('section');
 
-
+//Show sidebar
 menuIcon.addEventListener('click', function(event) {
     event.stopPropagation(); // Prevent the click event from propagating to the body
-
     // Toggle the sidebar's visibility by changing its left position
-    if (sidebar.style.left === '-100%' || sidebar.style.left === '') {
-        sidebar.style.left = '0'; // Show sidebar
-    } else {
-        sidebar.style.left = '-100%'; // Hide sidebar
-    }
+    sidebar.style.left = '0'; // Show sidebar
 });
 
-// adminDir.addEventListener('click', function(event) {
-//     event.stopPropagation(); // Prevent the click event from propagating to the body
 
-//     // Toggle the sidebar's visibility by changing its left position
-//     if (adminBar.style.left === '-100%' || adminBar.style.left === '') {
-//         adminBar.style.left = '0'; // Show adminBar
-//         sidebar.style.left = '-100%'
-//     } else {
-//         adminBar.style.left = '-100%'; // Hide adminBar
-//     }
-// })
-
- // Add click event listener to custom links
- document.querySelectorAll('.custom-link').forEach(link => {
+// Add click event listener to custom links
+document.querySelectorAll('.custom-link').forEach(link => {
     link.addEventListener('click', function() {
         const href = this.getAttribute('data-href');
         if (href) {
@@ -57,9 +39,15 @@ menuIcon.addEventListener('click', function(event) {
     });
 });
 
-// Close the sidebar if a click event occurs outside of it
-document.body.addEventListener('click', function() {
-    sidebar.style.left = '-100%'; // Hide sidebar
+// Close all sections if a click event occurs outside of it
+document.addEventListener('click', function(event) {
+    // Check if the clicked element is within a section
+    if (!event.target.closest('section')) {
+        for (let i = 0; i < allSections.length; i++) {
+            allSections[i].style.left = '-100%'; // Hide section
+        }
+    }
 });
+
 
 });

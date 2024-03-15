@@ -6,7 +6,7 @@ export const inputTypes = {
     multi_choice: "checkbox"
 };
 /*  
-    The two array lists below are layouts for Pit and Instand Scouting Forms.
+    The two array lists below are layouts for Pit and Match Scouting Forms.
     Edit these variables according to each year's game.
     Adjust these lists as needed.
 
@@ -14,8 +14,8 @@ export const inputTypes = {
     choices: [item1, item2, item3, ...]
 */
 
-//Layout for Instand Scouting Form
-export const instand_layout = {
+//Layout for Match Scouting Form
+export const match_layout = {
     auto: {
         0: {
             task: "Leave Auto",

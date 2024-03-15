@@ -1,9 +1,9 @@
 //Firebase imports
-import { database } from "../Constants/firebaseConfig.js";
+import { database } from "../../Constants/firebaseConfig.js";
 import { getDatabase, ref, push, onValue, update, set, remove, child} from "https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js";
 
-import { instand_layout } from "../Constants/layout.js";
-import { inputTypes } from "../Constants/layout.js";
+import { match_layout } from "../../Constants/layout.js";
+import { inputTypes } from "../../Constants/layout.js";
 
 //**By wrapping the code inside the DOMContentLoaded event listener, you ensure that the code will only run when the DOM is ready.
 document.addEventListener("DOMContentLoaded", function() {  
@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 //Firebase references
 const teamInfo_Firebase = ref(database, "teamInfo");
-const data = ref(database, "Instand_data");
+const data = ref(database, "match_data");
 
 //HTML Elements
 const teamInfo_td = document.getElementById("td_teamInfo");
@@ -61,23 +61,23 @@ onValue(teamInfo_Firebase, function(snapshot) {
 
 //Auto Table
 let i_auto = 0;
-while(instand_layout.auto[i_auto]) {
-    if (instand_layout.auto[i_auto].type_of_input === inputTypes.chooser || instand_layout.auto[i_auto].type_of_input === inputTypes.multi_choice) {
+while(match_layout.auto[i_auto]) {
+    if (match_layout.auto[i_auto].type_of_input === inputTypes.chooser || match_layout.auto[i_auto].type_of_input === inputTypes.multi_choice) {
         
         //Create task label
         auto_td.innerHTML += 
-        `<label>${instand_layout.auto[i_auto].task}</label>`;
+        `<label>${match_layout.auto[i_auto].task}</label>`;
 
         //Create choices
-        for (let i = 0; i < instand_layout.auto[i_auto].choices.length; i++) {
-        auto_td.innerHTML += `<input id="autoTask_${i_auto}" name="input_${instand_layout.auto[i_auto].task}" type="${instand_layout.auto[i_auto].type_of_input}"
-                            <label>${instand_layout.auto[i_auto].choices[i]}</label>`;
+        for (let i = 0; i < match_layout.auto[i_auto].choices.length; i++) {
+        auto_td.innerHTML += `<input id="autoTask_${i_auto}" name="input_${match_layout.auto[i_auto].task}" type="${match_layout.auto[i_auto].type_of_input}"
+                            <label>${match_layout.auto[i_auto].choices[i]}</label>`;
         }
         auto_td.innerHTML += `<br><br>`;
     }else {
         auto_td.innerHTML += 
-        `<label>${instand_layout.auto[i_auto].task}</label> <br>
-        <input id="autoTask_${i_auto}" type="${instand_layout.auto[i_auto].type_of_input}">
+        `<label>${match_layout.auto[i_auto].task}</label> <br>
+        <input id="autoTask_${i_auto}" type="${match_layout.auto[i_auto].type_of_input}">
         <br><br>`;
     }
     i_auto++;
@@ -85,24 +85,24 @@ while(instand_layout.auto[i_auto]) {
 
 //Teleop Table
 let i_teleop = 0;
-while(instand_layout.teleop[i_teleop]) {
-    if (instand_layout.teleop[i_teleop].type_of_input === inputTypes.chooser || instand_layout.teleop[i_teleop].type_of_input === inputTypes.multi_choice) {
+while(match_layout.teleop[i_teleop]) {
+    if (match_layout.teleop[i_teleop].type_of_input === inputTypes.chooser || match_layout.teleop[i_teleop].type_of_input === inputTypes.multi_choice) {
         
         //Create task label
         teleop_td.innerHTML += 
-        `<label>${instand_layout.teleop[i_teleop].task}</label>`;
+        `<label>${match_layout.teleop[i_teleop].task}</label>`;
 
         //Create choices
-        for (let i = 0; i < instand_layout.teleop[i_teleop].choices.length; i++) {
-        teleop_td.innerHTML += `<input id="teleopTask_${i_teleop}" name="input_${instand_layout.teleop[i_teleop].task}" type="${instand_layout.teleop[i_teleop].type_of_input}"
-                            <label>${instand_layout.teleop[i_teleop].choices[i]}</label>`
+        for (let i = 0; i < match_layout.teleop[i_teleop].choices.length; i++) {
+        teleop_td.innerHTML += `<input id="teleopTask_${i_teleop}" name="input_${match_layout.teleop[i_teleop].task}" type="${match_layout.teleop[i_teleop].type_of_input}"
+                            <label>${match_layout.teleop[i_teleop].choices[i]}</label>`
         }
         teleop_td.innerHTML += `<br><br>`;
 
     }else {
         teleop_td.innerHTML += 
-        `<label>${instand_layout.teleop[i_teleop].task}</label> <br>
-        <input id="teleopTask_${i_teleop}" type="${instand_layout.teleop[i_teleop].type_of_input}">
+        `<label>${match_layout.teleop[i_teleop].task}</label> <br>
+        <input id="teleopTask_${i_teleop}" type="${match_layout.teleop[i_teleop].type_of_input}">
         <br><br>`;
     }
     i_teleop++;
@@ -111,24 +111,24 @@ while(instand_layout.teleop[i_teleop]) {
 
 //Endgame Table
 let i_endGame = 0;
-while(instand_layout.endGame[i_endGame]) {
-    if (instand_layout.endGame[i_endGame].type_of_input === inputTypes.chooser || instand_layout.endGame[i_endGame].type_of_input === inputTypes.multi_choice) {
+while(match_layout.endGame[i_endGame]) {
+    if (match_layout.endGame[i_endGame].type_of_input === inputTypes.chooser || match_layout.endGame[i_endGame].type_of_input === inputTypes.multi_choice) {
         
         //Create task label
         endGame_td.innerHTML += 
-        `<label>${instand_layout.endGame[i_endGame].task}</label>`;
+        `<label>${match_layout.endGame[i_endGame].task}</label>`;
 
         //Create choices
-        for (let i = 0; i < instand_layout.endGame[i_endGame].choices.length; i++) {
-        endGame_td.innerHTML += `<input id="endGameTask_${i_endGame}" name="input_${instand_layout.endGame[i_endGame].task}" type="${instand_layout.endGame[i_endGame].type_of_input}"
-                            <label>${instand_layout.endGame[i_endGame].choices[i]}</label>`;
+        for (let i = 0; i < match_layout.endGame[i_endGame].choices.length; i++) {
+        endGame_td.innerHTML += `<input id="endGameTask_${i_endGame}" name="input_${match_layout.endGame[i_endGame].task}" type="${match_layout.endGame[i_endGame].type_of_input}"
+                            <label>${match_layout.endGame[i_endGame].choices[i]}</label>`;
         }
         endGame_td.innerHTML += `<br><br>`;
 
     }else {
         endGame_td.innerHTML += 
-        `<label>${instand_layout.endGame[i_endGame].task}</label> <br>
-        <input id="endGameTask_${i_endGame}" type="${instand_layout.endGame[i_endGame].type_of_input}">
+        `<label>${match_layout.endGame[i_endGame].task}</label> <br>
+        <input id="endGameTask_${i_endGame}" type="${match_layout.endGame[i_endGame].type_of_input}">
         <br><br>`;
     }
     i_endGame++;
@@ -140,9 +140,9 @@ nextButton_auto.addEventListener('click', function() {
     let input;
     let output;
 
-    while(instand_layout.auto[i]) {
-        if (instand_layout.auto[i].type_of_input === inputTypes.chooser || instand_layout.auto[i].type_of_input === inputTypes.multi_choice) {
-            input = document.querySelector(input[name=`input_${instand_layout.auto[i].task}`])
+    while(match_layout.auto[i]) {
+        if (match_layout.auto[i].type_of_input === inputTypes.chooser || match_layout.auto[i].type_of_input === inputTypes.multi_choice) {
+            input = document.querySelector(input[name=`input_${match_layout.auto[i].task}`])
             for (let i = 0, length = input.length; i < length; i++) {
                 if (input[i].checked) {
                     output = input[i].value;
@@ -151,16 +151,16 @@ nextButton_auto.addEventListener('click', function() {
                 }
               }
             data_local.auto[i] = {
-                task: instand_layout.auto[i].task,
+                task: match_layout.auto[i].task,
                 data: `${output}`,
-                points: instand_layout.auto[i].points
+                points: match_layout.auto[i].points
             }
         } else{
             // console.log(document.getElementById(`autoTask_${i}`).value)
             data_local.auto[i] = {
-                task: instand_layout.auto[i].task,
+                task: match_layout.auto[i].task,
                 data: document.getElementById(`autoTask_${i}`).value,
-                points: instand_layout.auto[i].points
+                points: match_layout.auto[i].points
             }
         }
         i++;
