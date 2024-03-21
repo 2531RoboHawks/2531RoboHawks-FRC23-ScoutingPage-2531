@@ -12,6 +12,9 @@ const matchesData = ref(database, 'qualSchedule/matchesData');
 const lastUpdate = ref(database, 'qualSchedule/lastUpdate');
 
 //HTML elements
+const menuIcon = document.getElementById('menu-icon');
+const allSections = document.querySelectorAll('section');
+const sidebar = document.getElementById('section');
 const updatedTime_element = document.getElementById("updatedTime");
 const tbody = document.getElementById("tbody");
 const tr = document.getElementsByClassName("tr");
@@ -29,6 +32,35 @@ const blue1Array = [];
 const blue2Array = [];
 const blue3Array = [];
 
+
+//Show sidebar
+menuIcon.addEventListener('click', function(event) {
+    event.stopPropagation(); // Prevent the click event from propagating to the body
+    // Toggle the sidebar's visibility by changing its left position
+    sidebar.style.left = '0'; // Show sidebar
+});
+
+
+// Add click event listener to custom links
+document.querySelectorAll('.custom-link').forEach(link => {
+    link.addEventListener('click', function() {
+        const href = this.getAttribute('data-href');
+        if (href) {
+            // Navigate to the specified URL
+            window.location.href = href;
+        }
+    });
+});
+
+// Close all sections if a click event occurs outside of it
+document.addEventListener('click', function(event) {
+    // Check if the clicked element is within a section
+    if (!event.target.closest('section')) {
+        for (let i = 0; i < allSections.length; i++) {
+            allSections[i].style.left = '-100%'; // Hide section
+        }
+    }
+});
 
 onValue(lastUpdate, function(snapshot) {
     let updatedTime = snapshot.val();
@@ -130,12 +162,12 @@ onValue(matchesData, function(snapshot) {
         // Check if the current element's value matches set team_number
         if (currentRedAllianceValue === team_number) {
             redAllianceElements[i].style.backgroundColor = 'gold';
-            redAllianceElements[i].style.color = 'rgb(84, 8, 105)';
+            redAllianceElements[i].style.color = 'purple';
             let time = redAllianceElements[i].id.slice(5); //Get id and then slice 'red_n' to 'n'
             document.getElementById(`timeElement_${time}`).style.backgroundColor = 'rgb(84, 8, 105)';
             document.getElementById(`timeElement_${time}`).style.color = 'gold';
             document.getElementById(`matchElement_${time}`).style.backgroundColor = 'rgb(84, 8, 105)';
-            document.getElementById(`matchElement_${time}`).style.color = 'yellow';
+            document.getElementById(`matchElement_${time}`).style.color = 'gold';
                 //Check if match won
                 if(qualData_firebase[time].winning_alliance == 'red') {
                     document.getElementById(`timeElement_${time}`).innerHTML = 'Won';
@@ -162,12 +194,12 @@ onValue(matchesData, function(snapshot) {
         // Check if the current element's value is set team_number
         if (currentBlueAllianceValue === team_number) {
             blueAllianceElements[i].style.backgroundColor = 'gold';
-            blueAllianceElements[i].style.color = 'rgb(84, 8, 105)';
+            blueAllianceElements[i].style.color = 'purple';
             let time = blueAllianceElements[i].id.slice(6); //Get id and then slice 'blue_n' to 'n'
             document.getElementById(`timeElement_${time}`).style.backgroundColor = 'rgb(84, 8, 105)';
             document.getElementById(`timeElement_${time}`).style.color = 'gold';
             document.getElementById(`matchElement_${time}`).style.backgroundColor = 'rgb(84, 8, 105)';
-            document.getElementById(`matchElement_${time}`).style.color = 'yellow';
+            document.getElementById(`matchElement_${time}`).style.color = 'gold';
                 //Check if match won
                 if(qualData_firebase[time].winning_alliance == 'blue') {
                     document.getElementById(`timeElement_${time}`).innerHTML = 'Won';

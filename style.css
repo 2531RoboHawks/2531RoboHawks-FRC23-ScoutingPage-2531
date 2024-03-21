@@ -12,19 +12,6 @@ img {
     border-radius: 20px;
 }
 
-nav {
-    flex-direction: column;
-    background-color: gold;
-    border-radius: 12px;
-    display: flex;
-    font-size: 130%;
-    padding: 20px;
-    font-family: arial;
-    font-weight: 600;
-    align-items: center;
-    gap: 20px;
-}
-
 #top-container {
     display: flex;
     justify-content: space-between;
@@ -46,7 +33,7 @@ nav {
     width: 30px;
     height: 3px;
     background-color: white;
-    margin-bottom: 5px; /* Adjust spacing between the dashes */
+    margin-bottom: 5px;
 }
 
 section {
@@ -55,7 +42,7 @@ section {
     min-width: 200px;
     max-width: 300px;
     background-color: rgb(84, 8, 105);
-    box-shadow: 5px 15px 20px rgb(180, 22, 83); /* Add a shadow to the border */
+    box-shadow: 0 10px 20px gold;
     position: fixed;
     left: -100%; 
     top: 0;
@@ -73,13 +60,20 @@ section div {
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
 }
 
 section hr {
-    width: 100%; /* Make the line span the entire width of the section */
-    height: 1px; /* Set the height of the line */
-    background-color: white; /* Set the color of the line */
-    border: none; /* Remove any default border */
+    width: 100%;
+    height: 1px;
+    background-color: white;
+    border: none;
+}
+
+.back-dir {
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 10px;
 }
 
 h1 {

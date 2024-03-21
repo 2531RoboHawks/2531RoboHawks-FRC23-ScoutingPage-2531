@@ -42,12 +42,12 @@
             <span></span>
         </div>
         <div><h3 style="font-size: xx-large; color: gold;">RoboHawks</h3></div>
-        <div class="custom-link" data-href="LoginPage" style="position: right;"><p style="color: white;">Login</p></div>
+        <div class="custom-link" id="user-status" data-href="LoginPage" style="position: right;"><p style="color: white; margin-right: 8px;">Login</p></div>
     </div>
          
 
     <section id="sidebar">
-        <div class="custom-link" data-href="QualificationMatchesSchedule" style="margin-top: 3%;"><p>QualificationMatchesSchedule</p></div>
+        <div class="custom-link" data-href="QualificationMatchesSchedule" style="margin-top: 3%;"><p>Qualification Matches Schedule</p></div>
         <hr>
         <div onclick="toggleSideSection(event, 'admin-bar', 'sidebar')" class="admin"><p>Admin -></p></div>
         <hr>
@@ -60,11 +60,11 @@
     <section class="admin" id="admin-bar">
         <div class="custom-link admin" data-href="AdminTools/Settings" style="margin-top: 3%;"><p>Settings</p></div>
         <hr>
-        <div class="custom-link admin" data-href="AdminTools/ManagePitScouting"><p>Manage Pit Scouting</p></div>
+        <!-- <div class="custom-link admin" data-href="AdminTools/ManagePitScouting"><p>Manage Pit Scouting</p></div>
         <hr>
         <div class="custom-link admin" data-href="AdminTools/ManageMatchScouting"><p>Manage Match Scouting</p></div>
-        <hr>
-        <div onclick="toggleSideSection(event, 'sidebar', 'admin-bar')" style="position: absolute; bottom: 0; margin-bottom: 10px;"><p><- Back</p></div>
+        <hr> -->
+        <div class="back-dir" onclick="toggleSideSection(event, 'sidebar', 'admin-bar')"><p><- Back</p></div>
     </section>
 
     <section class="member" id="matchScouting-bar">
@@ -72,15 +72,15 @@
         <hr>
         <div class="custom-link member" data-href="MatchScouting/Data" style="margin-top: 3%;"><p>Match Scouting Data</p></div>
         <hr>
-        <div onclick="toggleSideSection(event, 'sidebar', 'matchScouting-bar')" style="position: absolute; bottom: 0; margin-bottom: 10px;"><p><- Back</p></div>
+        <div class="back-dir" onclick="toggleSideSection(event, 'sidebar', 'matchScouting-bar')"><p><- Back</p></div>
     </section>
 
     <section class="member" id="pitScouting-bar">
-        <div class="custom-link member" data-href="pitScouting/Form" style="margin-top: 3%;"><p>Pit Scouting Form</p></div>
+        <div class="custom-link member" data-href="PitScouting/Form" style="margin-top: 3%;"><p>Pit Scouting Form</p></div>
         <hr>
-        <div class="custom-link member" data-href="pitScouting/Data" style="margin-top: 3%;"><p>Pit Scouting Data</p></div>
+        <div class="custom-link member" data-href="PitScouting/Data" style="margin-top: 3%;"><p>Pit Scouting Data</p></div>
         <hr>
-        <div onclick="toggleSideSection(event, 'sidebar', 'pitScouting-bar')" style="position: absolute; bottom: 0; margin-bottom: 10px;"><p><- Back</p></div>
+        <div class="back-dir" onclick="toggleSideSection(event, 'sidebar', 'pitScouting-bar')"><p><- Back</p></div>
     </section>
 
         <strong><h1><u>2024 Crescendo</u></h1></strong>

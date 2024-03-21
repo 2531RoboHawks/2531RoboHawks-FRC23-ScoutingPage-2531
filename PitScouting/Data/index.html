@@ -5,8 +5,76 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Document</title>
+    <script>
+        //Function to toggle different side menus
+        function toggleSideSection(event, showSection, hideSection) {
+            event.stopPropagation(); // Prevent the click event from propagating to the body
+
+            // Toggle the section's visibility by changing its left position
+            const s_section = document.getElementById(showSection);
+            const h_section = hideSection ? document.getElementById(hideSection) : null;
+
+            if (s_section) {
+                if (s_section.style.left === '-100%' || s_section.style.left === '') {
+                    if (h_section && (h_section.style.left !== '100%' && h_section.style.left !== '')) {
+                        h_section.style.left = '-100%';
+                    }
+                    s_section.style.left = '0'; // Show section
+                } else {
+                    s_section.style.left = '-100%'; // Hide section
+                }
+            }
+        }
+    </script>
 </head>
 <body>
+
+    <div id="top-container">
+        <div onclick="toggleSideSection(event, 'sidebar', null)" id="menu-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="custom-link" data-href="../../"><h3 style="font-size: xx-large; color: gold;">RoboHawks</h3></div>
+        <div class="custom-link" id="user-status" data-href="LoginPage" style="position: right;"><p style="color: white; margin-right: 8px;">Login</p></div>
+    </div>
+
+    <section id="sidebar">
+        <div class="custom-link" data-href="../../QualificationMatchesSchedule" style="margin-top: 3%;"><p>Qualification Matches Schedule</p></div>
+        <hr>
+        <div onclick="toggleSideSection(event, 'admin-bar', 'sidebar')" class="admin"><p>Admin -></p></div>
+        <hr>
+        <div onclick="toggleSideSection(event, 'matchScouting-bar', 'sidebar')"><p>Match Scouting -></p></div>
+        <hr>
+        <div onclick="toggleSideSection(event, 'pitScouting-bar', 'sidebar')"><p>Pit Scouting -></p></div>
+        <hr>
+    </section>
+
+    <section class="admin" id="admin-bar">
+        <div class="custom-link admin" data-href="../../AdminTools/Settings" style="margin-top: 3%;"><p>Settings</p></div>
+        <hr>
+        <!-- <div class="custom-link admin" data-href="../../AdminTools/ManagePitScouting"><p>Manage Pit Scouting</p></div>
+        <hr>
+        <div class="custom-link admin" data-href="../../AdminTools/ManageMatchScouting"><p>Manage Match Scouting</p></div>
+        <hr> -->
+        <div class="back-dir" onclick="toggleSideSection(event, 'sidebar', 'admin-bar')"><p><- Back</p></div>
+    </section>
+
+    <section class="member" id="matchScouting-bar">
+        <div class="custom-link member" data-href="../../MatchScouting/Form" style="margin-top: 3%;"><p>Match Scouting Form</p></div>
+        <hr>
+        <div class="custom-link member" data-href="../../MatchScouting/Data" style="margin-top: 3%;"><p>Match Scouting Data</p></div>
+        <hr>
+        <div class="back-dir" onclick="toggleSideSection(event, 'sidebar', 'matchScouting-bar')"><p><- Back</p></div>
+    </section>
+
+    <section class="member" id="pitScouting-bar">
+        <div class="custom-link member" data-href="../../PitScouting/Form" style="margin-top: 3%;"><p>Pit Scouting Form</p></div>
+        <hr>
+        <div class="custom-link member" data-href="../../PitScouting/Data" style="margin-top: 3%;"><p>Pit Scouting Data</p></div>
+        <hr>
+        <div class="back-dir" onclick="toggleSideSection(event, 'sidebar', 'pitScouting-bar')"><p><- Back</p></div>
+    </section>
     
     <script type="module" src="app.js"></script>
 </body>

@@ -19,12 +19,15 @@ const database = getDatabase(app); //Realtime-database
 //HTML elements
 const menuIcon = document.getElementById('menu-icon');
 const allSections = document.querySelectorAll('section');
+const sidebar = document.getElementById('section');
 
 //Show sidebar
 menuIcon.addEventListener('click', function(event) {
     event.stopPropagation(); // Prevent the click event from propagating to the body
     // Toggle the sidebar's visibility by changing its left position
-    sidebar.style.left = '0'; // Show sidebar
+    if(sidebar) {
+            sidebar.style.left = '0'; // Show sidebar
+    }
 });
 
 

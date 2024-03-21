@@ -21,6 +21,9 @@ const endGame_td = document.getElementById("td_endGame");
 const selectTeam = document.getElementById("selectTeam");
 const matchNum = document.getElementById("matchNum");
 const teamNum = document.getElementById("teamNum");
+const menuIcon = document.getElementById('menu-icon');
+const allSections = document.querySelectorAll('section');
+const sidebar = document.getElementById('section');
 
 //Buttons
 const nextButton_teamInfo = document.getElementById('nextButton_teamInfo');
@@ -29,6 +32,34 @@ const nextButton_teleop = document.getElementById('nextButton_teleop');
 const nextButton_endGame = document.getElementById('nextButton_endGame');
 const submitButton = document.getElementById('submitButton');
 
+//Show sidebar
+menuIcon.addEventListener('click', function(event) {
+    event.stopPropagation(); // Prevent the click event from propagating to the body
+    // Toggle the sidebar's visibility by changing its left position
+    sidebar.style.left = '0'; // Show sidebar
+});
+
+
+// Add click event listener to custom links
+document.querySelectorAll('.custom-link').forEach(link => {
+    link.addEventListener('click', function() {
+        const href = this.getAttribute('data-href');
+        if (href) {
+            // Navigate to the specified URL
+            window.location.href = href;
+        }
+    });
+});
+
+// Close all sections if a click event occurs outside of it
+document.addEventListener('click', function(event) {
+    // Check if the clicked element is within a section
+    if (!event.target.closest('section')) {
+        for (let i = 0; i < allSections.length; i++) {
+            allSections[i].style.left = '-100%'; // Hide section
+        }
+    }
+});
 
 //This empty JS dictionary will contain user inputs
 const data_local = {

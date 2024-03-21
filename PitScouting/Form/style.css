@@ -1,3 +1,67 @@
+#top-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    width: 100%;
+    height: 45px;
+    background-color: rgb(84, 8, 105);
+}
+
+#menu-icon {
+    display: inline-block;
+    cursor: pointer;
+    padding: 10px;
+}
+
+#menu-icon span {
+    display: block;
+    width: 30px;
+    height: 3px;
+    background-color: white;
+    margin-bottom: 5px;
+}
+
+section {
+    width: 60%;
+    height: 100%;
+    min-width: 200px;
+    max-width: 300px;
+    background-color: rgb(84, 8, 105);
+    box-shadow: 0 10px 20px gold;
+    position: fixed;
+    left: -100%; 
+    top: 0;
+    transition: left 0.5s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: large;
+    color: white;
+}
+
+section div {
+    width: 100%;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+section hr {
+    width: 100%;
+    height: 1px;
+    background-color: white;
+    border: none;
+}
+
+.back-dir {
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 10px;
+}
+
 .container {
     display: flex;
     flex-direction: column;
