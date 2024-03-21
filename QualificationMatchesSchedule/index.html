@@ -7,24 +7,85 @@
     <link rel="stylesheet" href="style.css">
     <title>Qualification Matches Schedule</title>
     <link rel="icon" href="../Images/robohawksPic.png">
+    <script>
+        //Function to toggle different side menus
+        function toggleSideSection(event, showSection, hideSection) {
+            event.stopPropagation(); // Prevent the click event from propagating to the body
+
+            // Toggle the section's visibility by changing its left position
+            const s_section = document.getElementById(showSection);
+            const h_section = hideSection ? document.getElementById(hideSection) : null;
+
+            if (s_section) {
+                if (s_section.style.left === '-100%' || s_section.style.left === '') {
+                    if (h_section && (h_section.style.left !== '100%' && h_section.style.left !== '')) {
+                        h_section.style.left = '-100%';
+                    }
+                    s_section.style.left = '0'; // Show section
+                } else {
+                    s_section.style.left = '-100%'; // Hide section
+                }
+            }
+        }
+    </script>
 </head>
 
-<body style="background-color: purple;">
-     <header>
+<body style="background-color: rgb(84, 8, 105);">
+    <header>
         <img src="../Images/robohawksPic.png" alt="robohawks-pics">
-     </header>   
+    </header>   
 
-    <nav id="nav">
-        <a id="homeLink" href="../index.html">Home</a>
-        <a href="../PitScoutingForm">Pit Scouting Form</a>
-        <a href="../InstandScoutingForm">Instand Scouting Form</a>
-        <a href="">Pit Scouting Data</a>
-        <a href="../InstandScoutingData">Instand Scouting Data</a>
-    </nav>
+    <div id="top-container">
+        <div onclick="toggleSideSection(event, 'sidebar', null)" id="menu-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div><h3 class="custom-link" data-href="../" style="font-size: xx-large; color: gold;">RoboHawks</h3></div>
+        <div class="custom-link" id="user-status" data-href="LoginPage" style="position: right;"><p style="color: white; margin-right: 8px;">Login</p></div>
+    </div>
+         
 
-        <h6 id="updatedTime">Last Updated: </h6>
-        <h1>Qualification Matches Schedule</h1>
-        <div class="qualContainer">
+    <section id="sidebar">
+        <div class="custom-link" data-href="" style="margin-top: 3%; color: gold;"><p>Qualification Matches Schedule</p></div>
+        <hr>
+        <div onclick="toggleSideSection(event, 'admin-bar', 'sidebar')" class="admin"><p>Admin -></p></div>
+        <hr>
+        <div onclick="toggleSideSection(event, 'matchScouting-bar', 'sidebar')"><p>Match Scouting -></p></div>
+        <hr>
+        <div onclick="toggleSideSection(event, 'pitScouting-bar', 'sidebar')"><p>Pit Scouting -></p></div>
+        <hr>
+    </section>
+
+    <section class="admin" id="admin-bar">
+        <div class="custom-link admin" data-href="../AdminTools/Settings" style="margin-top: 3%;"><p>Settings</p></div>
+        <hr>
+        <!-- <div class="custom-link admin" data-href="../AdminTools/ManagePitScouting"><p>Manage Pit Scouting</p></div>
+        <hr>
+        <div class="custom-link admin" data-href="../AdminTools/ManageMatchScouting"><p>Manage Match Scouting</p></div>
+        <hr> -->
+        <div class="back-dir" onclick="toggleSideSection(event, 'sidebar', 'admin-bar')"><p><- Back</p></div>
+    </section>
+
+    <section class="member" id="matchScouting-bar">
+        <div class="custom-link member" data-href="../MatchScouting/Form" style="margin-top: 3%;"><p>Match Scouting Form</p></div>
+        <hr>
+        <div class="custom-link member" data-href="../MatchScouting/Data" style="margin-top: 3%;"><p>Match Scouting Data</p></div>
+        <hr>
+        <div class="back-dir" onclick="toggleSideSection(event, 'sidebar', 'matchScouting-bar')"><p><- Back</p></div>
+    </section>
+
+    <section class="member" id="pitScouting-bar">
+        <div class="custom-link member" data-href="pitScouting/Form" style="margin-top: 3%;"><p>Pit Scouting Form</p></div>
+        <hr>
+        <div class="custom-link member" data-href="pitScouting/Data" style="margin-top: 3%;"><p>Pit Scouting Data</p></div>
+        <hr>
+        <div class="back-dir" onclick="toggleSideSection(event, 'sidebar', 'pitScouting-bar')"><p><- Back</p></div>
+    </section>
+
+    <h6 id="updatedTime">Last Updated: </h6>
+    <h1>Qualification Matches Schedule</h1>
+    <div class="qualContainer">
         <div class="table">
             <table id = "matchesTable">
                 <tr style="color: white;">

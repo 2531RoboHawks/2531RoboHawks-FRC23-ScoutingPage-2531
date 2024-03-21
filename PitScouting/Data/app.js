@@ -1,20 +1,11 @@
-//Firebase imports
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
-import { getDatabase, ref, push, onValue, update, set, remove, child} from "https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js";
-
+//Firebase imported functions
+import { ref, push, onValue, update, remove } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js";
 
 //**By wrapping the code inside the DOMContentLoaded event listener, you ensure that the code will only run when the DOM is ready.
 document.addEventListener("DOMContentLoaded", function() {
 
-const appSettings = {
-    databaseURL: "https://scoutingapp-e16c4-default-rtdb.firebaseio.com/"
-}
+//TODO: Keep comments hidden from 'guest' user
 
-// Initialize Firebase
-const app = initializeApp(appSettings);
-
-//Connects database to app
-const database = getDatabase(app); //Realtime-database
 
 //HTML elements
 const menuIcon = document.getElementById('menu-icon');
@@ -25,9 +16,7 @@ const sidebar = document.getElementById('section');
 menuIcon.addEventListener('click', function(event) {
     event.stopPropagation(); // Prevent the click event from propagating to the body
     // Toggle the sidebar's visibility by changing its left position
-    if(sidebar) {
-            sidebar.style.left = '0'; // Show sidebar
-    }
+    sidebar.style.left = '0'; // Show sidebar
 });
 
 
@@ -51,6 +40,5 @@ document.addEventListener('click', function(event) {
         }
     }
 });
-
-
+    
 });

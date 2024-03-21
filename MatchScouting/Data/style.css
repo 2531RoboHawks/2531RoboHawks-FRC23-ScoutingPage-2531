@@ -1,13 +1,21 @@
-header {
-    justify-content: center;
-    align-items: center;
-    display: flex;
+body {
+    color: yellow;
+    background-color: rgb(84, 8, 105);
 }
 
 img {
-    max-width: 1000px;
+    min-width: 310px;
     width: 100%;
     height: auto;
+    border-radius: 20px;
+}
+
+header {
+    background-color: black;
+    flex-direction: row;
+    justify-content: center;
+    display: flex;
+    padding: 40px;
     border-radius: 20px;
 }
 
@@ -75,77 +83,13 @@ section hr {
     margin-bottom: 10px;
 }
 
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-table, th, td {
-    border:1px solid black;
-    text-align: center;
-}
-
-.matchInfo {
-    position: relative;
-    justify-content: left;
-}
-
-.capabilities {
-    position: relative;
-    justify-content: right;    
-}
-
-#matchNum{
-    width: 30px;
-}
-
-#teamNum {
-    width: 50px;
-}
-
-.buttonContainer {
-    justify-content: center;
-    display: flex;
-}
-
 h1 {
-    color: white;
-    font-size: 300%;
+    margin-top: 40px;
     text-align: center;
-    font-family: monospace;
-}
-
-#status {
-    width: fit-content;
-    background-color: yellow;
-    border: solid 2px rgb(84, 8, 105);
-    color: rgb(84, 8, 105);
-    font-size: medium;
-    text-align: center;
-    margin-right: auto;
-    margin-left: auto;
-}
-
-.adminContainer{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-    margin-left: auto;
-    margin-right: auto; /* Having both margins centers the table */
 }
 
 table, th, td {
     border: 1px solid yellow;
-    width: 95%;
-    min-width: 305px;
-    max-width: 1000px;
-    flex-wrap: wrap;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 th {
@@ -155,9 +99,12 @@ th {
 }
 
 td {
-    color: yellow;
     background-color: rgb(84, 8, 105);
     padding: 10px;
+}
+
+form {
+    width: 100%;
 }
 
 label {
@@ -166,26 +113,52 @@ label {
     font-style: italic;
 }
 
-input, select {
+input, select, textarea {
     background-color: rgb(237, 208, 221);
 }
 
-select {
-    width: 45%;
-    min-width: 100px;
-}
-
-input {
-    width: 50%;
+input:not([type='radio'],[type='checkbox']), select {
+    width: 20%;
+    text-align: center;
     min-width: 10px;
     max-width: 100px;
 }
 
-button {
-    margin: 10px;
-    border-radius: 10px;
-    font-style: italic;
-    color: black;
+.alliance {
+    width: 20%;
+    min-width: 60px;
+    max-width: 70px;
+}
+
+.teamInfo {
+    width: 30%;
+    min-width: 300px;
+    max-width: 400px;
+    flex-wrap: wrap;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.teleop, .auto, .endGame {
+    margin-top: 20px;
+    width: 90%;
+    min-width: 400px;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.matchResult {
+    margin-top: 20px;
+    width: 30%;
+    min-width: 250px;
+    max-width: 300px;
+    flex-wrap: wrap;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
 }
 
 .buttonContainer {

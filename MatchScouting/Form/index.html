@@ -5,9 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Admin - Settings</title>
+    <title>Match Scouting Form</title>
     <link rel="icon" href="../../Images/robohawksLogo.png">
     <script>
+        //Check if user is a member (only RoboHawks member can access this page)
+        if (localStorage.getItem('userStatus') != 'member') {
+            alert("You need to login to access this page");
+            window.location.href = '../../LoginPage/index.html';
+        }
+
         //Function to toggle different side menus
         function toggleSideSection(event, showSection, hideSection) {
             event.stopPropagation(); // Prevent the click event from propagating to the body
@@ -29,8 +35,10 @@
         }
     </script>
 </head>
-
-<body style="background-color: black;">
+<body>
+    <header>
+        <img height="150px" src="../../Images/robohawksPic.png" alt="robohawks-pics">
+    </header>   
 
     <div id="top-container">
         <div onclick="toggleSideSection(event, 'sidebar', null)" id="menu-icon">
@@ -39,9 +47,8 @@
             <span></span>
         </div>
         <div class="custom-link" data-href="../../"><h3 style="font-size: xx-large; color: gold;">RoboHawks</h3></div>
-        <div class="custom-link" id="user-status" data-href="../../LoginPage" style="position: right;"><p style="color: white; margin-right: 8px;">Login</p></div>
+        <div class="custom-link" id="user-status" data-href="LoginPage" style="position: right;"><p style="color: white; margin-right: 8px;">Login</p></div>
     </div>
-         
 
     <section id="sidebar">
         <div class="custom-link" data-href="../../QualificationMatchesSchedule" style="margin-top: 3%;"><p>Qualification Matches Schedule</p></div>
@@ -55,11 +62,11 @@
     </section>
 
     <section class="admin" id="admin-bar">
-        <div class="custom-link admin" data-href="AdminTools/Settings" style="margin-top: 3%; color: gold;"><p>Settings</p></div>
+        <div class="custom-link admin" data-href="../../AdminTools/Settings" style="margin-top: 3%;"><p>Settings</p></div>
         <hr>
-        <!-- <div class="custom-link admin" data-href="AdminTools/ManagePitScouting"><p>Manage Pit Scouting</p></div>
+        <!-- <div class="custom-link admin" data-href="../../AdminTools/ManagePitScouting"><p>Manage Pit Scouting</p></div>
         <hr>
-        <div class="custom-link admin" data-href="AdminTools/ManageMatchScouting"><p>Manage Match Scouting</p></div>
+        <div class="custom-link admin" data-href="../../AdminTools/ManageMatchScouting"><p>Manage Match Scouting</p></div>
         <hr> -->
         <div class="back-dir" onclick="toggleSideSection(event, 'sidebar', 'admin-bar')"><p><- Back</p></div>
     </section>
@@ -79,43 +86,94 @@
         <hr>
         <div class="back-dir" onclick="toggleSideSection(event, 'sidebar', 'pitScouting-bar')"><p><- Back</p></div>
     </section>
-
-    <h3 id="status"></h3>
-    <h1>Admin Settings</h1>
-
-    <div class="adminContainer">
-        <table class="resettingRegional">
+    
+    <div class="container">
+        <h1>Match Scouting Form</h1>
+        <table class="teamInfo">
             <tr>
-                <th>Change Event</th>
+                <th>Team Info</th>
             </tr>
             <tr >
                 <td>
-                    <label>Year:</label>
-                        <input type="number" id="year_input">
-                        <button id="yearUpdate_Button">Update</button><br>
-                    <label>Regional: </label>
-                        <select name="" id="selectRegional">
-                            <!-- regionalsList will be added here -->
+                    <label>Match:</label>
+                        <input type="number" id="matchNum"><br><br>
+                    <label>Team: </label>
+                        <select name="" id="selectTeam">
+                            <!-- teamList will be added here -->
                             <option value=""></option>
-                        </select>
-                        <button id="eventUpdate_Button">Update</button>         
+                        </select><br>
+                </td>
             </tr>
         </table>
+            <div class="buttonContainer">
+                <button id="nextButton_teamInfo">Next</button>
+            </div>
 
-        <table class="changePass">
+        <table class="auto">
             <tr>
-                <th>Change Pass</th>
+                <th>Auto</th>
             </tr>
             <tr>
-                <td>
+                <td id="td_auto">
                     
                 </td>
             </tr>
         </table>
+            <div class="buttonContainer">
+                <button id="nextButton_auto">Next</button>
+            </div>
+
+        <table class="teleop">
+            <tr>
+                <th>Teleop</th>
+            </tr>
+            <tr>
+                <td id="td_teleop">
+                </td>
+            </tr>
+        </table>
+            <div class="buttonContainer">
+                <button id="nextButton_teleop">Next</button>
+            </div>
+        
+        <table class="endGame">
+            <tr>
+                <th>End Game</th>
+            </tr>
+            <tr>
+                <td id="td_endGame">
+                </td>
+            </tr>
+        </table>
+            <div class="buttonContainer">
+                <button id="nextButton_endGame">Next</button>
+            </div>
+
+        <table class="matchResult">
+            <tr>
+                <th>Match Result</th>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" name="matchOutcome" id="matchWin">Win
+                    <br>
+                    <input type="radio" name="matchOutcome" id="matchLose">Lose
+                    <br>
+                    <input type="radio" name="matchOutcome" id="matchTie">Tie <br><br>
+                    <label id="comments">Comments:</label>
+                    <textarea id="comments" cols="25" rows="5" placeholder="Something unique or unexpected..."></textarea>
+                </td>
+            </tr>
+        </table>
     </div>
-    <br>
+
+    <div class="buttonContainer">
+        <button id="submitButton" style="font-size: 120%;">Submit</button>
+    </div>
+    
 
     <script type="module" src="app.js"></script>
 
+    
 </body>
 </html>

@@ -1,5 +1,5 @@
 //Firebase imports
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+import { database } from "../Constants/firebaseConfig.js";
 import { getDatabase, ref, push, onValue, update, set, remove, child} from "https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js";
 
 import { fetchQualSchedule, team_number } from "../Constants/API.js";
@@ -7,21 +7,14 @@ import { fetchQualSchedule, team_number } from "../Constants/API.js";
 //**By wrapping the code inside the DOMContentLoaded event listener, you ensure that the code will only run when the DOM is ready.
 document.addEventListener("DOMContentLoaded", function() {
 
-const appSettings = {
-    databaseURL: "https://scoutingapp-e16c4-default-rtdb.firebaseio.com/"
-}
-
-// Initialize Firebase
-const app = initializeApp(appSettings);
-
-//Connects database to app
-const database = getDatabase(app); //Realtime-database
-
 //Firebase reference
 const matchesData = ref(database, 'qualSchedule/matchesData');
 const lastUpdate = ref(database, 'qualSchedule/lastUpdate');
 
 //HTML elements
+const menuIcon = document.getElementById('menu-icon');
+const allSections = document.querySelectorAll('section');
+const sidebar = document.getElementById('section');
 const updatedTime_element = document.getElementById("updatedTime");
 const tbody = document.getElementById("tbody");
 const tr = document.getElementsByClassName("tr");
@@ -39,6 +32,35 @@ const blue1Array = [];
 const blue2Array = [];
 const blue3Array = [];
 
+
+//Show sidebar
+menuIcon.addEventListener('click', function(event) {
+    event.stopPropagation(); // Prevent the click event from propagating to the body
+    // Toggle the sidebar's visibility by changing its left position
+    sidebar.style.left = '0'; // Show sidebar
+});
+
+
+// Add click event listener to custom links
+document.querySelectorAll('.custom-link').forEach(link => {
+    link.addEventListener('click', function() {
+        const href = this.getAttribute('data-href');
+        if (href) {
+            // Navigate to the specified URL
+            window.location.href = href;
+        }
+    });
+});
+
+// Close all sections if a click event occurs outside of it
+document.addEventListener('click', function(event) {
+    // Check if the clicked element is within a section
+    if (!event.target.closest('section')) {
+        for (let i = 0; i < allSections.length; i++) {
+            allSections[i].style.left = '-100%'; // Hide section
+        }
+    }
+});
 
 onValue(lastUpdate, function(snapshot) {
     let updatedTime = snapshot.val();
@@ -142,27 +164,27 @@ onValue(matchesData, function(snapshot) {
             redAllianceElements[i].style.backgroundColor = 'gold';
             redAllianceElements[i].style.color = 'purple';
             let time = redAllianceElements[i].id.slice(5); //Get id and then slice 'red_n' to 'n'
-            document.getElementById(`timeElement_${time}`).style.backgroundColor = 'purple';
+            document.getElementById(`timeElement_${time}`).style.backgroundColor = 'rgb(84, 8, 105)';
             document.getElementById(`timeElement_${time}`).style.color = 'gold';
-            document.getElementById(`matchElement_${time}`).style.backgroundColor = 'purple';
-            document.getElementById(`matchElement_${time}`).style.color = 'yellow';
+            document.getElementById(`matchElement_${time}`).style.backgroundColor = 'rgb(84, 8, 105)';
+            document.getElementById(`matchElement_${time}`).style.color = 'gold';
                 //Check if match won
                 if(qualData_firebase[time].winning_alliance == 'red') {
                     document.getElementById(`timeElement_${time}`).innerHTML = 'Won';
                     document.getElementById(`timeElement_${time}`).style.backgroundColor = 'lime';
                     document.getElementById(`timeElement_${time}`).style.color = 'mediumvioletred';
                     document.getElementById(`matchElement_${time}`).style.backgroundColor = 'gray';
-                    document.getElementById(`matchElement_${time}`).style.color = 'purple';
+                    document.getElementById(`matchElement_${time}`).style.color = 'rgb(84, 8, 105)';
                 }else if(qualData_firebase[time].winning_alliance == 'blue') {
                     document.getElementById(`timeElement_${time}`).innerHTML = 'Lost';
                     document.getElementById(`timeElement_${time}`).style.backgroundColor = 'darkred';
                     document.getElementById(`matchElement_${time}`).style.backgroundColor = 'gray';
-                    document.getElementById(`matchElement_${time}`).style.color = 'purple';
+                    document.getElementById(`matchElement_${time}`).style.color = 'rgb(84, 8, 105)';
                 }else if(typeof qualData_firebase[time].actual_time == 'number'){
                     document.getElementById(`timeElement_${time}`).innerHTML = 'Tie';
                     document.getElementById(`timeElement_${time}`).style.backgroundColor = 'black';
                     document.getElementById(`matchElement_${time}`).style.backgroundColor = 'gray';
-                    document.getElementById(`matchElement_${time}`).style.color = 'purple';
+                    document.getElementById(`matchElement_${time}`).style.color = 'rgb(84, 8, 105)';
                 }
         }
     }
@@ -174,27 +196,27 @@ onValue(matchesData, function(snapshot) {
             blueAllianceElements[i].style.backgroundColor = 'gold';
             blueAllianceElements[i].style.color = 'purple';
             let time = blueAllianceElements[i].id.slice(6); //Get id and then slice 'blue_n' to 'n'
-            document.getElementById(`timeElement_${time}`).style.backgroundColor = 'purple';
+            document.getElementById(`timeElement_${time}`).style.backgroundColor = 'rgb(84, 8, 105)';
             document.getElementById(`timeElement_${time}`).style.color = 'gold';
-            document.getElementById(`matchElement_${time}`).style.backgroundColor = 'purple';
-            document.getElementById(`matchElement_${time}`).style.color = 'yellow';
+            document.getElementById(`matchElement_${time}`).style.backgroundColor = 'rgb(84, 8, 105)';
+            document.getElementById(`matchElement_${time}`).style.color = 'gold';
                 //Check if match won
                 if(qualData_firebase[time].winning_alliance == 'blue') {
                     document.getElementById(`timeElement_${time}`).innerHTML = 'Won';
                     document.getElementById(`timeElement_${time}`).style.backgroundColor = 'lime';
                     document.getElementById(`timeElement_${time}`).style.color = 'mediumvioletred';
                     document.getElementById(`matchElement_${time}`).style.backgroundColor = 'gray';
-                    document.getElementById(`matchElement_${time}`).style.color = 'purple';
+                    document.getElementById(`matchElement_${time}`).style.color = 'rgb(84, 8, 105)';
                 }else if(qualData_firebase[time].winning_alliance == 'red') {
                     document.getElementById(`timeElement_${time}`).innerHTML = 'Lost';
                     document.getElementById(`timeElement_${time}`).style.backgroundColor = 'darkred';
                     document.getElementById(`matchElement_${time}`).style.backgroundColor = 'gray';
-                    document.getElementById(`matchElement_${time}`).style.color = 'purple';
+                    document.getElementById(`matchElement_${time}`).style.color = 'rgb(84, 8, 105)';
                 }else if(typeof qualData_firebase[time].actual_time == 'number'){
                     document.getElementById(`timeElement_${time}`).innerHTML = 'Tie';
                     document.getElementById(`timeElement_${time}`).style.backgroundColor = 'black';
                     document.getElementById(`matchElement_${time}`).style.backgroundColor = 'gray';
-                    document.getElementById(`matchElement_${time}`).style.color = 'purple';
+                    document.getElementById(`matchElement_${time}`).style.color = 'rgb(84, 8, 105)';
                 }
         }
     }

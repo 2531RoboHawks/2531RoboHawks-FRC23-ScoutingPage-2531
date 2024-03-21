@@ -1,32 +1,28 @@
 //Firebase imports
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+import { database } from "./firebaseConfig.js";
 import { getDatabase, ref, push, onValue, update, set, remove, child} from "https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js";
-
-const appSettings = {
-    databaseURL: "https://scoutingapp-e16c4-default-rtdb.firebaseio.com/"
-}
-
-// Initialize Firebase
-const app = initializeApp(appSettings);
-
-//Connects database to app
-const database = getDatabase(app); //Realtime-database
 
 //Firebase reference
 const apiKey_Firebase = ref(database, "apiKey"); //Stored in Firebase
-const matchesData = ref(database, 'qualSchedule/matchesData');
-const lastUpdate = ref(database, 'qualSchedule/lastUpdate');
-const regionalsList = ref(database, 'generalInfo/regionalsList');
-const attendingTeams = ref(database, 'generalInfo/attendingTeams');
+const matchesData_ref = ref(database, 'qualSchedule/matchesData');
+const lastUpdate_ref = ref(database, 'qualSchedule/lastUpdate');
+const regionalsList_ref = ref(database, 'generalInfo/regionalsList');
+const selectedRegional_ref = ref(database, 'generalInfo/selectedRegional');
+const attendingTeams_ref = ref(database, 'generalInfo/attendingTeams');
+const generalInfo_ref = ref(database, 'generalInfo');
 
 //Variables for API
 const baseUrl = 'https://www.thebluealliance.com/api/v3'; // Adjust the base URL based on the TBA API version
 
-//TODO: change these variables to the attending regional
-const year = `2024`; //yyyy
-const event_code = `mndu`; //Found on 'apiDoc - Blue Alliance' OR 'Scoutradioz'
-export const team_number = '2531';
+let year;
+let event_code;
+export let team_number = '2531';
 
+onValue(generalInfo_ref, function(snapshot) {
+    let info = snapshot.val();
+    year = info.year;
+    event_code = info.event_code;
+});
 
 //General fetch data function
 function fetchData(url, apiKey, handleData) {
@@ -73,7 +69,7 @@ export function fetchAttendingTeams() {
         fetchData(url, apiKey, function(data) {
             let sortedTeamsByNumber = data
             .sort((a, b) => a.team_number - b.team_number); // Sort by team_number
-            set(attendingTeams, sortedTeamsByNumber); //Upload attendingTeams to Firebase        
+            set(attendingTeams_ref, sortedTeamsByNumber); //Upload attendingTeams to Firebase        
         });
         
     });
@@ -89,7 +85,7 @@ export function fetchRegionalsList(year) {
         
         // Make the API request for data
         fetchData(url, apiKey, function(data) {
-            set(regionalsList, data);
+            set(regionalsList_ref, data);
             console.log(data);
         });
         
@@ -111,8 +107,8 @@ export function fetchQualSchedule() {
                 .filter(match => match.comp_level === 'qm') // Filter by comp_level 'qm'
                 .sort((a, b) => a.match_number - b.match_number); // Sort by match_number
                 
-                set(matchesData, sortedAndFilteredMatches); //Push data to Firebase
-                set(lastUpdate, Date.now()); //Update on the updatedTime
+                set(matchesData_ref, sortedAndFilteredMatches); //Push data to Firebase
+                set(lastUpdate_ref, Date.now()); //Update on the updatedTime
         });
         
     });
