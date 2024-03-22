@@ -32,7 +32,7 @@
 
 <body style="background-color: rgb(84, 8, 105);">
     <header>
-        <img src="../Images/robohawksPic.png" alt="robohawks-pics">
+        <img class="custom-link" data-href="../" src="../Images/robohawksPic.png" alt="robohawks-pics">
     </header>   
 
     <div id="top-container">
@@ -41,13 +41,15 @@
             <span></span>
             <span></span>
         </div>
-        <div><h3 class="custom-link" data-href="../" style="font-size: xx-large; color: gold;">RoboHawks</h3></div>
-        <div class="custom-link" id="user-status" data-href="LoginPage" style="position: right;"><p style="color: white; margin-right: 8px;">Login</p></div>
+        <div><h3 style="font-size: x-large; color: gold;">Qualification Matches Schedule</h3></div>
+        <div class="custom-link" id="user-status" data-href="LoginPage"><p style="color: white;">Login</p></div>
     </div>
          
 
     <section id="sidebar">
-        <div class="custom-link" data-href="" style="margin-top: 3%; color: gold;"><p>Qualification Matches Schedule</p></div>
+        <div class="custom-link" data-href="../" style="margin-top: 3%;"><p>Home</p></div>
+        <hr>
+        <div class="custom-link" data-href="" style="color: gold;"><p>Qualification Matches Schedule</p></div>
         <hr>
         <div onclick="toggleSideSection(event, 'admin-bar', 'sidebar')" class="admin"><p>Admin -></p></div>
         <hr>
@@ -84,7 +86,6 @@
     </section>
 
     <h6 id="updatedTime">Last Updated: </h6>
-    <h1>Qualification Matches Schedule</h1>
     <div class="qualContainer">
         <div class="table">
             <table id = "matchesTable">

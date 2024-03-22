@@ -2,10 +2,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-radius: 10px;
-    width: 100%;
+    border: solid white;
     height: 45px;
-    background-color: rgb(84, 8, 105);
+    background: linear-gradient(to bottom, black, rgb(84, 8, 105));
+}
+
+#top-container div:not(#menu-icon) {
+    padding: 8px;
 }
 
 #menu-icon {
@@ -59,7 +62,9 @@ section hr {
 .back-dir {
     position: absolute;
     bottom: 0;
-    margin-bottom: 10px;
+    margin-top: 10px;
+    border-top: solid white;
+    padding: 10px;
 }
 
 .container {
