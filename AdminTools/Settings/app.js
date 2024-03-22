@@ -29,8 +29,6 @@ const sidebar = document.getElementById('section');
 
 //Hide status block
 status.style.display = 'none';
-yearUpdate_Button.disabled = true;
-eventUpdate_Button.disabled = true;
 
 //Show sidebar
 menuIcon.addEventListener('click', function(event) {
