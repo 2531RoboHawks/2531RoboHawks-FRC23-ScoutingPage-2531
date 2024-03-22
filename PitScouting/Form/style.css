@@ -11,6 +11,12 @@
     padding: 8px;
 }
 
+#top-container div h3 {
+    font-size: x-large;
+    color: gold;
+    text-align: center;
+}
+
 #menu-icon {
     display: inline-block;
     cursor: pointer;
