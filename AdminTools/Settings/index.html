@@ -38,13 +38,14 @@
             <span></span>
             <span></span>
         </div>
-        <div class="custom-link" data-href="../../"><h3 style="font-size: xx-large; color: gold;">RoboHawks</h3></div>
-        <div class="custom-link" id="user-status" data-href="../../LoginPage" style="position: right;"><p style="color: white; margin-right: 8px;">Login</p></div>
+        <div><h3 style="font-size: xx-large; color: gold;">Admin Settings</h3></div>
+        <div class="custom-link" id="user-status" data-href="../../LoginPage" style="position: right;"><p style="color: white;">Login</p></div>
     </div>
-         
 
     <section id="sidebar">
-        <div class="custom-link" data-href="../../QualificationMatchesSchedule" style="margin-top: 3%;"><p>Qualification Matches Schedule</p></div>
+        <div class="custom-link" data-href="../../" style="margin-top: 3%;"><p>Home</p></div>
+        <hr>
+        <div class="custom-link" data-href="../../QualificationMatchesSchedule"><p>Qualification Matches Schedule</p></div>
         <hr>
         <div onclick="toggleSideSection(event, 'admin-bar', 'sidebar')" class="admin"><p>Admin -></p></div>
         <hr>
@@ -67,7 +68,7 @@
     <section class="member" id="matchScouting-bar">
         <div class="custom-link member" data-href="../../MatchScouting/Form" style="margin-top: 3%;"><p>Match Scouting Form</p></div>
         <hr>
-        <div class="custom-link member" data-href="../../MatchScouting/Data" style="margin-top: 3%;"><p>Match Scouting Data</p></div>
+        <div class="custom-link member" data-href="../../MatchScouting/Data"><p>Match Scouting Data</p></div>
         <hr>
         <div class="back-dir" onclick="toggleSideSection(event, 'sidebar', 'matchScouting-bar')"><p><- Back</p></div>
     </section>
@@ -75,15 +76,14 @@
     <section class="member" id="pitScouting-bar">
         <div class="custom-link member" data-href="../../PitScouting/Form" style="margin-top: 3%;"><p>Pit Scouting Form</p></div>
         <hr>
-        <div class="custom-link member" data-href="../../PitScouting/Data" style="margin-top: 3%;"><p>Pit Scouting Data</p></div>
+        <div class="custom-link member" data-href="../../PitScouting/Data"><p>Pit Scouting Data</p></div>
         <hr>
         <div class="back-dir" onclick="toggleSideSection(event, 'sidebar', 'pitScouting-bar')"><p><- Back</p></div>
     </section>
 
     <h3 id="status"></h3>
-    <h1>Admin Settings</h1>
 
-    <div class="adminContainer">
+    <div class="adminContainer" style="margin-top: 60px;">
         <table class="resettingRegional">
             <tr>
                 <th>Change Event</th>
