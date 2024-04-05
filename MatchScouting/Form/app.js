@@ -2,8 +2,7 @@
 import { database } from "../../Constants/firebaseConfig.js";
 import { getDatabase, ref, push, onValue, update, set, remove, child} from "https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js";
 
-import { match_layout } from "../../Constants/layout.js";
-import { inputTypes } from "../../Constants/layout.js";
+import { inputTypes, match_layout, createForm } from "../../Constants/layout.js";
 
 //**By wrapping the code inside the DOMContentLoaded event listener, you ensure that the code will only run when the DOM is ready.
 document.addEventListener("DOMContentLoaded", function() {  
@@ -91,28 +90,30 @@ onValue(teamInfo_Firebase, function(snapshot) {
 });
 
 //Auto Table
-let i_auto = 0;
-while(match_layout.auto[i_auto]) {
-    if (match_layout.auto[i_auto].type_of_input === inputTypes.chooser || match_layout.auto[i_auto].type_of_input === inputTypes.multi_choice) {
+createForm(match_layout.auto, 'auto', auto_td);
+// let i_auto = 0;
+// while(match_layout.auto[i_auto]) {
+//     if (match_layout.auto[i_auto].type_of_input === inputTypes.chooser || match_layout.auto[i_auto].type_of_input === inputTypes.multi_choice) {
         
-        //Create task label
-        auto_td.innerHTML += 
-        `<label>${match_layout.auto[i_auto].task}</label>`;
+//         //Create task label
+//         auto_td.innerHTML += 
+//         `<label>${match_layout.auto[i_auto].task}</label>`;
 
-        //Create choices
-        for (let i = 0; i < match_layout.auto[i_auto].choices.length; i++) {
-        auto_td.innerHTML += `<input id="autoTask_${i_auto}" name="input_${match_layout.auto[i_auto].task}" type="${match_layout.auto[i_auto].type_of_input}"
-                            <label>${match_layout.auto[i_auto].choices[i]}</label>`;
-        }
-        auto_td.innerHTML += `<br><br>`;
-    }else {
-        auto_td.innerHTML += 
-        `<label>${match_layout.auto[i_auto].task}</label> <br>
-        <input id="autoTask_${i_auto}" type="${match_layout.auto[i_auto].type_of_input}">
-        <br><br>`;
-    }
-    i_auto++;
-}
+//         //Create choices
+//         for (let i = 0; i < match_layout.auto[i_auto].choices.length; i++) {
+//         auto_td.innerHTML += `<input id="autoTask_${i_auto}" name="input_${match_layout.auto[i_auto].task}" type="${match_layout.auto[i_auto].type_of_input}"
+//                             <label>${match_layout.auto[i_auto].choices[i]}</label>`;
+//         }
+//         auto_td.innerHTML += `<br><br>`;
+//     }
+//     else {
+//         auto_td.innerHTML += 
+//         `<label>${match_layout.auto[i_auto].task}</label> <br>
+//         <input id="autoTask_${i_auto}" type="${match_layout.auto[i_auto].type_of_input}">
+//         <br><br>`;
+//     }
+//     i_auto++;
+// }
 
 //Teleop Table
 let i_teleop = 0;
