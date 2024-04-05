@@ -46,12 +46,12 @@
             <span></span>
             <span></span>
         </div>
-        <div><h3 style="font-size: xx-large; color: gold;">Match Scouting Form</h3></div>
+        <div><h3>Match Scouting Form</h3></div>
         <div class="custom-link" id="user-status" data-href="LoginPage" style="position: right;"><p style="color: white;">Login</p></div>
     </div>
 
     <section id="sidebar">
-        <div class="custom-link" data-href="../" style="margin-top: 3%;"><p>Home</p></div>
+        <div class="custom-link" data-href="../../" style="margin-top: 3%;"><p>Home</p></div>
         <hr>
         <div class="custom-link" data-href="../../QualificationMatchesSchedule"><p>Qualification Matches Schedule</p></div>
         <hr>
@@ -150,7 +150,7 @@
                 <button id="nextButton_endGame">Next</button>
             </div>
 
-        <table class="matchResult">
+        <table class="matchEval">
             <tr>
                 <th>Match Evaluation</th>
             </tr>
@@ -162,9 +162,20 @@
                         Did the robot break? --invalidate data points, add a tally
                         Did the team put on an outstanding performance? --add a tally
                      -->
-            
-                    <label id="comments">Comments:</label>
-                    <textarea id="comments" cols="25" rows="5" placeholder="Something unique or unexpected..."></textarea>
+                    <input type="checkbox"> Died during the match (or never started)? <br>
+                    <input type="checkbox"> Recovered from freeze? (hide)<br><br><br>
+
+                    <input type="checkbox"> Robot broke or damaged? How so?<br>
+                    <div>
+                        <input type="radio" name="damage-occurence"> Damaged from beginning (hide) <br>
+                        <input type="radio" name="damage-occurence"> Damaged during match (hide)
+                    </div>
+                    <input type="checkbox"> Did that damage impact performace? (hide)<br><br><br>
+
+                    <input type="checkbox"> Outstanding performance? How so?<br><br><br>
+                        
+                    <label id="comments">Comments:</label><br>
+                    <textarea id="comments" cols="30" rows="5" placeholder="Something unique or unexpected..."></textarea>
                 </td>
             </tr>
         </table>
@@ -173,10 +184,7 @@
     <div class="buttonContainer">
         <button id="submitButton" style="font-size: 120%;">Submit</button>
     </div>
-    
 
     <script type="module" src="app.js"></script>
-
-    
 </body>
 </html>

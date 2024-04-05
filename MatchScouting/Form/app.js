@@ -2,7 +2,7 @@
 import { database } from "../../Constants/firebaseConfig.js";
 import { getDatabase, ref, push, onValue, update, set, remove, child} from "https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js";
 
-import { inputTypes, match_layout, createForm } from "../../Constants/layout.js";
+import { inputTypes, match_layout, createForm, handelingCounter } from "../../Constants/layout.js";
 
 //**By wrapping the code inside the DOMContentLoaded event listener, you ensure that the code will only run when the DOM is ready.
 document.addEventListener("DOMContentLoaded", function() {  
@@ -13,13 +13,10 @@ const teamInfo_Firebase = ref(database, "teamInfo");
 const data = ref(database, "match_data");
 
 //HTML Elements
-const teamInfo_td = document.getElementById("td_teamInfo");
 const auto_td = document.getElementById("td_auto");
 const teleop_td = document.getElementById("td_teleop");
 const endGame_td = document.getElementById("td_endGame");
 const selectTeam = document.getElementById("selectTeam");
-const matchNum = document.getElementById("matchNum");
-const teamNum = document.getElementById("teamNum");
 const menuIcon = document.getElementById('menu-icon');
 const allSections = document.querySelectorAll('section');
 const sidebar = document.getElementById('section');
@@ -91,6 +88,10 @@ onValue(teamInfo_Firebase, function(snapshot) {
 
 //Auto Table
 createForm(match_layout.auto, 'auto', auto_td);
+auto_td.addEventListener('click', function(event) {
+    handelingCounter(event);
+});
+
 // let i_auto = 0;
 // while(match_layout.auto[i_auto]) {
 //     if (match_layout.auto[i_auto].type_of_input === inputTypes.chooser || match_layout.auto[i_auto].type_of_input === inputTypes.multi_choice) {
@@ -116,55 +117,60 @@ createForm(match_layout.auto, 'auto', auto_td);
 // }
 
 //Teleop Table
-let i_teleop = 0;
-while(match_layout.teleop[i_teleop]) {
-    if (match_layout.teleop[i_teleop].type_of_input === inputTypes.chooser || match_layout.teleop[i_teleop].type_of_input === inputTypes.multi_choice) {
+createForm(match_layout.teleop, 'teleop', teleop_td);
+teleop_td.addEventListener('click', function(event) {
+    handelingCounter(event);
+});
+// let i_teleop = 0;
+// while(match_layout.teleop[i_teleop]) {
+//     if (match_layout.teleop[i_teleop].type_of_input === inputTypes.chooser || match_layout.teleop[i_teleop].type_of_input === inputTypes.multi_choice) {
         
-        //Create task label
-        teleop_td.innerHTML += 
-        `<label>${match_layout.teleop[i_teleop].task}</label>`;
+//         //Create task label
+//         teleop_td.innerHTML += 
+//         `<label>${match_layout.teleop[i_teleop].task}</label>`;
 
-        //Create choices
-        for (let i = 0; i < match_layout.teleop[i_teleop].choices.length; i++) {
-        teleop_td.innerHTML += `<input id="teleopTask_${i_teleop}" name="input_${match_layout.teleop[i_teleop].task}" type="${match_layout.teleop[i_teleop].type_of_input}"
-                            <label>${match_layout.teleop[i_teleop].choices[i]}</label>`
-        }
-        teleop_td.innerHTML += `<br><br>`;
+//         //Create choices
+//         for (let i = 0; i < match_layout.teleop[i_teleop].choices.length; i++) {
+//         teleop_td.innerHTML += `<input id="teleopTask_${i_teleop}" name="input_${match_layout.teleop[i_teleop].task}" type="${match_layout.teleop[i_teleop].type_of_input}"
+//                             <label>${match_layout.teleop[i_teleop].choices[i]}</label>`
+//         }
+//         teleop_td.innerHTML += `<br><br>`;
 
-    }else {
-        teleop_td.innerHTML += 
-        `<label>${match_layout.teleop[i_teleop].task}</label> <br>
-        <input id="teleopTask_${i_teleop}" type="${match_layout.teleop[i_teleop].type_of_input}">
-        <br><br>`;
-    }
-    i_teleop++;
-}
+//     }else {
+//         teleop_td.innerHTML += 
+//         `<label>${match_layout.teleop[i_teleop].task}</label> <br>
+//         <input id="teleopTask_${i_teleop}" type="${match_layout.teleop[i_teleop].type_of_input}">
+//         <br><br>`;
+//     }
+//     i_teleop++;
+// }
 
 
 //Endgame Table
-let i_endGame = 0;
-while(match_layout.endGame[i_endGame]) {
-    if (match_layout.endGame[i_endGame].type_of_input === inputTypes.chooser || match_layout.endGame[i_endGame].type_of_input === inputTypes.multi_choice) {
+createForm(match_layout.endGame, 'endGame', endGame_td);
+// let i_endGame = 0;
+// while(match_layout.endGame[i_endGame]) {
+//     if (match_layout.endGame[i_endGame].type_of_input === inputTypes.chooser || match_layout.endGame[i_endGame].type_of_input === inputTypes.multi_choice) {
         
-        //Create task label
-        endGame_td.innerHTML += 
-        `<label>${match_layout.endGame[i_endGame].task}</label>`;
+//         //Create task label
+//         endGame_td.innerHTML += 
+//         `<label>${match_layout.endGame[i_endGame].task}</label>`;
 
-        //Create choices
-        for (let i = 0; i < match_layout.endGame[i_endGame].choices.length; i++) {
-        endGame_td.innerHTML += `<input id="endGameTask_${i_endGame}" name="input_${match_layout.endGame[i_endGame].task}" type="${match_layout.endGame[i_endGame].type_of_input}"
-                            <label>${match_layout.endGame[i_endGame].choices[i]}</label>`;
-        }
-        endGame_td.innerHTML += `<br><br>`;
+//         //Create choices
+//         for (let i = 0; i < match_layout.endGame[i_endGame].choices.length; i++) {
+//         endGame_td.innerHTML += `<input id="endGameTask_${i_endGame}" name="input_${match_layout.endGame[i_endGame].task}" type="${match_layout.endGame[i_endGame].type_of_input}"
+//                             <label>${match_layout.endGame[i_endGame].choices[i]}</label>`;
+//         }
+//         endGame_td.innerHTML += `<br><br>`;
 
-    }else {
-        endGame_td.innerHTML += 
-        `<label>${match_layout.endGame[i_endGame].task}</label> <br>
-        <input id="endGameTask_${i_endGame}" type="${match_layout.endGame[i_endGame].type_of_input}">
-        <br><br>`;
-    }
-    i_endGame++;
-}
+//     }else {
+//         endGame_td.innerHTML += 
+//         `<label>${match_layout.endGame[i_endGame].task}</label> <br>
+//         <input id="endGameTask_${i_endGame}" type="${match_layout.endGame[i_endGame].type_of_input}">
+//         <br><br>`;
+//     }
+//     i_endGame++;
+// }
 
 //Actions
 nextButton_auto.addEventListener('click', function() {

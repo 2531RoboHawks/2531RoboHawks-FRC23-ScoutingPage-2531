@@ -34,9 +34,16 @@ img {
 }
 
 #top-container div h3 {
-    font-size: x-large;
+    font-size: x-large; 
+    color: gold;
     color: gold;
     text-align: center;
+}
+
+@media screen and (min-width: 600px) {
+    #top-container div h3 {
+        font-size: xx-large;
+    }
 }
 
 #menu-icon {
@@ -102,7 +109,13 @@ h1 {
 
 table, th, td {
     border: 1px solid yellow;
+    margin-left: auto;
+    margin-right: auto;
 }
+
+/* table:not(.matchEval) {
+    margin-bottom: 50px;
+} */
 
 th {
     color: black;
@@ -120,13 +133,14 @@ form {
 }
 
 label {
-    font-size: larger;
+    font-size: 20px;
     font-weight: bold;
     font-style: italic;
 }
 
 input, select, textarea {
     background-color: rgb(237, 208, 221);
+    margin-bottom: 10px;
 }
 
 input:not([type='radio'],[type='checkbox']), select {
@@ -156,15 +170,22 @@ input:not([type='radio'],[type='checkbox']), select {
     text-align: center;
 }
 
-.matchResult {
+.matchEval {
     margin-top: 20px;
-    width: 30%;
+    width: 70%;
     min-width: 250px;
-    max-width: 300px;
+    max-width: 700px;
     flex-wrap: wrap;
-    margin-left: auto;
-    margin-right: auto;
     text-align: center;
+}
+
+.counter-container {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 10px;
 }
 
 .buttonContainer {

@@ -21,35 +21,35 @@ export const match_layout = {
         0: {
             task: "Leave Auto",
             points: 2, 
-            type_of_input: inputTypes.counter,
+            type_of_input: inputTypes.chooser,
             choices: ["Yes", "No"]
         },
         1: {
             task: "AMP Notes",
             points: 2,
-            type_of_input: inputTypes.number
+            type_of_input: inputTypes.counter
         },
         2: {
             task: "Speaker Notes",
             points: 5,
-            type_of_input: inputTypes.number
+            type_of_input: inputTypes.counter
         }
     },
     teleop: {
         0: {
             task: "AMP Notes",
             points: 1,
-            type_of_input: inputTypes.number
+            type_of_input: inputTypes.counter
         },
         1: {
             task: "Speaker Notes (not AMP)",
             points: 2,
-            type_of_input: inputTypes.number
+            type_of_input: inputTypes.counter
         },
         2: {
             task: "Speaker Notes (AMP)",
             points: 5,
-            type_of_input: inputTypes.number
+            type_of_input: inputTypes.counter
         }
     },
     endGame: {
@@ -149,6 +149,7 @@ export const pit_layout = {
     }
 }
 
+
 //General function to create form
     //Example in use: createForm(match_layout.auto, 'auto', auto_td);
 export function createForm(layout, label, html_td) {
@@ -156,25 +157,30 @@ export function createForm(layout, label, html_td) {
     while(layout[i]) {
         if (layout[i].type_of_input === inputTypes.chooser || layout[i].type_of_input === inputTypes.multi_choice) {
             
-            //Create task label
-            html_td.innerHTML += 
-            `<label>${layout[i].task}</label>`;
+            // Create a div for the choices
+            const choicesDiv = document.createElement('div');
 
+            //Create task label
+            choicesDiv.innerHTML += 
+            `<label>${layout[i].task}</label><br>`;
             //Create choices
             for (let j = 0; j < layout[i].choices.length; j++) {
-            html_td.innerHTML += `<input id="${label}Task_${i}" name="input_${layout[i].task}" type="${layout[i].type_of_input}"
+            choicesDiv.innerHTML += `<input id="${label}Task_${i}" name="input_${layout[i].task}" type="${layout[i].type_of_input}"
                                 <label>${layout[i].choices[j]}</label>`;
             }
+            html_td.appendChild(choicesDiv);
             html_td.innerHTML += `<br><br>`;
 
         } else if(layout[i].type_of_input === inputTypes.counter) {
-            let data;
 
-            //Create task label and 
+            //Create task label and counter element
             html_td.innerHTML += 
             `<label>${layout[i].task}</label><br>
-            <div class="counter" id="${layout[i].task}_counter">
-            <button> - </button><p>number</p><button> + </button><br>`;
+            <div class="counter-container" id="${layout[i].task}_counter">
+                <button id="remove_${layout[i].task}"> - </button>
+                <p id="number_${layout[i].task}"">0</p>
+                <button id="add_${layout[i].task}"> + </button>
+            </div><br>`;
 
         } else {
 
@@ -188,4 +194,32 @@ export function createForm(layout, label, html_td) {
         i++;
     }
 
+}
+
+
+//General function for handeling counter
+export function handelingCounter(event) {
+
+// Add event listener to the parent element
+    const target = event.target;
+
+    // Check if the clicked element is a "remove" button
+    if (target.matches('[id^="remove_"]')) {
+        const task = target.id.replace('remove_', '');
+        const numberElement = document.getElementById(`number_${task}`);
+        let counter = parseInt(numberElement.textContent);
+        if (counter > 0) {
+            counter--;
+            numberElement.textContent = counter;
+        }
+    }
+
+    // Check if the clicked element is an "add" button
+    if (target.matches('[id^="add_"]')) {
+        const task = target.id.replace('add_', '');
+        const numberElement = document.getElementById(`number_${task}`);
+        let counter = parseInt(numberElement.textContent);
+        counter++;
+        numberElement.textContent = counter;
+    }
 }
