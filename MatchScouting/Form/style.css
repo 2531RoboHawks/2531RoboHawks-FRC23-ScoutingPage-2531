@@ -146,6 +146,7 @@ input, select, textarea {
 textarea {
     width: 70%;
     min-width: 200px;
+    color: rgb(84, 8, 105);
 }
 
 input:not([type='radio'],[type='checkbox']), select {
