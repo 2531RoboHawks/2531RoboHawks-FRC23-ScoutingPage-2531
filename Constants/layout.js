@@ -165,7 +165,7 @@ export function createForm(layout, label, html_td) {
             `<label>${layout[i].task}</label><br>`;
             //Create choices
             for (let j = 0; j < layout[i].choices.length; j++) {
-            choicesDiv.innerHTML += `<input id="${label}Task_${i}" name="input_${layout[i].task}" type="${layout[i].type_of_input}"
+            choicesDiv.innerHTML += `<input id="${label}Task_${i}_${layout[i].choices[j].replace(/\s/g, "_")}" name="input_${layout[i].task.replace(/\s/g, "_")}" type="${layout[i].type_of_input}"
                                 <label>${layout[i].choices[j]}</label>`;
             }
             html_td.appendChild(choicesDiv);
@@ -176,10 +176,10 @@ export function createForm(layout, label, html_td) {
             //Create task label and counter element
             html_td.innerHTML += 
             `<label>${layout[i].task}</label><br>
-            <div class="counter-container" id="${layout[i].task}_counter">
-                <button id="remove_${layout[i].task}"> - </button>
-                <p id="number_${layout[i].task}"">0</p>
-                <button id="add_${layout[i].task}"> + </button>
+            <div class="counter-container" id="${layout[i].task.replace(/\s/g, "_")}_counter">
+                <button id="remove_${layout[i].task.replace(/\s/g, "_")}"> - </button>
+                <p id="number_${layout[i].task.replace(/\s/g, "_")}"">0</p>
+                <button id="add_${layout[i].task.replace(/\s/g, "_")}"> + </button>
             </div><br>`;
 
         } else {
