@@ -19,6 +19,7 @@ const memberPass = ref(database, "authentication/member/pass");
 //Buttons
 const guestSignIn = document.getElementById("guestSignIn");
 const loginButton = document.getElementById("loginButton");
+const showPassword = document.getElementById("showPassword");
 
 //InputFields
 const userInput = document.getElementById("loginUsername");
@@ -42,12 +43,21 @@ guestSignIn.addEventListener('click', function() {
     console.log(localStorage.getItem('userStatus')); //set user as guest
 });
 
+//Listen for if showPassword checkbox is checked
+showPassword.addEventListener('change', function(event) {
+    if (event.target.checked) {
+        passInput.type = "text";
+    } else {
+        passInput.type = "password";
+    }
+});
+
 //Checking login validation
 function userLogin() {
     onValue(memberUser, function(userSnapshot) {
         const memberUserValue = Object.values(userSnapshot.val()).join(''); // Get member's username from Firebase 
-        // console.log("Member username from Firebase:", memberUserValue);
-        // console.log("Username input:", userInput.value);
+        console.log("Member username from Firebase:", memberUserValue);
+        console.log("Username input:", userInput.value);
         
         // Verify username
         if (userInput.value == memberUserValue) {
@@ -56,8 +66,8 @@ function userLogin() {
             // After setting the user validation, check the password
             onValue(memberPass, function(passSnapshot) {
                 const memberPassValue = Object.values(passSnapshot.val()).join(''); // Get member's password from Firebase
-                // console.log("Member password from Firebase:", memberPassValue);
-                // console.log("Password input:", passInput.value);
+                console.log("Member password from Firebase:", memberPassValue);
+                console.log("Password input:", passInput.value);
                 
                 // Verify password
                 if (passInput.value == memberPassValue) {
