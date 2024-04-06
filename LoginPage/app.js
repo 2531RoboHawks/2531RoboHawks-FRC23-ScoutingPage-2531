@@ -44,35 +44,50 @@ guestSignIn.addEventListener('click', function() {
 
 //Checking login validation
 function userLogin() {
-    onValue(memberUser, function(snapshot) {
-        let memberUser = Object.values(snapshot.val()).join(''); //Get member's username from firebase 
-        console.log(memberUser);
-        //Verify username
-        if(userInput.value == memberUser) {
-            localStorage.setItem('memberUser', 'userValid'); //Store user validation locally
+    onValue(memberUser, function(userSnapshot) {
+        const memberUserValue = Object.values(userSnapshot.val()).join(''); // Get member's username from Firebase 
+        // console.log("Member username from Firebase:", memberUserValue);
+        // console.log("Username input:", userInput.value);
+        
+        // Verify username
+        if (userInput.value == memberUserValue) {
+            localStorage.setItem('memberUser', 'userValid'); // Store user validation locally
+
+            // After setting the user validation, check the password
+            onValue(memberPass, function(passSnapshot) {
+                const memberPassValue = Object.values(passSnapshot.val()).join(''); // Get member's password from Firebase
+                // console.log("Member password from Firebase:", memberPassValue);
+                // console.log("Password input:", passInput.value);
+                
+                // Verify password
+                if (passInput.value == memberPassValue) {
+                    localStorage.setItem('memberPass', 'passValid'); // Store pass validation locally
+                    console.log("Password is valid.");
+
+                    // Both user and pass are valid, set user status and alert
+                    localStorage.setItem('userStatus', 'member');
+                    alert("You're logged in as a member!!");
+                    window.history.back();
+                } else {
+                    // Password is invalid
+                    console.log("Password is invalid.");
+                    clearUserStatus();
+                    localStorage.setItem('userStatus', 'guest');
+                    alert("Email/password is invalid. Please try again!")
+                    userInput.value = '';
+                    passInput.value = '';
+                }
+            });
+        } else {
+            // Username is invalid
+            console.log("Username is invalid.");
+            clearUserStatus();
+            localStorage.setItem('userStatus', 'guest');
+            alert("Email/password is invalid. Please try again!")
+            userInput.value = '';
+            passInput.value = '';
         }
     });
-
-    onValue(memberPass, function(snapshot) {
-        let memberPass = Object.values(snapshot.val()).join(''); //Get member's password from firebase
-        console.log(memberPass);
-        //Verify pass
-        if(passInput.value == memberPass) {
-            localStorage.setItem('memberPass', 'passValid'); //Store pass validation locally
-        }
-    });
-
-    if(localStorage.getItem('memberUser') == 'userValid'  &&  localStorage.getItem('memberPass') == 'passValid') {
-        localStorage.setItem('userStatus', 'member');
-        alert("You're logged in as a member!!");
-        window.history.back();
-    } else {
-        clearUserStatus();
-        localStorage.setItem('userStatus', 'guest');
-        alert("Email/password is invalid. Please try again!")
-        userInput.value = '';
-        passInput.value = '';
-    }
 }
 
 function clearUserStatus() {
