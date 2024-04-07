@@ -11,8 +11,8 @@ document.addEventListener("DOMContentLoaded", function() {
 const regionalsList = ref(database, 'generalInfo/regionalsList');
 const selectedRegional_ref = ref(database, 'generalInfo/selectedRegional');
 const attendingTeams = ref(database, 'generalInfo/attendingTeams');
-const year_ref = ref(database, 'generalInfo/year');
-const event_code_ref = ref(database, 'generalInfo/event_code');
+const year_ref = ref(database, 'generalInfo/eventKey/year');
+const event_code_ref = ref(database, 'generalInfo/eventKey/event_code');
 
 
 //HTML elements
@@ -71,7 +71,6 @@ onValue(regionalsList, function(snapshot) {
     //Update year and regionalsList
     yearUpdate_Button.addEventListener("click", function() {
         fetchRegionalsList(year_input.value);
-        set(year_ref, year_input.value);
         //Remove all existing options
         for(let i = 0; i < regionalsList_Array.length; i++) {
             selectRegional_input.innerHTML -= `<option value="${regionalsList_Array[i].name}" id="regional_${i}">${regionalsList_Array[i].name}</option>`;
@@ -87,6 +86,7 @@ onValue(regionalsList, function(snapshot) {
     eventUpdate_Button.addEventListener("click", function() {
         let regionalPosition = regionalsList_Array.findIndex(item => item.name === selectRegional_input.value);
         setTimeout(function() {
+            set(year_ref, year_input.value);
             set(event_code_ref, regionalsList_Array[regionalPosition].event_code);
             set(selectedRegional_ref, regionalsList_Array[regionalPosition]);
             console.log(regionalsList_Array[regionalPosition]);
