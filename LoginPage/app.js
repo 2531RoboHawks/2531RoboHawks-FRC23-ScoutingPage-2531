@@ -28,6 +28,7 @@ const passInput = document.getElementById("loginPassword");
 
 //**By wrapping the code inside the DOMContentLoaded event listener, you ensure that the code will only run when the DOM is ready.
 document.addEventListener("DOMContentLoaded", function() {
+//TODO: admin login
 //TODO: logout
 //TODO: transfer page after login as member/guest
 //TODO: gets 5 tries for wrong password

@@ -46,12 +46,12 @@
             <span></span>
             <span></span>
         </div>
-        <div><h3 style="font-size: xx-large; color: gold;">Match Scouting Form</h3></div>
-        <div class="custom-link" id="user-status" data-href="LoginPage" style="position: right;"><p style="color: white;">Login</p></div>
+        <div><h3>Match Scouting Form</h3></div>
+        <div class="custom-link" id="user-status" data-href="../../LoginPage" style="position: right;"><p style="color: white;">Login</p></div>
     </div>
 
     <section id="sidebar">
-        <div class="custom-link" data-href="../" style="margin-top: 3%;"><p>Home</p></div>
+        <div class="custom-link" data-href="../../" style="margin-top: 3%;"><p>Home</p></div>
         <hr>
         <div class="custom-link" data-href="../../QualificationMatchesSchedule"><p>Qualification Matches Schedule</p></div>
         <hr>
@@ -97,9 +97,12 @@
             <tr >
                 <td>
                     <label>Match:</label>
-                        <input type="number" id="matchNum"><br><br>
+                        <select id="selectMatch">
+                            <!-- assigned matches will be added here-->
+                            <option value=""></option>
+                        </select><br>
                     <label>Team: </label>
-                        <select name="" id="selectTeam">
+                        <select id="selectTeam">
                             <!-- teamList will be added here -->
                             <option value=""></option>
                         </select><br>
@@ -150,19 +153,27 @@
                 <button id="nextButton_endGame">Next</button>
             </div>
 
-        <table class="matchResult">
+        <table class="matchEval">
             <tr>
-                <th>Match Result</th>
+                <th>Match Evaluation</th>
             </tr>
             <tr>
+                
                 <td>
-                    <input type="radio" name="matchOutcome" id="matchWin">Win
-                    <br>
-                    <input type="radio" name="matchOutcome" id="matchLose">Lose
-                    <br>
-                    <input type="radio" name="matchOutcome" id="matchTie">Tie <br><br>
-                    <label id="comments">Comments:</label>
-                    <textarea id="comments" cols="25" rows="5" placeholder="Something unique or unexpected..."></textarea>
+                    <input class="invalidation yellow" type="checkbox" id="robot-did-not-move"> Died during the match (or never started)? <br>
+                    <input class="invalidation green" type="checkbox" id="robot-recovered"> Recovered from freeze? (hide)<br><br><br>
+
+                    <input type="checkbox" id="robot-damaged"> Robot broke or damaged? How so? <br>
+                    <div>
+                        <input class="invalidation red" type="radio" name="damage-occurence" id="damaged-from-beginning"> Damaged from beginning (hide) <br>
+                        <input type="radio" name="damage-occurence" id="damaged-during-match"> Damaged during match (hide)
+                    </div>
+                    <input class="invalidation yellow" type="checkbox"> Did that damage impact performace? (hide)<br><br><br>
+
+                    <input type="checkbox" id="outstanding"> Outstanding performance? How so?<br><br><br>
+                        
+                    <label>Comments:</label><br>
+                    <textarea id="comments" rows="5" placeholder="Comments and/or notes..."></textarea>
                 </td>
             </tr>
         </table>
@@ -171,10 +182,7 @@
     <div class="buttonContainer">
         <button id="submitButton" style="font-size: 120%;">Submit</button>
     </div>
-    
 
     <script type="module" src="app.js"></script>
-
-    
 </body>
 </html>

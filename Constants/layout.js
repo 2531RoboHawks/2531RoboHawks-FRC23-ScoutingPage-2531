@@ -1,5 +1,6 @@
 //Use this for type_of_input to prevent typos
 export const inputTypes = {
+    counter: "counter",
     number: "number",
     text: "text",
     chooser: "radio",
@@ -26,29 +27,29 @@ export const match_layout = {
         1: {
             task: "AMP Notes",
             points: 2,
-            type_of_input: inputTypes.number
+            type_of_input: inputTypes.counter
         },
         2: {
             task: "Speaker Notes",
             points: 5,
-            type_of_input: inputTypes.number
+            type_of_input: inputTypes.counter
         }
     },
     teleop: {
         0: {
             task: "AMP Notes",
             points: 1,
-            type_of_input: inputTypes.number
+            type_of_input: inputTypes.counter
         },
         1: {
             task: "Speaker Notes (not AMP)",
             points: 2,
-            type_of_input: inputTypes.number
+            type_of_input: inputTypes.counter
         },
         2: {
             task: "Speaker Notes (AMP)",
             points: 5,
-            type_of_input: inputTypes.number
+            type_of_input: inputTypes.counter
         }
     },
     endGame: {
@@ -146,4 +147,51 @@ export const pit_layout = {
             type_of_input: inputTypes.text
         }
     }
+}
+
+
+//General function to create form
+    //Example in use: createForm(match_layout.auto, 'auto', auto_td);
+export function createForm(layout, label, html_td) {
+    let i = 0;
+    while(layout[i]) {
+        if (layout[i].type_of_input === inputTypes.chooser || layout[i].type_of_input === inputTypes.multi_choice) {
+            
+            // Create a div for the choices
+            const choicesDiv = document.createElement('div');
+
+            //Create task label
+            choicesDiv.innerHTML += 
+            `<label>${layout[i].task}</label><br>`;
+            //Create choices
+            for (let j = 0; j < layout[i].choices.length; j++) {
+            choicesDiv.innerHTML += `<input id="${label}Task_${i}_${layout[i].choices[j].replace(/\s/g, "_")}" name="input_${layout[i].task.replace(/\s/g, "_")}_${label}" type="${layout[i].type_of_input}"
+                                <label>${layout[i].choices[j]}</label>`;
+            }
+            html_td.appendChild(choicesDiv);
+            html_td.innerHTML += `<br><br>`;
+
+        } else if(layout[i].type_of_input === inputTypes.counter) {
+
+            //Create task label and counter element
+            html_td.innerHTML += 
+            `<label>${layout[i].task}</label><br>
+            <div class="counter-container" id="${layout[i].task.replace(/\s/g, "_")}_counter_${label}">
+                <button id="remove_${layout[i].task.replace(/\s/g, "_")}_${label}"> - </button>
+                <p id="number_${layout[i].task.replace(/\s/g, "_")}_${label}"">0</p>
+                <button id="add_${layout[i].task.replace(/\s/g, "_")}_${label}"> + </button>
+            </div><br>`;
+
+        } else {
+
+            //Create task label and input field
+            html_td.innerHTML += 
+            `<label>${layout[i].task}</label> <br>
+            <input id="${label}Task_${i}" type="${layout[i].type_of_input}">
+            <br><br>`;
+
+        }
+        i++;
+    }
+
 }
