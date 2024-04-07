@@ -47,7 +47,7 @@
             <span></span>
         </div>
         <div><h3>Match Scouting Form</h3></div>
-        <div class="custom-link" id="user-status" data-href="LoginPage" style="position: right;"><p style="color: white;">Login</p></div>
+        <div class="custom-link" id="user-status" data-href="../../LoginPage" style="position: right;"><p style="color: white;">Login</p></div>
     </div>
 
     <section id="sidebar">
@@ -97,9 +97,12 @@
             <tr >
                 <td>
                     <label>Match:</label>
-                        <input type="number" id="matchNum"><br><br>
+                        <select id="selectMatch">
+                            <!-- assigned matches will be added here-->
+                            <option value=""></option>
+                        </select><br>
                     <label>Team: </label>
-                        <select name="" id="selectTeam">
+                        <select id="selectTeam">
                             <!-- teamList will be added here -->
                             <option value=""></option>
                         </select><br>
@@ -155,26 +158,21 @@
                 <th>Match Evaluation</th>
             </tr>
             <tr>
+                
                 <td>
-                    <!-- 
-                        Did the robot start? --invalidate data points, add a tally
-                          ->(hidden) Did it ever recover? --a diferent color tally
-                        Did the robot break? --invalidate data points, add a tally
-                        Did the team put on an outstanding performance? --add a tally
-                     -->
-                    <input type="checkbox"> Died during the match (or never started)? <br>
-                    <input type="checkbox"> Recovered from freeze? (hide)<br><br><br>
+                    <input class="invalidation yellow" type="checkbox" id="robot-did-not-move"> Died during the match (or never started)? <br>
+                    <input class="invalidation green" type="checkbox" id="robot-recovered"> Recovered from freeze? (hide)<br><br><br>
 
-                    <input type="checkbox"> Robot broke or damaged? How so?<br>
+                    <input type="checkbox" id="robot-damaged"> Robot broke or damaged? How so? <br>
                     <div>
-                        <input type="radio" name="damage-occurence"> Damaged from beginning (hide) <br>
-                        <input type="radio" name="damage-occurence"> Damaged during match (hide)
+                        <input class="invalidation red" type="radio" name="damage-occurence" id="damaged-from-beginning"> Damaged from beginning (hide) <br>
+                        <input type="radio" name="damage-occurence" id="damaged-during-match"> Damaged during match (hide)
                     </div>
-                    <input type="checkbox"> Did that damage impact performace? (hide)<br><br><br>
+                    <input class="invalidation yellow" type="checkbox"> Did that damage impact performace? (hide)<br><br><br>
 
-                    <input type="checkbox"> Outstanding performance? How so?<br><br><br>
+                    <input type="checkbox" id="outstanding"> Outstanding performance? How so?<br><br><br>
                         
-                    <label id="comments">Comments:</label><br>
+                    <label>Comments:</label><br>
                     <textarea id="comments" rows="5" placeholder="Comments and/or notes..."></textarea>
                 </td>
             </tr>

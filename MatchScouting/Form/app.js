@@ -1,8 +1,8 @@
 //Firebase imports
 import { database } from "../../Constants/firebaseConfig.js";
-import { getDatabase, ref, push, onValue, update, set, remove, child} from "https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js";
+import { getDatabase, ref, push, onValue} from "https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js";
 
-import { inputTypes, match_layout, createForm } from "../../Constants/layout.js";
+import { match_layout, createForm } from "../../Constants/layout.js";
 
 //**By wrapping the code inside the DOMContentLoaded event listener, you ensure that the code will only run when the DOM is ready.
 document.addEventListener("DOMContentLoaded", function() {  
@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 //Firebase references
 const teamInfo_Firebase = ref(database, "teamInfo");
-const data = ref(database, "match_data");
 
 //HTML Elements
 const auto_td = document.getElementById("td_auto");
@@ -84,22 +83,26 @@ onValue(teamInfo_Firebase, function(snapshot) {
         teamList.push(teamInfo_Array[i].team_number);
         selectTeam.innerHTML += `<option value="" id="selectTeam_${i}">${teamInfo_Array[i].team_number}</option>`;
     }
+    console.log(teamList)
 });
 
 //Auto Table
-createForm(match_layout.auto, 'auto', auto_td);
+createForm(match_layout.auto, 'auto', auto_td); //Create form
 auto_td.addEventListener('click', function(event) {
     handelingCounter(event);
 });
 
 //Teleop Table
-createForm(match_layout.teleop, 'teleop', teleop_td);
+createForm(match_layout.teleop, 'teleop', teleop_td); //Create form
 teleop_td.addEventListener('click', function(event) {
     handelingCounter(event);
 });
 
 //Endgame Table
-createForm(match_layout.endGame, 'endGame', endGame_td);
+createForm(match_layout.endGame, 'endGame', endGame_td); //Create form
+endGame_td.addEventListener('click', function(event) {
+    handelingCounter(event);
+});
 
 
 //General function for handeling counter
