@@ -2,7 +2,7 @@
 import { database } from "../../Constants/firebaseConfig.js";
 import { getDatabase, ref, push, onValue, update, set, remove, child} from "https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js";
 
-import { inputTypes, match_layout, createForm, handelingCounter } from "../../Constants/layout.js";
+import { inputTypes, match_layout, createForm } from "../../Constants/layout.js";
 
 //**By wrapping the code inside the DOMContentLoaded event listener, you ensure that the code will only run when the DOM is ready.
 document.addEventListener("DOMContentLoaded", function() {  
@@ -92,120 +92,41 @@ auto_td.addEventListener('click', function(event) {
     handelingCounter(event);
 });
 
-// let i_auto = 0;
-// while(match_layout.auto[i_auto]) {
-//     if (match_layout.auto[i_auto].type_of_input === inputTypes.chooser || match_layout.auto[i_auto].type_of_input === inputTypes.multi_choice) {
-        
-//         //Create task label
-//         auto_td.innerHTML += 
-//         `<label>${match_layout.auto[i_auto].task}</label>`;
-
-//         //Create choices
-//         for (let i = 0; i < match_layout.auto[i_auto].choices.length; i++) {
-//         auto_td.innerHTML += `<input id="autoTask_${i_auto}" name="input_${match_layout.auto[i_auto].task}" type="${match_layout.auto[i_auto].type_of_input}"
-//                             <label>${match_layout.auto[i_auto].choices[i]}</label>`;
-//         }
-//         auto_td.innerHTML += `<br><br>`;
-//     }
-//     else {
-//         auto_td.innerHTML += 
-//         `<label>${match_layout.auto[i_auto].task}</label> <br>
-//         <input id="autoTask_${i_auto}" type="${match_layout.auto[i_auto].type_of_input}">
-//         <br><br>`;
-//     }
-//     i_auto++;
-// }
-
 //Teleop Table
 createForm(match_layout.teleop, 'teleop', teleop_td);
 teleop_td.addEventListener('click', function(event) {
     handelingCounter(event);
 });
-// let i_teleop = 0;
-// while(match_layout.teleop[i_teleop]) {
-//     if (match_layout.teleop[i_teleop].type_of_input === inputTypes.chooser || match_layout.teleop[i_teleop].type_of_input === inputTypes.multi_choice) {
-        
-//         //Create task label
-//         teleop_td.innerHTML += 
-//         `<label>${match_layout.teleop[i_teleop].task}</label>`;
-
-//         //Create choices
-//         for (let i = 0; i < match_layout.teleop[i_teleop].choices.length; i++) {
-//         teleop_td.innerHTML += `<input id="teleopTask_${i_teleop}" name="input_${match_layout.teleop[i_teleop].task}" type="${match_layout.teleop[i_teleop].type_of_input}"
-//                             <label>${match_layout.teleop[i_teleop].choices[i]}</label>`
-//         }
-//         teleop_td.innerHTML += `<br><br>`;
-
-//     }else {
-//         teleop_td.innerHTML += 
-//         `<label>${match_layout.teleop[i_teleop].task}</label> <br>
-//         <input id="teleopTask_${i_teleop}" type="${match_layout.teleop[i_teleop].type_of_input}">
-//         <br><br>`;
-//     }
-//     i_teleop++;
-// }
-
 
 //Endgame Table
 createForm(match_layout.endGame, 'endGame', endGame_td);
-// let i_endGame = 0;
-// while(match_layout.endGame[i_endGame]) {
-//     if (match_layout.endGame[i_endGame].type_of_input === inputTypes.chooser || match_layout.endGame[i_endGame].type_of_input === inputTypes.multi_choice) {
-        
-//         //Create task label
-//         endGame_td.innerHTML += 
-//         `<label>${match_layout.endGame[i_endGame].task}</label>`;
 
-//         //Create choices
-//         for (let i = 0; i < match_layout.endGame[i_endGame].choices.length; i++) {
-//         endGame_td.innerHTML += `<input id="endGameTask_${i_endGame}" name="input_${match_layout.endGame[i_endGame].task}" type="${match_layout.endGame[i_endGame].type_of_input}"
-//                             <label>${match_layout.endGame[i_endGame].choices[i]}</label>`;
-//         }
-//         endGame_td.innerHTML += `<br><br>`;
 
-//     }else {
-//         endGame_td.innerHTML += 
-//         `<label>${match_layout.endGame[i_endGame].task}</label> <br>
-//         <input id="endGameTask_${i_endGame}" type="${match_layout.endGame[i_endGame].type_of_input}">
-//         <br><br>`;
-//     }
-//     i_endGame++;
-// }
+//General function for handeling counter
+function handelingCounter(event) {
 
-//Actions
-nextButton_auto.addEventListener('click', function() {
-    let i = 0;
-    let input;
-    let output;
+// Add event listener to the parent element
+    const target = event.target;
 
-    while(match_layout.auto[i]) {
-        if (match_layout.auto[i].type_of_input === inputTypes.chooser || match_layout.auto[i].type_of_input === inputTypes.multi_choice) {
-            input = document.querySelector(input[name=`input_${match_layout.auto[i].task}`])
-            for (let i = 0, length = input.length; i < length; i++) {
-                if (input[i].checked) {
-                    output = input[i].value;
-                    // only one radio can be logically checked, don't check the rest
-                    break;
-                }
-              }
-            data_local.auto[i] = {
-                task: match_layout.auto[i].task,
-                data: `${output}`,
-                points: match_layout.auto[i].points
-            }
-        } else{
-            // console.log(document.getElementById(`autoTask_${i}`).value)
-            data_local.auto[i] = {
-                task: match_layout.auto[i].task,
-                data: document.getElementById(`autoTask_${i}`).value,
-                points: match_layout.auto[i].points
-            }
+    // Check if the clicked element is a "remove" button
+    if (target.matches('[id^="remove_"]')) {
+        const task = target.id.replace('remove_', '');
+        const numberElement = document.getElementById(`number_${task}`);
+        let counter = parseInt(numberElement.textContent);
+        if (counter > 0) {
+            counter--;
+            numberElement.textContent = counter;
         }
-        i++;
     }
-    console.log(data_local);
-});
 
-console.log(data_local);
+    // Check if the clicked element is an "add" button
+    if (target.matches('[id^="add_"]')) {
+        const task = target.id.replace('add_', '');
+        const numberElement = document.getElementById(`number_${task}`);
+        let counter = parseInt(numberElement.textContent);
+        counter++;
+        numberElement.textContent = counter;
+    }
+}
 
 });

@@ -195,31 +195,3 @@ export function createForm(layout, label, html_td) {
     }
 
 }
-
-
-//General function for handeling counter
-export function handelingCounter(event) {
-
-// Add event listener to the parent element
-    const target = event.target;
-
-    // Check if the clicked element is a "remove" button
-    if (target.matches('[id^="remove_"]')) {
-        const task = target.id.replace('remove_', '');
-        const numberElement = document.getElementById(`number_${task}`);
-        let counter = parseInt(numberElement.textContent);
-        if (counter > 0) {
-            counter--;
-            numberElement.textContent = counter;
-        }
-    }
-
-    // Check if the clicked element is an "add" button
-    if (target.matches('[id^="add_"]')) {
-        const task = target.id.replace('add_', '');
-        const numberElement = document.getElementById(`number_${task}`);
-        let counter = parseInt(numberElement.textContent);
-        counter++;
-        numberElement.textContent = counter;
-    }
-}
