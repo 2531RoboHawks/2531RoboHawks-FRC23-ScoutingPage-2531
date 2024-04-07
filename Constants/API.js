@@ -7,9 +7,9 @@ const apiKey_Firebase = ref(database, "apiKey"); //Stored in Firebase
 const matchesData_ref = ref(database, 'qualSchedule/matchesData');
 const lastUpdate_ref = ref(database, 'qualSchedule/lastUpdate');
 const regionalsList_ref = ref(database, 'generalInfo/regionalsList');
+const eventKey_ref = ref(database, 'generalInfo/eventKey');
 const selectedRegional_ref = ref(database, 'generalInfo/selectedRegional');
 const attendingTeams_ref = ref(database, 'generalInfo/attendingTeams');
-const generalInfo_ref = ref(database, 'generalInfo');
 
 //Variables for API
 const baseUrl = 'https://www.thebluealliance.com/api/v3'; // Adjust the base URL based on the TBA API version
@@ -18,7 +18,7 @@ let year;
 let event_code;
 export let team_number = '2531';
 
-onValue(generalInfo_ref, function(snapshot) {
+onValue(eventKey_ref, function(snapshot) {
     let info = snapshot.val();
     year = info.year;
     event_code = info.event_code;
