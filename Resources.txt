@@ -1,4 +1,4 @@
-Hosted Website:
+Hosted Website: https://2531scoutingpage.netlify.app
 
 Guides:
 
