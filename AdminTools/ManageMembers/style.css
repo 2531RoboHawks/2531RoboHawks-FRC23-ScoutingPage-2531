@@ -1,0 +1,87 @@
+header {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+img {
+    max-width: 1000px;
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+}
+
+#top-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: solid white;
+    height: 45px;
+    background: linear-gradient(to bottom, black, rgb(84, 8, 105));
+}
+
+#top-container div:not(#menu-icon) {
+    padding: 8px;
+}
+
+#top-container div h3 {
+    font-size: x-large;
+    color: gold;
+    text-align: center;
+}
+
+#menu-icon {
+    display: inline-block;
+    cursor: pointer;
+    padding: 10px;
+}
+
+#menu-icon span {
+    display: block;
+    width: 30px;
+    height: 3px;
+    background-color: white;
+    margin-bottom: 5px;
+}
+
+section {
+    width: 60%;
+    height: 100%;
+    min-width: 200px;
+    max-width: 300px;
+    background-color: rgb(84, 8, 105);
+    box-shadow: 0 10px 20px gold;
+    position: fixed;
+    left: -100%; 
+    top: 0;
+    transition: left 0.5s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: large;
+    color: white;
+}
+
+section div {
+    width: 100%;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+section hr {
+    width: 100%;
+    height: 1px;
+    background-color: white;
+    border: none;
+}
+
+.back-dir {
+    position: absolute;
+    bottom: 0;
+    margin-top: 10px;
+    border-top: solid white;
+    padding: 10px;
+}

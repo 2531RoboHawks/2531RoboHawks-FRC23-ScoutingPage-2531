@@ -2,12 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="../../Images/robohawksLogo.png">
-    <title>Admin - Settings</title>
-    
+    <title>Admin - Manage Members</title>
+
     <script>
         //Function to toggle different side menus
         function toggleSideSection(event, showSection, hideSection) {
@@ -29,8 +28,8 @@
             }
         }
     </script>
+    
 </head>
-
 <body style="background-color: black;">
 
     <div id="top-container">
@@ -39,7 +38,7 @@
             <span></span>
             <span></span>
         </div>
-        <div><h3 style="font-size: xx-large; color: gold;">Admin Settings</h3></div>
+        <div><h3 style="font-size: xx-large; color: gold;">Manage Members</h3></div>
         <div class="custom-link" id="user-status" data-href="../../LoginPage" style="position: right;"><p style="color: white;">Login</p></div>
     </div>
 
@@ -63,7 +62,7 @@
         <hr>
         <div class="custom-link admin" data-href="../ManageMatchScouting"><p>Manage Match Scouting</p></div>
         <hr> -->
-        <div class="custom-link admin" data-href="../ManageMembers"><p>Manage Members</p></div>
+        <div class="custom-link admin" data-href="" style="color: gold;"><p>Manage Match Scouting</p></div>
         <hr>
         <div class="back-dir" onclick="toggleSideSection(event, 'sidebar', 'admin-bar')"><p><- Back</p></div>
     </section>
@@ -83,42 +82,7 @@
         <hr>
         <div class="back-dir" onclick="toggleSideSection(event, 'sidebar', 'pitScouting-bar')"><p><- Back</p></div>
     </section>
-
-    <h3 id="status"></h3>
-
-    <div class="adminContainer" style="margin-top: 60px;">
-        <table class="resettingRegional">
-            <tr>
-                <th>Change Event</th>
-            </tr>
-            <tr >
-                <td>
-                    <label>Year:</label>
-                        <input type="number" id="year_input">
-                        <button id="yearUpdate_Button">Update</button><br>
-                    <label>Regional: </label>
-                        <select name="" id="selectRegional">
-                            <!-- regionalsList will be added here -->
-                            <option value=""></option>
-                        </select>
-                        <button id="eventUpdate_Button">Update</button>         
-            </tr>
-        </table><br><br>
-
-        <table class="changePass">
-            <tr>
-                <th>Change Pass</th>
-            </tr>
-            <tr>
-                <td>
-                    
-                </td>
-            </tr>
-        </table>
-    </div>
-    <br>
-
-    <script type="module" src="app.js"></script>
-
+    
+    <script src="app.js" type="module"></script>
 </body>
 </html>
