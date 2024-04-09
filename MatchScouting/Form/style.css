@@ -1,5 +1,5 @@
 body {
-    color: yellow;
+    color: gold;
     background-color: black;
 }
 
@@ -108,7 +108,7 @@ h1 {
 }
 
 table, th, td {
-    border: 1px solid yellow;
+    border: 1px solid gold;
     margin-left: auto;
     margin-right: auto;
 }
@@ -119,7 +119,7 @@ table, th, td {
 
 th {
     color: black;
-    background-color: yellow;
+    background-color: gold;
     font-size: 140%;
 }
 

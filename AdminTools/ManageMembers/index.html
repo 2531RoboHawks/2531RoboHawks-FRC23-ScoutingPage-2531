@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="../../Images/robohawksLogo.png">
+    <link rel="icon" href="../../Images/Icons/robohawksLogo.png">
     <title>Admin - Manage Members</title>
 
     <script>
@@ -31,6 +31,9 @@
     
 </head>
 <body style="background-color: black;">
+    <header>
+        <img class="custom-link" data-href="../" src="../../Images/Pictures/robohawksPic.png" alt="robohawks-pics">
+    </header>
 
     <div id="top-container">
         <div onclick="toggleSideSection(event, 'sidebar', null)" id="menu-icon">
@@ -82,6 +85,33 @@
         <hr>
         <div class="back-dir" onclick="toggleSideSection(event, 'sidebar', 'pitScouting-bar')"><p><- Back</p></div>
     </section>
+
+    <div class="main-container">
+        <div class="add-to-list-container">
+
+        </div>
+        <hr>
+        <div class="admin-container">
+            <h2>Admin</h2>
+            <div id="admin_0">
+                <span id="delete_0"><img class="delete" src="../../Images/Icons/red_trash_icon.webp" alt=""></span>
+                <span id="delete_0"><img class="update" src="../../Images/Icons/pencil_edit_icon.png" alt=""></span>
+            </div>
+            
+        </div>
+        <hr>
+        <div class="member-container">
+            <h2>Members</h2>
+            
+            
+        </div>
+        <hr>
+        <div class="other-container">
+            <h2>Others</h2>
+        </div>
+        <hr>
+    </div>
+    
     
     <script src="app.js" type="module"></script>
 </body>

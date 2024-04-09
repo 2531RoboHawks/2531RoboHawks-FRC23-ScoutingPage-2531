@@ -130,7 +130,7 @@ h1 {
 
 #status {
     width: fit-content;
-    background-color: yellow;
+    background-color: gold;
     border: solid 2px rgb(84, 8, 105);
     color: rgb(84, 8, 105);
     font-size: medium;
@@ -150,7 +150,7 @@ h1 {
 }
 
 table, th, td {
-    border: 1px solid yellow;
+    border: 1px solid gold;
     width: 95%;
     min-width: 305px;
     max-width: 1000px;
@@ -161,12 +161,12 @@ table, th, td {
 
 th {
     color: black;
-    background-color: yellow;
+    background-color: gold;
     font-size: 140%;
 }
 
 td {
-    color: yellow;
+    color: gold;
     background-color: rgb(84, 8, 105);
     padding: 10px;
 }
