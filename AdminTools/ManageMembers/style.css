@@ -88,17 +88,71 @@ section hr {
 }
 
 .main-container {
-    margin-top: 15px;
-    color: white;
+    margin-top: 50px;
 }
 
-.add-to-list-container, .admin-container, .member-container, .other-container {
+table, th, td {
+    border: 1px solid gold;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 40px;
+    width: 95%;
+    max-width: 1000px;
+}
+
+th:not(.cm-header) {
+    color: black;
+    background-color: gold;
+    font-size: 170%;
+    font-weight: bolder;
+    text-align: center;
+    padding: 5px;
+}
+
+td {
+    background-color: rgb(84, 8, 105);
     padding: 10px;
-    display: grid;
-    justify-content: center;
 }
 
-.delete, .update {
-    width: 25px;
+th, td {
+    width: 25%;
+}
+
+.add-item-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+div.add-item-container * {
+    margin: 10px;
+    border-radius: 5px;
+}
+
+input, select, textarea {
+    background-color: rgb(237, 208, 221);
+}
+
+.cm-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+div.cm-item *:not(.trash-icon):not(.edit-icon) {
+    display: inline-block;
+    background-color: gold;
+    font-size: large;
+    margin: 5px;
+    border-radius: 10px;
+    padding: 10px;
+    margin: auto;
+}
+
+.trash-icon, .edit-icon {
+    width: 5%;
+    min-width: 25px;
+    max-width: 35px;
     height: auto;
 }

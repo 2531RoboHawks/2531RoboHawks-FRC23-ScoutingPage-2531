@@ -32,7 +32,7 @@
 </head>
 <body style="background-color: black;">
     <header>
-        <img class="custom-link" data-href="../" src="../../Images/Pictures/robohawksPic.png" alt="robohawks-pics">
+        <img class="custom-link" data-href="../../" src="../../Images/Pictures/robohawksPic.png" alt="robohawks-pics">
     </header>
 
     <div id="top-container">
@@ -86,30 +86,121 @@
         <div class="back-dir" onclick="toggleSideSection(event, 'sidebar', 'pitScouting-bar')"><p><- Back</p></div>
     </section>
 
-    <div class="main-container">
-        <div class="add-to-list-container">
 
-        </div>
-        <hr>
-        <div class="admin-container">
-            <h2>Admin</h2>
-            <div id="admin_0">
-                <span id="delete_0"><img class="delete" src="../../Images/Icons/red_trash_icon.webp" alt=""></span>
-                <span id="delete_0"><img class="update" src="../../Images/Icons/pencil_edit_icon.png" alt=""></span>
+    <!-- Add People -->
+    <div class="main-container">
+
+        <!-- Add items -->
+        <div class="add-item-container">
+            <div><input id="add_name" type="text" placeholder="Name"></div>
+            <div>
+                <select name="" id="add_role">
+                    <option value="">choose a role</option>
+                    <option value="member">Member</option>
+                    <option value="admin">Admin</option>
+                    <option value="coach">Coach</option>
+                    <option value="mentor">Mentor</option>
+                    <option value="other">Other</option>
+                </select>
             </div>
-            
+            <div>
+                <select name="" id="add_responsibility">
+                    <option value="">choose a responsibility</option>
+                    <option value="scouter">Scouter</option>
+                    <option value="non-scouter">Non-Scouter</option>
+                    <option value="scouting-manager">Scouting Manager</option>
+                </select>
+            </div>
+            <div><button type="submit">Add</button></div>
         </div>
-        <hr>
+
+
+        <!-- Coaches/Mentors -->
+        <table>
+            <tr><th>Coaches/Mentors</th></tr>
+            <tr>
+                <td class="cm-container">
+                    <div class="cm-item" id="cm_0">
+                        <img class="trash-icon" src="../../Images/Icons/red_trash_icon.webp" alt="trash-icon" >
+                        <p id="name_cm_0">Rob Benson</p>
+                        <p id="role_cm_0">Coach</p>
+                        <p id="responsibility_cm_0">Non-Scouter</p>
+                        <img class="edit-icon" src="../../Images/Icons/pencil_edit_icon.png" alt="edit-icon">
+                    </div>
+                </td>
+                
+            </tr>
+        </table>
+
+        <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Role</th>
+                <th>Responsibility</th>
+                <th></th>
+              </tr>
+              <tr>
+                <th colspan="4">Coaches/Mentors</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="cm-header" style="color: gold; font-size: large;">Rob Benson</td>
+                <td class="cm-header" style="color: gold; font-size: large;">Coach</td>
+                <td class="cm-header" style="color: gold; font-size: large;">Non-Scouter</td>
+                <td>
+                    <img class="edit-icon" src="../../Images/Icons/pencil_edit_icon.png" alt="edit-icon">
+                    <img class="trash-icon" src="../../Images/Icons/red_trash_icon.webp" alt="trash-icon">
+                </td>
+              </tr>
+              <!-- More rows here -->
+            </tbody>
+            <tr>
+                <th colspan="4">Admin</th>
+            </tr>
+            <tbody>
+                <tr>
+                    <td class="cm-header" style="color: gold; font-size: large;">RoboHawks Manager</td>
+                    <td class="cm-header" style="color: gold; font-size: large;">Admin</td>
+                    <td class="cm-header" style="color: gold; font-size: large;">Non-Scouter</td>
+                    <td style="align-items: center;">
+                        <img class="edit-icon" src="../../Images/Icons/pencil_edit_icon.png" alt="edit-icon">
+                        <img class="trash-icon" src="../../Images/Icons/red_trash_icon.webp" alt="trash-icon">
+                    </td>
+                </tr>
+                <!-- More rows here -->
+              </tbody>
+          </table>
+
+
+        <!-- Admin -->
+        <table>
+            <tr><th>Admin</th></tr>
+            <tr>
+                <td class="admin-container">
+                    <div class="admin-item" id="admin_0">
+
+                    </div>
+                </td>
+                
+            </tr>
+            
+        </table>
+          
+
+        
         <div class="member-container">
             <h2>Members</h2>
             
             
         </div>
-        <hr>
         <div class="other-container">
-            <h2>Others</h2>
+            <h2>Other</h2>
+
+
         </div>
-        <hr>
+        
     </div>
     
     
