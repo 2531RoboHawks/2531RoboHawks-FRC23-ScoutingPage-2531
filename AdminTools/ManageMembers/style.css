@@ -136,11 +136,11 @@ input, select, textarea {
     background-color: rgb(237, 208, 221);
 }
 
-.trash-icon, .edit-icon {
+.delete-icon, .edit-icon {
     width: 25px;
     height: auto;
 }
 
-.trash-cell, .edit-cell {
+.delete-cell, .edit-cell {
     width: 5px;
 }

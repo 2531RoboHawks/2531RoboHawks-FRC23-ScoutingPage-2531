@@ -6,10 +6,21 @@ import { getDatabase, ref, push, onValue, update, set, remove, child} from "http
 //**By wrapping the code inside the DOMContentLoaded event listener, you ensure that the code will only run when the DOM is ready.
 document.addEventListener("DOMContentLoaded", function() {  
 
-//HTML elements
+//HTML elements: Side bar
 const menuIcon = document.getElementById('menu-icon');
 const allSections = document.querySelectorAll('section');
 const sidebar = document.getElementById('section');
+
+//HTML Elements: add-to-list
+const nameInput = document.getElementById("add_name");
+const roleInput = document.getElementById("add_role");
+const respInput = document.getElementById("add_resp");
+
+//HTML Elements: Buttons
+const addButton = document.getElementById("addButton");
+const deleteEl = document.getElementsByClassName("delete-cell");
+const editEl = document.getElementsByClassName("edit-cell");
+
 
 //Show sidebar
 menuIcon.addEventListener('click', function(event) {
