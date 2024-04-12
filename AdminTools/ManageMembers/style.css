@@ -100,7 +100,11 @@ table, th, td {
     max-width: 1000px;
 }
 
-th:not(.cm-header) {
+table {
+    margin-bottom: 20px;
+}
+
+th {
     color: black;
     background-color: gold;
     font-size: 170%;

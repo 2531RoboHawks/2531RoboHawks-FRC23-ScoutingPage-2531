@@ -94,7 +94,7 @@
         <div class="add-item-container">
             <div><input id="add_name" type="text" placeholder="Name"></div>
             <div>
-                <select name="" id="add_role">
+                <select id="add_role">
                     <option value="">choose a role</option>
                     <option value="member">Member</option>
                     <option value="admin">Admin</option>
@@ -104,14 +104,14 @@
                 </select>
             </div>
             <div>
-                <select name="" id="add_responsibility">
+                <select id="add_responsibility">
                     <option value="">choose a responsibility</option>
                     <option value="scouter">Scouter</option>
                     <option value="non-scouter">Non-Scouter</option>
                     <option value="scouting-manager">Scouting Manager</option>
                 </select>
             </div>
-            <div><button type="submit">Add</button></div>
+            <div><button id="addButton">Add</button></div>
         </div>
 
         
@@ -125,11 +125,11 @@
             </thead>
             <tbody id="cm_tbody">
               <tr>
-                <td class="trash-cell"><img class="trash-icon" src="../../Images/Icons/red_trash_icon.webp" alt="trash-icon"></td>
-                <td class="cm-header">Rob Benson</td>
-                <td class="cm-header">Coach</td>
-                <td class="cm-header">Non-Scouter</td>
-                <td class="edit-cell"><img class="edit-icon" src="../../Images/Icons/pencil_edit_icon.png" alt="edit-icon"></td>
+                <td class="trash-cell" id="cm_trash_0"><img class="trash-icon" src="../../Images/Icons/red_trash_icon.webp" alt="trash-icon"></td>
+                <td id="cm_name_0">Rob Benson</td>
+                <td id="cm_role_0">Coach</td>
+                <td id="cm_resp_0">Non-Scouter</td>
+                <td class="edit-cell" id="cm_edit_0"><img class="edit-icon" src="../../Images/Icons/pencil_edit_icon.png" alt="edit-icon"></td>
               </tr>
                 <!-- More rows here -->
             </tbody>
@@ -138,13 +138,13 @@
             <tr>
                 <th colspan="5">Admin</th>
             </tr>
-            <tbody>
+            <tbody id="admin_tbody">
                 <tr>
-                    <td class="trash-cell"><img class="trash-icon" src="../../Images/Icons/red_trash_icon.webp" alt="trash-icon"></td>
-                    <td class="cm-header">RoboHawks Manager</td>
-                    <td class="cm-header">Admin</td>
-                    <td class="cm-header">Non-Scouter</td>
-                    <td class="edit-cell"><img class="edit-icon" src="../../Images/Icons/pencil_edit_icon.png" alt="edit-icon"></td>
+                    <td class="trash-cell" id="admin_trash_0"><img class="trash-icon" src="../../Images/Icons/red_trash_icon.webp" alt="trash-icon"></td>
+                    <td id="admin_name_0">RoboHawks Manager</td>
+                    <td id="admin_role_0">Admin</td>
+                    <td id="admin_resp_0">Non-Scouter</td>
+                    <td class="edit-cell" id="admin_edit_0"><img class="edit-icon" src="../../Images/Icons/pencil_edit_icon.png" alt="edit-icon"></td>
                 </tr>
                 <!-- More rows here -->
               </tbody>
@@ -155,11 +155,11 @@
             </tr>
             <tbody>
                 <tr>
-                    <td class="trash-cell"><img class="trash-icon" src="../../Images/Icons/red_trash_icon.webp" alt="trash-icon"></td>
-                    <td class="cm-header">Ky Duyen Dao Nguyen</td>
-                    <td class="cm-header">Member</td>
-                    <td class="cm-header">Non-Scouter</td>
-                    <td class="edit-cell"><img class="edit-icon" src="../../Images/Icons/pencil_edit_icon.png" alt="edit-icon"></td>
+                    <td class="trash-cell" id="member_trash_0"><img class="trash-icon" src="../../Images/Icons/red_trash_icon.webp" alt="trash-icon"></td>
+                    <td id="member_name_0">Ky Duyen Dao Nguyen</td>
+                    <td id="member_role_0">Member</td>
+                    <td id="member_resp_0">Non-Scouter</td>
+                    <td class="edit-cell" id="member_edit_0"><img class="edit-icon" src="../../Images/Icons/pencil_edit_icon.png" alt="edit-icon"></td>
                 </tr>
                 <!-- More rows here -->
               </tbody>
@@ -170,27 +170,15 @@
             </tr>
             <tbody>
                 <tr>
-                    <td class="trash-cell"><img class="trash-icon" src="../../Images/Icons/red_trash_icon.webp" alt="trash-icon"></td>
-                    <td class="cm-header">Parent A</td>
-                    <td class="cm-header">Other</td>
-                    <td class="cm-header">Non-Scouter</td>
-                    <td class="edit-cell"><img class="edit-icon" src="../../Images/Icons/pencil_edit_icon.png" alt="edit-icon"></td>
+                    <td class="trash-cell" id="other_trash_0"><img class="trash-icon" src="../../Images/Icons/red_trash_icon.webp" alt="trash-icon"></td>
+                    <td id="other_name_0">Parent A</td>
+                    <td id="other_role_0">Other</td>
+                    <td id="other_resp_0">Non-Scouter</td>
+                    <td class="edit-cell" id="other_edit_0"><img class="edit-icon" src="../../Images/Icons/pencil_edit_icon.png" alt="edit-icon"></td>
                 </tr>
                 <!-- More rows here -->
               </tbody>
           </table>
-
-        
-        <div class="member-container">
-            <h2>Members</h2>
-            
-            
-        </div>
-        <div class="other-container">
-            <h2>Other</h2>
-
-
-        </div>
         
     </div>
     
