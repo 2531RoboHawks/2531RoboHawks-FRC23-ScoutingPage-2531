@@ -112,10 +112,8 @@ th:not(.cm-header) {
 td {
     background-color: rgb(84, 8, 105);
     padding: 10px;
-}
-
-th, td {
-    width: 25%;
+    font-size: large;
+    color: gold;
 }
 
 .add-item-container {
@@ -134,25 +132,11 @@ input, select, textarea {
     background-color: rgb(237, 208, 221);
 }
 
-.cm-item {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-}
-
-div.cm-item *:not(.trash-icon):not(.edit-icon) {
-    display: inline-block;
-    background-color: gold;
-    font-size: large;
-    margin: 5px;
-    border-radius: 10px;
-    padding: 10px;
-    margin: auto;
-}
-
 .trash-icon, .edit-icon {
-    width: 5%;
-    min-width: 25px;
-    max-width: 35px;
+    width: 25px;
     height: auto;
+}
+
+.trash-cell, .edit-cell {
+    width: 5px;
 }
