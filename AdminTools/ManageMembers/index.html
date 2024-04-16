@@ -89,31 +89,6 @@
 
     <!-- Add People -->
     <div class="main-container">
-
-        <!-- Add items -->
-        <div class="add-item-container">
-            <div><input id="add_name" type="text" placeholder="Name"></div>
-            <div>
-                <select id="add_role">
-                    <option value="">choose a role</option>
-                    <option value="member">Member</option>
-                    <option value="admin">Admin</option>
-                    <option value="coach">Coach</option>
-                    <option value="mentor">Mentor</option>
-                    <option value="other">Other</option>
-                </select>
-            </div>
-            <div>
-                <select id="add_resp">
-                    <option value="">choose a responsibility</option>
-                    <option value="scouter">Scouter</option>
-                    <option value="non-scouter">Non-Scouter</option>
-                    <option value="scouting-manager">Scouting Manager</option>
-                </select>
-            </div>
-            <div><button id="addButton">Add</button></div>
-        </div>
-
         
         <table>
             <thead>
@@ -179,6 +154,29 @@
                 <!-- More rows here -->
               </tbody>
           </table>
+
+          <!-- Add users -->
+        <div class="add-user-container">
+            <h3>Add a member</h3>
+            <div><input id="add_name" type="text" placeholder="Name" autocomplete="off"></div>
+            <div>
+                <select id="add_role">
+                    <option value="member">Member</option>
+                    <option value="admin">Admin</option>
+                    <option value="coach">Coach</option>
+                    <option value="mentor">Mentor</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div>
+                <select id="add_resp">
+                    <option value="scouter">Scouter</option>
+                    <option value="non-scouter">Non-Scouter</option>
+                    <option value="scouting-manager">Scouting Manager</option>
+                </select>
+            </div>
+            <div><button id="addButton">Add</button></div>
+        </div>
         
     </div>
     

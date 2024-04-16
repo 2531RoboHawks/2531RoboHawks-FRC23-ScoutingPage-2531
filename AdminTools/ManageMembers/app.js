@@ -6,6 +6,14 @@ import { getDatabase, ref, push, onValue, update, set, remove, child} from "http
 //**By wrapping the code inside the DOMContentLoaded event listener, you ensure that the code will only run when the DOM is ready.
 document.addEventListener("DOMContentLoaded", function() {  
 
+//Firebase refs
+const user_ref = ref(database, "user/all");
+const coaches_mentors_ref = ref(database, "users/cm");
+const admin_ref = ref(database, "users/admin");
+const members_ref = ref(database, "users/members");
+const others_ref = ref(database, "users/others");
+
+
 //HTML elements: Side bar
 const menuIcon = document.getElementById('menu-icon');
 const allSections = document.querySelectorAll('section');
@@ -18,8 +26,8 @@ const respInput = document.getElementById("add_resp");
 
 //HTML Elements: Buttons
 const addButton = document.getElementById("addButton");
-const deleteEl = document.getElementsByClassName("delete-cell");
-const editEl = document.getElementsByClassName("edit-cell");
+const deleteElList = document.querySelectorAll(".delete-cell");
+const editElList = document.querySelectorAll(".edit-cell");
 
 
 //Show sidebar
@@ -28,6 +36,8 @@ menuIcon.addEventListener('click', function(event) {
     // Toggle the sidebar's visibility by changing its left position
     sidebar.style.left = '0'; // Show sidebar
 });
+
+
 
 
 // Add click event listener to custom links
@@ -50,5 +60,38 @@ document.addEventListener('click', function(event) {
         }
     }
 });
+
+//Add Member Button
+addButton.addEventListener("click", addUser);
+
+//Listen for any click events on all edit elements
+editElList.forEach(function(editEl) {
+    editEl.addEventListener("click", function () {
+        //Identify id on clicked element
+        console.log(this.getAttribute("id"));
+    })
+    
+});
+
+function addUser() {
+    // onValue(user_ref, function(snapshot) {
+    //     const userList = Object.values(snapshot.val());
+    //     const input = {
+    //         name: nameInput.value,
+    //         role: roleInput.value,
+    //         resp: respInput.value
+    //     }
+    //     set(ref(database, `users/all/${userList.length}, ${input}`));
+    // });
+    nameInput.value = '';
+}
+
+function deleteRow() {
+
+}
+
+function editRow() {
+
+}
 
 });
