@@ -77,7 +77,6 @@ function userLogin() {
 
                     // Both user and pass are valid, set user status and alert
                     localStorage.setItem('userStatus', 'member');
-                    alert("You're logged in as a member!!");
                     window.history.back();
                 } else {
                     // Password is invalid
