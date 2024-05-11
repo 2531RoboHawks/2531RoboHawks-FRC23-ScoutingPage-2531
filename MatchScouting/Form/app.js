@@ -15,6 +15,7 @@ const teamInfo_Firebase = ref(database, "teamInfo");
 const auto_td = document.getElementById("td_auto");
 const teleop_td = document.getElementById("td_teleop");
 const endGame_td = document.getElementById("td_endGame");
+const matchEval_td = document.getElementById("td_matchEval");
 const selectTeam = document.getElementById("selectTeam");
 const menuIcon = document.getElementById('menu-icon');
 const allSections = document.querySelectorAll('section');
@@ -86,23 +87,26 @@ onValue(teamInfo_Firebase, function(snapshot) {
     console.log(teamList)
 });
 
-//Auto Table
+//Create Auto Table
 createForm(match_layout.auto, 'auto', auto_td); //Create form
 auto_td.addEventListener('click', function(event) {
     handelingCounter(event);
 });
 
-//Teleop Table
+//Create Teleop Table
 createForm(match_layout.teleop, 'teleop', teleop_td); //Create form
 teleop_td.addEventListener('click', function(event) {
     handelingCounter(event);
 });
 
-//Endgame Table
+//Create Endgame Table
 createForm(match_layout.endGame, 'endGame', endGame_td); //Create form
 endGame_td.addEventListener('click', function(event) {
     handelingCounter(event);
 });
+
+//Create matchEval Table
+createForm(match_layout.matchEval, 'matchEval', matchEval_td);
 
 
 //General function for handeling counter

@@ -158,21 +158,10 @@
                 <th>Match Evaluation</th>
             </tr>
             <tr>
-                
-                <td>
-                    <input class="invalidation yellow" type="checkbox" id="robot-did-not-move"> Died during the match (or never started)? <br>
-                    <input class="invalidation green" type="checkbox" id="robot-recovered"> Recovered from freeze? (hide)<br><br><br>
-
-                    <input type="checkbox" id="robot-damaged"> Robot broke or damaged? How so? <br>
-                    <div>
-                        <input class="invalidation red" type="radio" name="damage-occurence" id="damaged-from-beginning"> Damaged from beginning (hide) <br>
-                        <input type="radio" name="damage-occurence" id="damaged-during-match"> Damaged during match (hide)
-                    </div>
-                    <input class="invalidation yellow" type="checkbox"> Did that damage impact performace? (hide)<br><br><br>
-
-                    <input type="checkbox" id="outstanding"> Outstanding performance? How so?<br><br><br>
-                        
+                <td >
+                    <div id="td_matchEval"></div>
                     <label>Comments:</label><br>
+                    <!-- TODO: adjust id based on team number -->
                     <textarea id="comments" rows="5" placeholder="Comments and/or notes..."></textarea>
                 </td>
             </tr>
